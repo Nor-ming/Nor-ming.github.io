@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Nor-ming</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-02-05T03:34:18.520Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Alien Wan</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2021/02/05/hello-world/"/>
+    <id>http://example.com/2021/02/05/hello-world/</id>
+    <published>2021-02-05T03:34:18.520Z</published>
+    <updated>2021-02-05T03:34:18.520Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://example.com/2020/11/10/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"/>
+    <id>http://example.com/2020/11/10/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</id>
+    <published>2020-11-09T16:20:13.015Z</published>
+    <updated>2020-11-09T16:20:13.173Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="逆向学习路线"><a href="#逆向学习路线" class="headerlink" title="逆向学习路线"></a>逆向学习路线</h1><p><strong>一定学好C/C++语言。</strong></p><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>推荐吾爱破解工具包，也就是爱盘里的工具，或者看雪工具箱自己找一找。工具很多，看哪个顺手用哪个。</p><p>爱盘：<a href="https://down.52pojie.cn/Tools/">https://down.52pojie.cn/Tools/</a></p><p>看雪：<a href="https://tool.pediy.com/">https://tool.pediy.com/</a></p><p>我会上传一个吾爱工具包，里边有一些工具，想用什么不想用什么，自己探索吧。</p><p>IDA pro必须熟练使用</p><p>吾爱OD 逆向win32程序必备</p><p>x64Dbg  win64位程序的逆向工具,如果想搞windows系统的研究，要熟练使用windbg</p><p>GDB  linux下的调试工具，命令行模式的，想学pwn的必须会，百度一下，装一个pwndbg</p><p>android 反编译工具很多，JEB,Jadx，GDA，androidkiller。</p><h3 id="PC逆向"><a href="#PC逆向" class="headerlink" title="PC逆向"></a>PC逆向</h3><ul><li><p>x86汇编 </p><p>书籍推荐：《汇编语言第3版》王爽著</p><p>视频：网上搜小甲鱼的视频，可以看看</p><p>要求：课后题什么的自己搞懂，需要写代码的要自己敲一遍，不一定要你以后会写汇编，当然会写更好，但是寄存器什么的要搞懂，汇编代码必须熟练阅读，指令什么的不要死记硬背，用多了就会了。</p></li></ul><p>学汇编的时候可以找一些简单的CTF题目练手，不要依赖伪代码，多看看汇编。</p><h5 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h5><ul><li><p>《逆向工程核心原理》《加密与解密》</p><p>逆向进阶，先看第一本，然后看第二本，这两本书中有些代码比较难懂，涉及到windows编程，想研究的可以学一学。</p><p>可能会很劝退，别担心，慢慢来，我到现在也没吃透这两本书。</p></li></ul><h5 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h5><ul><li>《程序员的自我修养》</li><li>深入理解计算机系统（原书第三版3）</li><li>《鸟哥的linux私房菜》涉及到操作系统的可以看一看，理解一下linux。不用去一页一页看完，看完你也记不住，当成一本字典。</li></ul><p>我会传一些书，如果决定死磕二进制，尽量看完这些书，一定要坚持学习。</p><h3 id="android逆向"><a href="#android逆向" class="headerlink" title="android逆向"></a>android逆向</h3><p>学java语言，android开发。</p><p>我android开发是看的慕课，<a href="https://www.icourse163.org/course/NNUTC-1449276162%EF%BC%8C%E4%BD%A0%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%B7%B1%E5%9C%A8B%E7%AB%99%E6%90%9C%EF%BC%8C%E6%95%99%E5%AD%A6%E5%BE%88%E5%A4%9A%E3%80%82">https://www.icourse163.org/course/NNUTC-1449276162，你们可以自己在B站搜，教学很多。</a></p><ul><li><p>android软件安全权威指南（必看）</p><p>可以先看看，先对android逆向有个大致的了解，不懂的地方先跳过，后面学的深入了就会明白了。</p><p>android的书籍很少，看完这本书，同时刷一刷android的CTF题目，然后就是进阶学习。</p></li></ul><p>《教我兄弟学Android逆向01 编写第一个Android程序》<a href="https://www.52pojie.cn/thread-648530-1-1.html">https://www.52pojie.cn/thread-648530-1-1.html</a></p><p>这个系列也可以上手。</p><p>基础一定要打好，基础一定要打好，基础一定要打好。</p><p>成为大牛的学习路线（逆向全栈）：</p><p><a href="https://bbs.pediy.com/thread-249124.htm">https://bbs.pediy.com/thread-249124.htm</a></p><p>冲冲冲</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;逆向学习路线&quot;&gt;&lt;a href=&quot;#逆向学习路线&quot; class=&quot;headerlink&quot; title=&quot;逆向学习路线&quot;&gt;&lt;/a&gt;逆向学习路线&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;一定学好C/C++语言。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;工具&quot;&gt;&lt;a href=</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
