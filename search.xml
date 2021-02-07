@@ -26,6 +26,9 @@
 <h6 id="22"><a href="#22" class="headerlink" title="22."></a>22.</h6><p>IDA的脚本语言叫IDC。</p>
 <p>注：<br>对于mips架构下的逆向工程，ida不能进行反汇编<br>如果仍想使用ida解决，可以下载插件Retdec，对v.0.7版本的ida可能不识别。</p>
 ]]></content>
+      <categories>
+        <category>逆向学习笔记</category>
+      </categories>
   </entry>
   <entry>
     <title>CTFd平台搭建（文件方式）</title>
