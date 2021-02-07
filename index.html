@@ -198,7 +198,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/07/IDA%20pro%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2021/02/07/IDA%20pro%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">IDA pro使用笔记</a>
         </h2>
 
         <div class="post-meta">
@@ -209,7 +209,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-02-07 12:14:54 / 修改时间：12:15:01" itemprop="dateCreated datePublished" datetime="2021-02-07T12:14:54+08:00">2021-02-07</time>
+              <time title="创建时间：2021-02-07 12:14:54 / 修改时间：12:21:02" itemprop="dateCreated datePublished" datetime="2021-02-07T12:14:54+08:00">2021-02-07</time>
             </span>
 
           
@@ -223,28 +223,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="IDA-pro使用笔记"><a href="#IDA-pro使用笔记" class="headerlink" title="IDA pro使用笔记"></a>IDA pro使用笔记</h1><p>学习资料：IDA Pro    权威指南[美]Chris Eagle</p>
-<h6 id="1-什么情况下需要使用反汇编？"><a href="#1-什么情况下需要使用反汇编？" class="headerlink" title="1.什么情况下需要使用反汇编？"></a>1.什么情况下需要使用反汇编？</h6><p>1)分析恶意软件<br>2)分析闭源软件的漏洞<br>3)分析闭源软件的互操作性<br>4)分析编译器生成的代码，以验证编译器的性能和准确性<br>5)在调试时显示程序指令</p>
-<h6 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h6><p>动态分析：是指在严格控制的环境中执行恶意软件，并使用系统检测实用工具记录其所有行为。<br>静态分析：试图通过代码来理解程序的行为。(查看对恶意软件进行反汇编之后得到的代码清单）。</p>
-<h6 id="3-基本的反汇编算法："><a href="#3-基本的反汇编算法：" class="headerlink" title="3.基本的反汇编算法："></a>3.基本的反汇编算法：</h6><p>1)确定进行反汇编的代码区域；<br>2)知道指令的起始地址，读取该地址（或文件偏移量）所包含的值，并执行一次表查找，将二进制操作码的值余它的汇编语言助记符对应起来；<br>3)获取指令并解码任何所需的操作数后，需要对它的汇编语言等价形式格式话，并将其在反汇编代码中输出。<br>4)输出一条指令后，继续反汇编下一条指令，并重复上述过程，直到反汇编完文件中的所有指令。</p>
-<h6 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h6><p>汇编语言源代码主要采用两种语法：AT&amp;T语法和Intel语法。<br>两种最主要的反汇编算法：线性扫描和递归下降。</p>
-<h6 id="5-线性扫描反汇编的优缺点："><a href="#5-线性扫描反汇编的优缺点：" class="headerlink" title="5.线性扫描反汇编的优缺点："></a>5.线性扫描反汇编的优缺点：</h6><p>优点：能够完全覆盖程序的所有代码段。<br>缺点：没有考虑到代码中可能混有数据。<br>GNU调试器（gdb),微软公司的WinDug调试器和objdump实用工具均采用线性扫描算法。</p>
-<h6 id="6-IDA-pro：递归下降反汇编。"><a href="#6-IDA-pro：递归下降反汇编。" class="headerlink" title="6.IDA pro：递归下降反汇编。"></a>6.IDA pro：递归下降反汇编。</h6><h6 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h6><p>在使用IDA时，如果不知道是哪一种类型的文件，可以使用Go而不是New打开，以便跳过新文件导向。<br>用IDA加载文件，IDA会创建一个数据库，其组件分别保存在4个文件中，.id0,.id1,.nam,.til，分别对应是一个二叉树形式的数据库，描述每个程序字节的标记，与IDA的Named窗口中显示的给定程序位置有关的索引信息，用于存储与一个给定数据库的本地类型定义有关的信息。</p>
-<h6 id="8-关闭IDA数据库："><a href="#8-关闭IDA数据库：" class="headerlink" title="8.关闭IDA数据库："></a>8.关闭IDA数据库：</h6><p>1）不打包数据库：不创建IDB文件，不建议；<br>2）打包数据库（存储）：将4个数据库组件文件存到一个IDB文件中，创建后，4个数据库组件文件即被删除；<br>3）打包数据库（压缩）：基本同上，唯一的差别在于数据库组件文件被压缩到IDB归档文件中。<br>4）收集垃圾：通常只在磁盘空间不足时使用；<br>5）不保存数据库：放弃当前对数据库所做的更改的唯一办法，类似撤销和还原功能。</p>
-<h6 id="9-IDA崩溃怎么办？"><a href="#9-IDA崩溃怎么办？" class="headerlink" title="9.IDA崩溃怎么办？"></a>9.IDA崩溃怎么办？</h6><p>可以选择还原上次保存的版本，或依旧使用已打开的可能遭到破坏的版本，选择“继续使用未打包的库“并不能保证可以恢复所做的全部修改。</p>
-<h6 id="10-IDA桌面简介："><a href="#10-IDA桌面简介：" class="headerlink" title="10.IDA桌面简介："></a>10.IDA桌面简介：</h6><p>1）彩色的水平带是IDA的概况导航栏（导航带），是被加载文件地址空间的线性视图。<br>2）对函数视图中的函数进行选中，即会跳转到反汇编视图中，可使用空格键在列表视图样式和图形试图样式（流程图）中切换。<br>3）使用View-&gt;Open Subviews命令恢复无意中关闭的数据显示窗口；<br>     使用Windows-&gt;Reset Desktop 命令可以迅速将桌面恢复到原始布局；<br>     使用Windows-&gt;Save Desktop 命保存你认为特别有用的当前桌面布局，使用Windows-&gt;Load Desktop命令迅速打开你之前保存的一个桌面布局；</p>
-<h6 id="11-IDA不提供撤销功能！！！"><a href="#11-IDA不提供撤销功能！！！" class="headerlink" title="11.IDA不提供撤销功能！！！"></a>11.IDA不提供撤销功能！！！</h6><h6 id="12-ESC键用于关闭窗口。"><a href="#12-ESC键用于关闭窗口。" class="headerlink" title="12.ESC键用于关闭窗口。"></a>12.ESC键用于关闭窗口。</h6><h6 id="13-反汇编窗口："><a href="#13-反汇编窗口：" class="headerlink" title="13.反汇编窗口："></a>13.反汇编窗口：</h6><p>反汇编窗口又叫IDA-View窗口，是操作和分析二进制文件的主要工具。<br>1）IDA图形视图：<br>      将一个函数分解成许多基本块，显示该函数由一个块到另一个快的控制流程。<br>      每个基本块都有唯一的入口点和退出点。<br>      Yes绿色（执行分支），No红色（不执行分支）可用CTRL和加减号以及鼠标的滑轮来调整图形的大小，必要时使用概览。</p>
-<h6 id="14-Names窗口（名称窗口）："><a href="#14-Names窗口（名称窗口）：" class="headerlink" title="14.Names窗口（名称窗口）："></a>14.Names窗口（名称窗口）：</h6><p>简要列举了一个二进制文件的所有全局名称，名称是指对一个程序虚拟地址的符号描述，可通过双击该窗口中的名称来立即跳转到显示该名称的反汇编视图。</p>
-<h6 id="15-十六进制窗口："><a href="#15-十六进制窗口：" class="headerlink" title="15.十六进制窗口："></a>15.十六进制窗口：</h6><p>显示程序内容和列表的标准十六进制代码，每行显示16个字节，以及对应的ASCII字符。在反汇编窗口中，光标指向地址004013FA（一个调用指令），那么，在十六进制窗口中，构成这个指令的全部5个字节均突出显示。</p>
-<h6 id="16-导入窗口："><a href="#16-导入窗口：" class="headerlink" title="16.导入窗口："></a>16.导入窗口：</h6><p>使用共享库时，IDA才需要用到导入窗口，静态链接的二进制文件不存在外部依赖关系，因此不需要导入其他内容。</p>
-<h6 id="17-结构体窗口："><a href="#17-结构体窗口：" class="headerlink" title="17.结构体窗口："></a>17.结构体窗口：</h6><p>用于显示IDA决定在一个二进制文件中使用的任何复杂的数据结构的布局。可以为标准数据结构的布局提供现成的参考，帮助自己创建自己的可用作内存布局模块的数据结构。</p>
-<h6 id="18-枚举窗口："><a href="#18-枚举窗口：" class="headerlink" title="18.枚举窗口："></a>18.枚举窗口：</h6><p>列出标准枚举数据类型，可以使用枚举来代替整数常量，提高反汇编代码的可读性。</p>
-<h6 id="19"><a href="#19" class="headerlink" title="19."></a>19.</h6><p>IDA中的段和二进制中的段不是一个意思。</p>
-<h6 id="20"><a href="#20" class="headerlink" title="20."></a>20.</h6><p>按下快捷键G可以打开“跳转到地址“的窗口。</p>
-<h6 id="21"><a href="#21" class="headerlink" title="21."></a>21.</h6><p>IDA注释以分号为前缀，表示这一行分号以后的部分属于前缀。</p>
-<h6 id="22"><a href="#22" class="headerlink" title="22."></a>22.</h6><p>IDA的脚本语言叫IDC。</p>
-<p>注：<br>对于mips架构下的逆向工程，ida不能进行反汇编<br>如果仍想使用ida解决，可以下载插件Retdec，对v.0.7版本的ida可能不识别。</p>
-
+          <p><escape>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/07/IDA%20pro%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

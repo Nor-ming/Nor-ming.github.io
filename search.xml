@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title>IDA pro使用笔记</title>
     <url>/2021/02/07/IDA%20pro%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="IDA-pro使用笔记"><a href="#IDA-pro使用笔记" class="headerlink" title="IDA pro使用笔记"></a>IDA pro使用笔记</h1><p>学习资料：IDA Pro    权威指南[美]Chris Eagle</p>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>学习资料：IDA Pro    权威指南[美]Chris Eagle</p>
 <h6 id="1-什么情况下需要使用反汇编？"><a href="#1-什么情况下需要使用反汇编？" class="headerlink" title="1.什么情况下需要使用反汇编？"></a>1.什么情况下需要使用反汇编？</h6><p>1)分析恶意软件<br>2)分析闭源软件的漏洞<br>3)分析闭源软件的互操作性<br>4)分析编译器生成的代码，以验证编译器的性能和准确性<br>5)在调试时显示程序指令</p>
 <h6 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h6><p>动态分析：是指在严格控制的环境中执行恶意软件，并使用系统检测实用工具记录其所有行为。<br>静态分析：试图通过代码来理解程序的行为。(查看对恶意软件进行反汇编之后得到的代码清单）。</p>
 <h6 id="3-基本的反汇编算法："><a href="#3-基本的反汇编算法：" class="headerlink" title="3.基本的反汇编算法："></a>3.基本的反汇编算法：</h6><p>1)确定进行反汇编的代码区域；<br>2)知道指令的起始地址，读取该地址（或文件偏移量）所包含的值，并执行一次表查找，将二进制操作码的值余它的汇编语言助记符对应起来；<br>3)获取指令并解码任何所需的操作数后，需要对它的汇编语言等价形式格式话，并将其在反汇编代码中输出。<br>4)输出一条指令后，继续反汇编下一条指令，并重复上述过程，直到反汇编完文件中的所有指令。</p>
