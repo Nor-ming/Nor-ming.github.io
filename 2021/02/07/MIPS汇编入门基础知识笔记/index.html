@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="MIPS汇编入门基础知识笔记">
+<meta property="og:url" content="http://example.com/2021/02/07/MIPS%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200323152756435.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200323152812179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200323152831498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200323152843303.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-02-07T04:36:40.581Z">
+<meta property="article:modified_time" content="2021-02-07T04:40:20.277Z">
+<meta property="article:author" content="Alien Wan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200323152756435.png">
+
+<link rel="canonical" href="http://example.com/2021/02/07/MIPS%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>MIPS汇编入门基础知识笔记 | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/07/MIPS%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MIPS汇编入门基础知识笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-07 12:36:40 / 修改时间：12:40:20" itemprop="dateCreated datePublished" datetime="2021-02-07T12:36:40+08:00">2021-02-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<p>学习资料：[计算机组成与设计：硬件、软件接口(第4版)]</p>
+<h6 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h6><p>每行最多只有一条指令，注释总在一行之尾结束。<br>add a,b,c      #表示把b,c相加放入a中，#后是表示注释。</p>
+<h6 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h6><p>每条MIPS算术指令只执行一个操作，并且有且仅有三个变量。</p>
+<h6 id="3．"><a href="#3．" class="headerlink" title="3．"></a>3．</h6><p>MIPS中，只能对存放在寄存器中的数执行算术操作。</p>
+<h6 id="4．"><a href="#4．" class="headerlink" title="4．"></a>4．</h6><p>减法 sub</p>
+<h6 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h6><p>MIPS体系中寄存器大小为32位，故在MIPS体系中将其称为”字“。<br>字和寄存器的大小相同。</p>
+<h6 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h6><p>一般的，用$s0~$s31表示变量所对应的寄存器，用$t0之类的表示所需的临时寄存器。</p>
+<h6 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h6><p>数据传送指令：在存储器和寄存器之间传送数据的指令，因为MIPS的算术运算只对寄存器进行操作；为了访问存储器中的一个字，指令必须给出存储器地址。存储器就是一个很大的下标从0开始的一堆数组，地址就相当于数组的下标。</p>
+<h6 id="8"><a href="#8" class="headerlink" title="8."></a>8.</h6><p>取数指令：lw 示例  A[8]，指令为 lw   $t0,32($s3)   $3是数组A的起始地址，又叫基址。数据传送指令中的常量（本例中的32）称作偏移量，存放基址的寄存器（本例中的$s3)称为基址寄存器。</p>
+<h6 id="9"><a href="#9" class="headerlink" title="9."></a>9.</h6><p>常数和寄存器中的值相加即得存储器地址。</p>
+<h6 id="10"><a href="#10" class="headerlink" title="10."></a>10.</h6><p>在MIPS中，字的起始地址必须是4的倍数，这叫对齐限制,MIPS实际上是按字节编址的，一个字有4个字节，字的地址是4的倍数。</p>
+<h6 id="11"><a href="#11" class="headerlink" title="11."></a>11.</h6><p>存数指令：  sw  示例：变量h存放在寄存器$s2中，数组A的基址放在$s3中，编译A[12]=h+A[8];<br>                 lw  $t0,32($s3)<br>                 add   $t0,$s2,$t0<br>                 sw       $t0,48($s3)   </p>
+<h6 id="12"><a href="#12" class="headerlink" title="12."></a>12.</h6><p>使用常数：<br>法1：lw  $t0,AddrConstant4($s1)<br>         add  $s3,$s3,$t0<br>(假设$s1+AddrConstant4 是常量4 的存储器地址）<br>法2：用立即数       addi    $s3,$s3,4            # $s3=$s3+4    （而且支持副常数，不需要设置减立即数的指令)</p>
+<h6 id="13"><a href="#13" class="headerlink" title="13."></a>13.</h6><p>数据传送指令可以被视作一个操作数为0的加法，MIPS将寄存器$zero恒置为0。<br>最低有效位：在MIPS字中最右边的一位。<br>最高有效位：在MIPS字中最左边的一位。<br>C和JAVA中用符号0xnnnn表示十六进制数。</p>
+<h6 id="14"><a href="#14" class="headerlink" title="14."></a>14.</h6><p>类似if和go to语句功能的指令：<br>beq register1,register2,L1   表示如果register1,register2中的数值相等，则转移到标签L1的语句执行，beq代表”如果相等则分支“。<br>bne register1,register2,L1 表示如果两者值不相等，转到标签L1的语句执行，bne代表“如果不相等则分支“<br>这两条传统上称为条件分支。<br>条件最后要有Exit退出。</p>
+<h6 id="15"><a href="#15" class="headerlink" title="15."></a>15.</h6><p>无条件分支指令：jump,简写为j,在if语句的结尾部分，需要引入另一种指令。</p>
+<h6 id="16"><a href="#16" class="headerlink" title="16."></a>16.</h6><p>循环:<br>Loop:<br>……<br>……<br>j   Loop        (跳转到循环开始Loop标签处）<br>Exit:</p>
+<h6 id="17"><a href="#17" class="headerlink" title="17."></a>17.</h6><p>$ra:用于返回起始点的返回地址寄存器<br>$a0<del>$a3:用于传递参数的四个参数寄存器<br>$v0</del>$v1:用于返回值的两个值寄存器</p>
+<h6 id="18"><a href="#18" class="headerlink" title="18."></a>18.</h6><p>栈指针：$sp（第29号寄存器）  栈指针指示栈中最近分配的地址的值，它指示寄存器被换出的位置，或寄存器旧值的存放位置。<br>栈指针以字为单位进行调整</p>
+<h6 id="19"><a href="#19" class="headerlink" title="19."></a>19.</h6><p>逻辑左移：sll   例：sll      $t1,$s3,2    左移两位（4）<br>逻辑右移：srl</p>
+<h6 id="20"><a href="#20" class="headerlink" title="20."></a>20.</h6><p>压栈：将数据放入栈中<br>出栈：从栈中移除数据</p>
+<h6 id="附：MIPS常用指令一览表"><a href="#附：MIPS常用指令一览表" class="headerlink" title="附：MIPS常用指令一览表"></a>附：MIPS常用指令一览表</h6><p><img src="https://img-blog.csdnimg.cn/20200323152756435.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152812179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152831498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152843303.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/07/CTFd%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA%EF%BC%88%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%EF%BC%89/" rel="prev" title="CTFd平台搭建（文件方式）">
+      <i class="fa fa-chevron-left"></i> CTFd平台搭建（文件方式）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/07/%E7%BB%99Ubuntu%E5%AE%89%E8%A3%85vmtools/" rel="next" title="给Ubuntu安装vmtools">
+      给Ubuntu安装vmtools <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1"><span class="nav-number">1.</span> <span class="nav-text">1.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3%EF%BC%8E"><span class="nav-number">3.</span> <span class="nav-text">3．</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4%EF%BC%8E"><span class="nav-number">4.</span> <span class="nav-text">4．</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5"><span class="nav-number">5.</span> <span class="nav-text">5.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6"><span class="nav-number">6.</span> <span class="nav-text">6.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7"><span class="nav-number">7.</span> <span class="nav-text">7.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8"><span class="nav-number">8.</span> <span class="nav-text">8.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#9"><span class="nav-number">9.</span> <span class="nav-text">9.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#10"><span class="nav-number">10.</span> <span class="nav-text">10.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#11"><span class="nav-number">11.</span> <span class="nav-text">11.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#12"><span class="nav-number">12.</span> <span class="nav-text">12.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#13"><span class="nav-number">13.</span> <span class="nav-text">13.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#14"><span class="nav-number">14.</span> <span class="nav-text">14.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#15"><span class="nav-number">15.</span> <span class="nav-text">15.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#16"><span class="nav-number">16.</span> <span class="nav-text">16.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#17"><span class="nav-number">17.</span> <span class="nav-text">17.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#18"><span class="nav-number">18.</span> <span class="nav-text">18.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#19"><span class="nav-number">19.</span> <span class="nav-text">19.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#20"><span class="nav-number">20.</span> <span class="nav-text">20.</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%99%84%EF%BC%9AMIPS%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E4%B8%80%E8%A7%88%E8%A1%A8"><span class="nav-number">21.</span> <span class="nav-text">附：MIPS常用指令一览表</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

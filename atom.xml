@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-07T04:25:39.923Z</updated>
+  <updated>2021-02-07T04:39:41.962Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>给Ubuntu安装vmtools</title>
+    <link href="http://example.com/2021/02/07/%E7%BB%99Ubuntu%E5%AE%89%E8%A3%85vmtools/"/>
+    <id>http://example.com/2021/02/07/%E7%BB%99Ubuntu%E5%AE%89%E8%A3%85vmtools/</id>
+    <published>2021-02-07T04:37:16.070Z</published>
+    <updated>2021-02-07T04:39:41.962Z</updated>
+    
+    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p>之前安装ubuntu的时候没有安装vmtools，本周补安装<br> 打开ubuntu发现安装VMtools的小条变成了灰色点不了（应该是因为用的汉化版VNware）<br><img src="https://img-blog.csdnimg.cn/2020100111135071.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决办法：<br>1.关闭虚拟机；<br>2.在虚拟机设置分别设置CD/DVD、CD/DVD2、软盘为自动检测；<br>3.再重启虚拟机，灰色字即点亮。<br><img src="https://img-blog.csdnimg.cn/2020100111145969.png#pic_center" alt="在这里插入图片描述"><br>可能会造成打开的时候有问题，没关系，重复开几次一直OK就可以了<br>然后再打开就发现可以<br>点击虚拟机菜单栏中的【虚拟机】–&gt;【安装VMware Tools】<br>然后就出现了<br><img src="https://img-blog.csdnimg.cn/20201001111556538.png#pic_center" alt="在这里插入图片描述"><br>接下来把VMwareTools…tar.gz文件提取（不要点成复制了）到某个新建的目录下，比如myfile目录下：<br><img src="https://img-blog.csdnimg.cn/20201001111714526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>大概是这样，找的网图。<br>启动终端，然后切换到root用户（切换命令为：sudo su，回车然后会提示你输入当前登录用户的密码，输入成功后即可进入root用户）。<br>以root用户进入到刚刚提取到的vmware-tools-distrib文件夹下，然后输入命令：./vmware-install.pl，然后回车。<br>可能会出现报错：Unable to excute “/usr/bin/vmware-uninstall-tools.pl<br>主要原因是：usr/bin目录下没有vmware-uninstall-tools.pl<br>解决方案：<br>进入vmtools的文件解压目录，然后进入bin目录下将vmware-uninstall-tools.pl复制到usr/bin目录下<br>需要输入的命令分别有：<br>cd /opt<br>cd vmware-tools-distrib/<br>cd bin<br>cp vmware-uninstall-tools.pl /usr/bin<br>这样就没问题了，可以继续执行这部分的操作，附上网图，自己的终端被关了…<br><img src="https://img-blog.csdnimg.cn/20201001111811453.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的操作后就开始安装VMware Tools了，根据其提示输入yes/no，直到出现Enjoy, –the VMware team如下图，就表示安装成功了，然后手动重启虚拟机<br><img src="https://img-blog.csdnimg.cn/20201001111836262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在这一步中也可能会出现问题，那是因为之前可能安装过vwtools但是没有成功，一般不用管重复这一步的命令然后按照它[]中提示的操作就可以了，非常傻瓜式的操作但是我喜欢。<br>重启虚拟机之后可以看到变成了<br><img src="https://img-blog.csdnimg.cn/20201001111859849.png#pic_center" alt="在这里插入图片描述"></p><p>到此<br>完成！！</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MIPS汇编入门基础知识笔记</title>
+    <link href="http://example.com/2021/02/07/MIPS%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/"/>
+    <id>http://example.com/2021/02/07/MIPS%E6%B1%87%E7%BC%96%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0/</id>
+    <published>2021-02-07T04:36:40.581Z</published>
+    <updated>2021-02-07T04:40:20.277Z</updated>
+    
+    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p>学习资料：[计算机组成与设计：硬件、软件接口(第4版)]</p><h6 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h6><p>每行最多只有一条指令，注释总在一行之尾结束。<br>add a,b,c      #表示把b,c相加放入a中，#后是表示注释。</p><h6 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h6><p>每条MIPS算术指令只执行一个操作，并且有且仅有三个变量。</p><h6 id="3．"><a href="#3．" class="headerlink" title="3．"></a>3．</h6><p>MIPS中，只能对存放在寄存器中的数执行算术操作。</p><h6 id="4．"><a href="#4．" class="headerlink" title="4．"></a>4．</h6><p>减法 sub</p><h6 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h6><p>MIPS体系中寄存器大小为32位，故在MIPS体系中将其称为”字“。<br>字和寄存器的大小相同。</p><h6 id="6"><a href="#6" class="headerlink" title="6."></a>6.</h6><p>一般的，用$s0~$s31表示变量所对应的寄存器，用$t0之类的表示所需的临时寄存器。</p><h6 id="7"><a href="#7" class="headerlink" title="7."></a>7.</h6><p>数据传送指令：在存储器和寄存器之间传送数据的指令，因为MIPS的算术运算只对寄存器进行操作；为了访问存储器中的一个字，指令必须给出存储器地址。存储器就是一个很大的下标从0开始的一堆数组，地址就相当于数组的下标。</p><h6 id="8"><a href="#8" class="headerlink" title="8."></a>8.</h6><p>取数指令：lw 示例  A[8]，指令为 lw   $t0,32($s3)   $3是数组A的起始地址，又叫基址。数据传送指令中的常量（本例中的32）称作偏移量，存放基址的寄存器（本例中的$s3)称为基址寄存器。</p><h6 id="9"><a href="#9" class="headerlink" title="9."></a>9.</h6><p>常数和寄存器中的值相加即得存储器地址。</p><h6 id="10"><a href="#10" class="headerlink" title="10."></a>10.</h6><p>在MIPS中，字的起始地址必须是4的倍数，这叫对齐限制,MIPS实际上是按字节编址的，一个字有4个字节，字的地址是4的倍数。</p><h6 id="11"><a href="#11" class="headerlink" title="11."></a>11.</h6><p>存数指令：  sw  示例：变量h存放在寄存器$s2中，数组A的基址放在$s3中，编译A[12]=h+A[8];<br>                 lw  $t0,32($s3)<br>                 add   $t0,$s2,$t0<br>                 sw       $t0,48($s3)   </p><h6 id="12"><a href="#12" class="headerlink" title="12."></a>12.</h6><p>使用常数：<br>法1：lw  $t0,AddrConstant4($s1)<br>         add  $s3,$s3,$t0<br>(假设$s1+AddrConstant4 是常量4 的存储器地址）<br>法2：用立即数       addi    $s3,$s3,4            # $s3=$s3+4    （而且支持副常数，不需要设置减立即数的指令)</p><h6 id="13"><a href="#13" class="headerlink" title="13."></a>13.</h6><p>数据传送指令可以被视作一个操作数为0的加法，MIPS将寄存器$zero恒置为0。<br>最低有效位：在MIPS字中最右边的一位。<br>最高有效位：在MIPS字中最左边的一位。<br>C和JAVA中用符号0xnnnn表示十六进制数。</p><h6 id="14"><a href="#14" class="headerlink" title="14."></a>14.</h6><p>类似if和go to语句功能的指令：<br>beq register1,register2,L1   表示如果register1,register2中的数值相等，则转移到标签L1的语句执行，beq代表”如果相等则分支“。<br>bne register1,register2,L1 表示如果两者值不相等，转到标签L1的语句执行，bne代表“如果不相等则分支“<br>这两条传统上称为条件分支。<br>条件最后要有Exit退出。</p><h6 id="15"><a href="#15" class="headerlink" title="15."></a>15.</h6><p>无条件分支指令：jump,简写为j,在if语句的结尾部分，需要引入另一种指令。</p><h6 id="16"><a href="#16" class="headerlink" title="16."></a>16.</h6><p>循环:<br>Loop:<br>……<br>……<br>j   Loop        (跳转到循环开始Loop标签处）<br>Exit:</p><h6 id="17"><a href="#17" class="headerlink" title="17."></a>17.</h6><p>$ra:用于返回起始点的返回地址寄存器<br>$a0<del>$a3:用于传递参数的四个参数寄存器<br>$v0</del>$v1:用于返回值的两个值寄存器</p><h6 id="18"><a href="#18" class="headerlink" title="18."></a>18.</h6><p>栈指针：$sp（第29号寄存器）  栈指针指示栈中最近分配的地址的值，它指示寄存器被换出的位置，或寄存器旧值的存放位置。<br>栈指针以字为单位进行调整</p><h6 id="19"><a href="#19" class="headerlink" title="19."></a>19.</h6><p>逻辑左移：sll   例：sll      $t1,$s3,2    左移两位（4）<br>逻辑右移：srl</p><h6 id="20"><a href="#20" class="headerlink" title="20."></a>20.</h6><p>压栈：将数据放入栈中<br>出栈：从栈中移除数据</p><h6 id="附：MIPS常用指令一览表"><a href="#附：MIPS常用指令一览表" class="headerlink" title="附：MIPS常用指令一览表"></a>附：MIPS常用指令一览表</h6><p><img src="https://img-blog.csdnimg.cn/20200323152756435.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152812179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152831498.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200323152843303.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>CTFd平台搭建（文件方式）</title>
