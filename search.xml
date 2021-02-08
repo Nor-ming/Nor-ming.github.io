@@ -264,4 +264,24 @@
         <tag>逆向</tag>
       </tags>
   </entry>
+  <entry>
+    <title>jdk安装与配置</title>
+    <url>/2021/02/08/jdk%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>搜索jdk下载jdk1.8<br>安装，注意路径<br>设置JAVA_HOME:<br><img src="https://img-blog.csdnimg.cn/20210208183934507.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>配置path变量：<br><img src="https://img-blog.csdnimg.cn/20210208184100235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>注意此处已经自动生成了<em>C:\Program Files (x86)\Common Files\Oracle\Java\javapath。</em><br>不需要再配置classpath，如果配置了，可能会在编译java程序时造成”错误: 找不到或无法加载主类“<br>具体参考：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_44527588/article/details/102596461">https://blog.csdn.net/weixin_44527588/article/details/102596461</a></p>
+</blockquote>
+<p>配置完成后，在cmd输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">javac -version</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2021020819175586.png" alt="在这里插入图片描述"><br>如图所示<br>即可</p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
 </search>
