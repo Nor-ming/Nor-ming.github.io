@@ -429,4 +429,28 @@
         <tag>JAVA</tag>
       </tags>
   </entry>
+  <entry>
+    <title>java-方法</title>
+    <url>/2021/03/19/java-%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h2 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h2><p>java.util.Scanner可以实现程序和人的交互。通过Scanner类来获取用户的输入。<br>基本语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner s = <span class="keyword">new</span> Scanner(System.in);</span><br></pre></td></tr></table></figure>
+<p>下面给出一段示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;   <span class="comment">//使用Scanner类需要导入的外部包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">code01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in); <span class="comment">//从键盘接收数据</span></span><br><span class="line">        System.out.println(<span class="string">&quot;使用next方法接收：&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(scanner.hasNext()) &#123;</span><br><span class="line">            String str = scanner.next();</span><br><span class="line">            System.out.println(<span class="string">&quot;输入的内容为：&quot;</span>+str);</span><br><span class="line">        &#125;</span><br><span class="line">        scanner.close(); <span class="comment">//使用完之后需要关闭，凡是属于IO流的类，如果不关会占用资源，所以最好关掉。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过Scanner类的next()与nextLine()方法获取输入的字符串，在读取前我们一般需要使用hasNextLine()与hasNext()判断是否还有输入的数据。</p>
+<p>next():<br>1.一定要读取到有效字符后才可以结束输入<br>2.对输入有效字符之前遇到的空白，next()方法会自动将其去掉，而对于之后的，会作为分隔符或者结束符<br>3.next()不能得到带有空格的字符串<br>例如：如果使用next()方法输入<code>hello world</code>，最后只能输出<code>hello</code></p>
+<p>nextLine():<br>1.以Enter为结束符（回车）<br>2.可以输入空格<br>例如：如果使用nextLine()方法输入<code>hello world</code>，最后输出<code>hello world</code></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>方法包含于类或者对象中<br>方法在程序中被创建，在其它地方被引用<br><img src="https://img-blog.csdnimg.cn/20210319155505616.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210319155918952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h2><p>方法名称必须相同<br>参数列表必须不同（个数/类型/排列顺序）<br>方法的返回类型可以相同也可以不通婚<br>仅仅返回类型不同不足以成为方法的重载</p>
+<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><p>因为不确定要传几个参数，所以使用可变参数<br>使用方法：<br>在方法声明中，在指定参数类型后加一个省略号（…)<br>一个方法中只能指定一个可变参数，它必须是方法的最后一个参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printMax</span><span class="params">(<span class="keyword">double</span>... number)</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归结构包括两个部分：<br>递归头：什么时候不调用自身方法。如果没有头，将陷入死循环。<br>递归体：什么时候需要调用自身方法。<br><img src="https://img-blog.csdnimg.cn/20210319162956915.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>JAVA</category>
+      </categories>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
 </search>
