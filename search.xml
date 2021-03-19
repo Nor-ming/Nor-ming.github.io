@@ -433,6 +433,7 @@
     <title>java-方法</title>
     <url>/2021/03/19/java-%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p><a href="https://www.bilibili.com/video/BV12J41137hu">学习资料</a></p>
 <h2 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h2><p>java.util.Scanner可以实现程序和人的交互。通过Scanner类来获取用户的输入。<br>基本语法：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner s = <span class="keyword">new</span> Scanner(System.in);</span><br></pre></td></tr></table></figure>
 <p>下面给出一段示例代码：</p>
