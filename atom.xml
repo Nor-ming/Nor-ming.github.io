@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-03-20T09:21:54.208Z</updated>
+  <updated>2021-03-23T07:40:59.982Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java-数组-对象-异常</title>
+    <link href="http://example.com/2021/03/23/java-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%B1%A1-%E5%BC%82%E5%B8%B8/"/>
+    <id>http://example.com/2021/03/23/java-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%B1%A1-%E5%BC%82%E5%B8%B8/</id>
+    <published>2021-03-23T07:39:32.393Z</published>
+    <updated>2021-03-23T07:40:59.982Z</updated>
+    
+    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p><del>感觉这篇好水啊…</del> </p><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>声明：dataType[] array;<br>例如：int[] num;</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] nums;</span><br><span class="line">nums = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br></pre></td></tr></table></figure><p>Java使用new操作符来创建数组</p><p>获取数组长度：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.length</span><br></pre></td></tr></table></figure><p>数组也是对象，数组中的元素相当于对象的成员变量</p><h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>静态方法可以在同一个包的另一个类中被调用，调用方法<br>类名.方法名();<br>非静态方法需要将类实例化才可以<br>例如，想要调用Student类中的say方法，<br>实例化</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student student = <span class="keyword">new</span> Student();</span><br><span class="line">student.say();</span><br></pre></td></tr></table></figure><p><img src="https://img-blog.csdnimg.cn/20210321102420938.png" alt="在这里插入图片描述"><br><strong>构造器</strong><br>一个类即使什么都不写，也会有一个方法，即为构造方法，也叫构造器<br>构造器的特点：<br>1.必须和类的名字相同<br>2.必须没有返回值，也不能写void<br>作用：<br>1.使用new构造器，必须要有构造器<br>2.用来初始化值</p><p>一旦有了有参构造，必须有一个无参<br><img src="https://img-blog.csdnimg.cn/2021032121201675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>alt+insert 自动生成构造器</p><p><strong>继承</strong><br>JAVA中只有单继承没有多继承</p><p>使用关键字 extends 表示<br>例如：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span></span><br></pre></td></tr></table></figure><p>super:<br>1.调用父类的构造器，必须在子类方法的第一个<br>2.super必须只能出现在子类的方法或者构造方法中<br>3.super和this 不能同时调用构造方法</p><p>this:本身调用这个对象，没有继承也可以使用<br>super：代表父类对象的应用，只能在继承条件才可以使用</p><p><strong>重写</strong>：需要有继承关系，子类重写父类的方法<br>1.方法名必须相同<br>2.参数列表必须相同<br>3.修饰符范围可以扩大不可以缩小public&gt;protected&gt;default&gt;private<br>4.抛出的范围可以被缩小不可以扩大</p><p><strong>抽象类：</strong><br>1.不能new这个抽象类，只能靠子类去实现<br>2.抽象类中可以写普通的方法<br>3.抽象方法必须在抽象类中</p><p><strong>接口：</strong><br>声明接口的关键字是<code>interface</code><br>接口中的所有定义都是抽象的，且都是public abstract<br>接口都需要有实现类，使用implements<br>例如：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">UserService</span></span></span><br></pre></td></tr></table></figure><p>接口中的方法必须要重写</p><h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常处理五个关键字：<br>try、catch、finally、throw、throws</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
+    
+    
+    
+    <category term="JAVA" scheme="http://example.com/categories/JAVA/"/>
+    
+    
+    <category term="JAVA" scheme="http://example.com/tags/JAVA/"/>
+    
+  </entry>
   
   <entry>
     <title>Nep欢乐个人赛-RE-hardsharp</title>
