@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="java-基于Swing的图形界面设计（上）">
+<meta property="og:url" content="http://example.com/2021/03/30/java-%E5%9F%BA%E4%BA%8ESwing%E7%9A%84%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%8A%EF%BC%89/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210323170745905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210323214426298.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210323214752784.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210328111540396.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021032811170352.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210328112212701.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210328112709375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210329143040766.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210329143711156.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210329145112508.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330102022708.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330104330929.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330105818952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330131145116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330132507748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330135816741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330140737298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330205733343.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330205745446.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210330205800384.png">
+<meta property="article:published_time" content="2021-03-30T13:01:53.417Z">
+<meta property="article:modified_time" content="2021-03-30T13:03:14.079Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210323170745905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/03/30/java-%E5%9F%BA%E4%BA%8ESwing%E7%9A%84%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%8A%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>java-基于Swing的图形界面设计（上） | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/java-%E5%9F%BA%E4%BA%8ESwing%E7%9A%84%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%8A%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java-基于Swing的图形界面设计（上）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-30 21:01:53 / 修改时间：21:03:14" itemprop="dateCreated datePublished" datetime="2021-03-30T21:01:53+08:00">2021-03-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<p>程序被设计出来，为了方便用户使用，一定是需要界面设计的</p>
+<p>GUI技术以及支持包：<br>AWT:提供大量类和接口<br>Swing 是一个为Java设计的GUI工具包，JAVA基础类的一部分。Swing包括了图形用户界面（GUI）器件如：文本框，按钮，分隔窗格和表。</p>
+<p>AWT:<code>java.awt</code>包<br>Swing:<code>javax.swing</code>包</p>
+<p>本篇作为上篇，先介绍组件容器与布局管理器等知识点</p>
+<p><strong>创建图形用户界面的一般步骤：</strong><br>创建容器–设置布局管理器–添加组件–事件处理</p>
+<h3 id="常用的组件与容器"><a href="#常用的组件与容器" class="headerlink" title="常用的组件与容器"></a>常用的组件与容器</h3><p><strong>Swing中的容器分类：</strong><br>1.顶级容器：一般是一个顶层窗口（框架）<br>JFrame:用于框架窗口的类，应用程序至少使用一个框架窗口<br>JDialog:用于对话框的类<br>2.中间容器<br>JPanel:面板，是最灵活最常用的中间容器<br>JScrollPane:与JPanel类似，但还可以在大的组件或可扩展组件周围提供滚动条<br>JToolBar:按行或列排列一组组件（通常是按钮）</p>
+<h5 id="JFrame"><a href="#JFrame" class="headerlink" title="JFrame"></a>JFrame</h5><p>在Swing程序中创建顶层窗口，允许将标签、按钮、文本框等组件添加其中</p>
+<p>所有的JFrame框架顶层都有一个JRootPane面板，对于具有单一面板的窗体（JFrame），可以使用getContentPane()方法取得，并使用add()方法将组件加到面板上。<br><img src="https://img-blog.csdnimg.cn/20210323170745905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>setResizable(false)可以使最大化按钮失效<br>默认情况下，当用户关闭一个框架时，该框架会隐藏起来，而程序不会终止<br>dispose关闭窗口，并回收该窗口的所有资源（Windows）</p>
+<p>参考示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;第一个java窗口&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setSize(<span class="number">300</span>,<span class="number">200</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        f.setLocationRelativeTo(<span class="keyword">null</span>);  <span class="comment">//框架居中</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setResizable(<span class="keyword">false</span>);  <span class="comment">//设置不能改变框架大小</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行之后的效果如图所示：<br><img src="https://img-blog.csdnimg.cn/20210323214426298.png" alt="在这里插入图片描述"><br>若想要改变框架的颜色，不能直接设置，必须设置框架内置的面板的颜色，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.getContentPane().setBackground(Color.BLACK);</span><br></pre></td></tr></table></figure>
+<p>窗口就变成了<br><img src="https://img-blog.csdnimg.cn/20210323214752784.png" alt="在这里插入图片描述"></p>
+<h5 id="JPanel"><a href="#JPanel" class="headerlink" title="JPanel"></a>JPanel</h5><p>JPanel面板是中间容器，没有标题，不能独立存在，必须将其添加到其它容器中。</p>
+<p>面板与框架类似，也是一种容器，可以容纳其它GUI组件</p>
+<p>JPanel类具有两个有用的<strong>特性</strong>：<br>本身是一个中间容器，能够容纳按钮、滚动条、文本框等用户界面元素；<br>有一个能够在上面进行绘制的表面，用来画文本和图形。<br><img src="https://img-blog.csdnimg.cn/20210328111540396.png" alt="在这里插入图片描述"><br><em>注意：坐标原点（0，0)在屏幕（或组件）的左上角，坐标单位是像素</em><br><img src="https://img-blog.csdnimg.cn/2021032811170352.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>参考示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;JPanel示例&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setSize(<span class="number">300</span>,<span class="number">200</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        f.setLayout(<span class="keyword">null</span>);  <span class="comment">//将布局管理器设为null</span></span><br><span class="line">        JPanel panel = <span class="keyword">new</span> JPanel();  <span class="comment">//创建面板</span></span><br><span class="line">        panel.setSize(<span class="number">150</span>,<span class="number">100</span>);  <span class="comment">//设置面板的宽和高</span></span><br><span class="line">        panel.setBackground(Color.CYAN);  <span class="comment">//设置面板的背景色</span></span><br><span class="line">        f.add(panel);  <span class="comment">//将面板添加到f中</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行之后效果如图所示：<br><img src="https://img-blog.csdnimg.cn/20210328112212701.png" alt="在这里插入图片描述"></p>
+<h5 id="JButton"><a href="#JButton" class="headerlink" title="JButton"></a>JButton</h5><p>JButton(按钮)是常用组件之一，可以显示文本或图标<br><img src="https://img-blog.csdnimg.cn/20210328112709375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>创建文本按钮：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JButton button = <span class="keyword">new</span> JButton(<span class="string">&quot;确定&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>创建图标按钮:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageIcon imageIcon = <span class="keyword">new</span> ImageIcon(<span class="string">&quot;pict.jpg&quot;</span>);</span><br><span class="line">imageIcon.setImage(imageIcon.getImage().getScaledInstance(<span class="number">40</span>,<span class="number">20</span>,Image.SCALE_DEFAULT));</span><br><span class="line">JButton button = <span class="keyword">new</span> JButton(imageIcon);</span><br></pre></td></tr></table></figure>
+<p>创建带文本和图标的按钮：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JButton button = <span class="keyword">new</span> JButton(<span class="string">&quot;确定&quot;</span>,imageIcon);</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210329143040766.png" alt="在这里插入图片描述"><br>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.FlowLayout;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;JButton示例&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setSize(<span class="number">300</span>,<span class="number">200</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        JButton buttonOK,buttonCancel;</span><br><span class="line">        f.setLayout(<span class="keyword">new</span> FlowLayout());  <span class="comment">//将布局管理器设为null</span></span><br><span class="line">        buttonOK = <span class="keyword">new</span> JButton(<span class="string">&quot;确定&quot;</span>);</span><br><span class="line">        buttonCancel = <span class="keyword">new</span> JButton(<span class="string">&quot;取消&quot;</span>);</span><br><span class="line">        f.add(buttonOK);</span><br><span class="line">        f.add(buttonCancel);  <span class="comment">//将面板添加到f中</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：<br><img src="https://img-blog.csdnimg.cn/20210329143711156.png" alt="在这里插入图片描述"></p>
+<h3 id="布局管理器"><a href="#布局管理器" class="headerlink" title="布局管理器"></a>布局管理器</h3><p>布局管理器负责确定每个组件的大小以及位置，当容器发生变化后还能够进行动态调整。</p>
+<p>因为Java的组件不使用坐标这种绝对定位的形式，使用布局管理器进行定位能够使得程序界面自动适应不同分辨率的屏幕。</p>
+<p>在使用布局管理器时，用户无法自己设置组件的大小和位置，即setLocation(),setSize(),setBounds()均无效</p>
+<p><strong>布局管理器的分类：</strong><br>FlowLayout（流式布局）：Panel和Applet的缺省布局管理器<br>BorderLayout（边界布局）：JDialog和JFrame的缺省布局管理器，适合顶层容器使用<br>GridLayout（网络布局）：适合按钮类组件的布局<br>GridBagLayout（网格组布局）<br>CardLayout（卡片布局）：适合多功能程序使用<br>BoxLayout（箱式布局）<br>SpringLayout（弹簧布局）</p>
+<p>每个容器都有缺省的布局管理器，在没有设置新的布局前，在容器中添加组件都按照该容器的缺省布局排列。</p>
+<h5 id="FlowLayout"><a href="#FlowLayout" class="headerlink" title="FlowLayout"></a>FlowLayout</h5><p><img src="https://img-blog.csdnimg.cn/20210329145112508.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>align表示对齐方式，取值为常量<br>每行组件默认居中对齐，组件之间的水平间距和垂直间距默认是5个像素</p>
+<p>流式布局的优点：使用组件的最佳尺寸<br>流式布局的缺点：改变容器大小，组件相对位置会发生变化</p>
+<p>设置默认的FlowLayout布局</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.setLayout(<span class="keyword">new</span> FlowLayout());</span><br></pre></td></tr></table></figure>
+<p>设置框架f为组件左对齐的FlowLayout布局，并且组件的水平间距为20像素，垂直间距为40像素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.setLayout(<span class="keyword">new</span> FlowLayout(FlowLayout.LEFT,<span class="number">20</span>,<span class="number">40</span>));</span><br></pre></td></tr></table></figure>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlowLayoutDemo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FlowLayoutDemo</span><span class="params">(String title)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;FlowLayoutDemo&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setSize(<span class="number">260</span>,<span class="number">150</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        JButton button1 = <span class="keyword">new</span> JButton(<span class="string">&quot;第一个按钮&quot;</span>);</span><br><span class="line">        JButton button2 = <span class="keyword">new</span> JButton(<span class="string">&quot;第二个按钮&quot;</span>);</span><br><span class="line">        JButton button3 = <span class="keyword">new</span> JButton(<span class="string">&quot;第三个按钮&quot;</span>);</span><br><span class="line">        JButton button4 = <span class="keyword">new</span> JButton(<span class="string">&quot;第四个按钮&quot;</span>);</span><br><span class="line">        JButton button5 = <span class="keyword">new</span> JButton(<span class="string">&quot;第五个按钮&quot;</span>);</span><br><span class="line">        f.setLayout(<span class="keyword">new</span> FlowLayout());  <span class="comment">//将布局管理器设为null</span></span><br><span class="line">        f.add(button1);</span><br><span class="line">        f.add(button2);</span><br><span class="line">        f.add(button3);</span><br><span class="line">        f.add(button4);</span><br><span class="line">        f.add(button5);</span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> FlowLayoutDemo(<span class="string">&quot;FlowLayout&quot;</span>);</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210330102022708.png" alt="在这里插入图片描述"></p>
+<h5 id="BorderLayout"><a href="#BorderLayout" class="headerlink" title="BorderLayout"></a>BorderLayout</h5><p>边界布局管理器的布局分为五个位置：CENTER、EAST、WEST、NORTH、SOUTH<br>可以把组件放到任意一个位置，缺省位置是CENTER<br><img src="https://img-blog.csdnimg.cn/20210330104330929.png" alt="在这里插入图片描述"><br>每个区域只能添加一个组件，若添加多个，只能显示一个，如果想在一个区域添加多个组件，则必须先在该区域放一个容器，再将多个组件放在该容器。</p>
+<p>优点：容器形状变化，组件相对位置不会变化，各区域和各组件大小会改变<br>North和South区域的高度保持不变<br>East和West区域的宽度保持不变<br>Center区域的组件随着容器的大小的变化而变化<br>缺点：直接使用该布局管理器只能放置五个组件</p>
+<p>注意：不是组件之间的间距，是区域之间的间距。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BorderLayoutDomo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BorderLayoutDomo</span><span class="params">(String title)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        JFrame f = <span class="keyword">new</span> JFrame(title);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setLayout(<span class="keyword">new</span> BorderLayout(<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line">        f.add(BorderLayout.NORTH,<span class="keyword">new</span> JButton(<span class="string">&quot;North&quot;</span>));</span><br><span class="line">        f.add(BorderLayout.SOUTH,<span class="keyword">new</span> JButton(<span class="string">&quot;South&quot;</span>));</span><br><span class="line">        f.add(BorderLayout.EAST,<span class="keyword">new</span> JButton(<span class="string">&quot;East&quot;</span>));</span><br><span class="line">        f.add(BorderLayout.WEST,<span class="keyword">new</span> JButton(<span class="string">&quot;West&quot;</span>));</span><br><span class="line">        f.add(BorderLayout.CENTER,<span class="keyword">new</span> JButton(<span class="string">&quot;Center&quot;</span>));</span><br><span class="line">        f.setSize(<span class="number">260</span>,<span class="number">180</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BorderLayoutDomo domo= <span class="keyword">new</span> BorderLayoutDomo(<span class="string">&quot;Exanple&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210330105818952.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="GridLayout"><a href="#GridLayout" class="headerlink" title="GridLayout"></a>GridLayout</h5><p>网络布局管理器将容器的空间划分为若干行和列的网格，每个网格大小相同<br>各组件的排列方式：从上到下，从左到右<br>组件放入容器的次序决定了它在容器中的位置<br>默认间距是0<br><img src="https://img-blog.csdnimg.cn/20210330131145116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>网格每列宽度相同，等于容器的宽度除以网格的列数<br>网格每行高度相同，等于容器的高度除以网格的行数<br>容器大小改变时，组件的相对位置不变，大小会改变<br>若组件数超过网格设定的个数，则布局管理器会自动增加网格个数，原则是保持行数不变。</p>
+<p>优点：不受组件数量的限制<br>缺点：每个组件会占据网格全部的大小，自身的尺寸无法体现</p>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GridLayoutDemo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    JButton button1,button2,button3,button4,button5;</span><br><span class="line">    GridLayoutDemo()</span><br><span class="line">    &#123;</span><br><span class="line">        JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;GridLayout&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        f.setLayout(<span class="keyword">new</span> GridLayout(<span class="number">3</span>,<span class="number">2</span>));</span><br><span class="line">        button1 = <span class="keyword">new</span> JButton(<span class="string">&quot;按钮1&quot;</span>);</span><br><span class="line">        button2 = <span class="keyword">new</span> JButton(<span class="string">&quot;按钮2&quot;</span>);</span><br><span class="line">        button3 = <span class="keyword">new</span> JButton(<span class="string">&quot;按钮3&quot;</span>);</span><br><span class="line">        button4 = <span class="keyword">new</span> JButton(<span class="string">&quot;按钮4&quot;</span>);</span><br><span class="line">        button5 = <span class="keyword">new</span> JButton(<span class="string">&quot;按钮5&quot;</span>);</span><br><span class="line">        f.add(button1);</span><br><span class="line">        f.add(button2);</span><br><span class="line">        f.add(button3);</span><br><span class="line">        f.add(button4);</span><br><span class="line">        f.add(button5);</span><br><span class="line">        f.setSize(<span class="number">260</span>,<span class="number">180</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> GridLayoutDemo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行效果：<br><img src="https://img-blog.csdnimg.cn/20210330132507748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GridFrame</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    JButton btn[];</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GridFrame</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        JFrame f = <span class="keyword">new</span> JFrame(<span class="string">&quot;网格布局演示&quot;</span>);  <span class="comment">//创建容器</span></span><br><span class="line">        String str[]=&#123;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;9&quot;</span>&#125;;</span><br><span class="line">        Container contentpane = f.getContentPane();</span><br><span class="line">        contentpane.setLayout(<span class="keyword">new</span> GridLayout(<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line">        btn=<span class="keyword">new</span> JButton[str.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length;i++)&#123;</span><br><span class="line">            btn[i]=<span class="keyword">new</span> JButton(str[i]);</span><br><span class="line">            contentpane.add(btn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        f.setSize(<span class="number">200</span>,<span class="number">200</span>);  <span class="comment">//设置容器大小</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);  <span class="comment">//设置框架可见性</span></span><br><span class="line">        f.setLayout(<span class="keyword">new</span> GridLayout(<span class="number">3</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> GridFrame();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210330135816741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>网格布局在组织窗口的局部区域比较有用<br>如果需要一行或者多行相同尺寸的按钮，可以把按钮放在一个面板里，该面板使用网格布局进行管理。</p>
+<h5 id="CardLayout"><a href="#CardLayout" class="headerlink" title="CardLayout"></a>CardLayout</h5><p>将容器中的组件处理为一系列卡片，每一时刻只显示其中的一张卡片，可以在卡片之间进行切换。<br>此种布局方式可以帮助用户处理两个或者更多的组件共享同一显示空间，共享空间的组件之间的关系就像是一摞牌，只有最上面的组件是可见的。<br><img src="https://img-blog.csdnimg.cn/20210330140737298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>CardLayyout类有二种构造方法：<br><code>public CardLayout():</code>组件距容器左右边界和上下边界的距离为缺省值0个像素<br><code>public CardLayout(int horizontalGap,int verticalGap)：</code>组件距容器左右边界和上下边界的距离为指定值<br>每张牌中只能放置一个组件，如果想在一张牌中放置多个组件，则必须先在该牌放一个容器，再将多个组件放在该容器中<br>向容器中添加组件时可以为组件取一个名字，以提供更换显示组件时使用：<br>add(Component,String);</p>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CardTest</span> <span class="keyword">extends</span> <span class="title">MouseAdapter</span></span>&#123;</span><br><span class="line">    JFrame f;</span><br><span class="line">    Container contentPane;</span><br><span class="line">    CardLayout myCard;</span><br><span class="line">    Container c;</span><br><span class="line">    JPanel p1,p2,p3;</span><br><span class="line">    JLabel l1,l2,l3;</span><br><span class="line">    CardTest()&#123;</span><br><span class="line">        f=<span class="keyword">new</span> JFrame(<span class="string">&quot;Card Test&quot;</span>);</span><br><span class="line">        contentPane = f.getContentPane();</span><br><span class="line">        myCard = <span class="keyword">new</span> CardLayout();</span><br><span class="line">        f.setLayout(<span class="keyword">new</span> CardLayout());</span><br><span class="line">        f.setSize(<span class="number">300</span>,<span class="number">200</span>);</span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);</span><br><span class="line">        p1=<span class="keyword">new</span> JPanel();</span><br><span class="line">        p2=<span class="keyword">new</span> JPanel();</span><br><span class="line">        p3=<span class="keyword">new</span> JPanel();</span><br><span class="line">        p1.setBackground(Color.ORANGE);</span><br><span class="line">        l1=<span class="keyword">new</span> JLabel(<span class="string">&quot;first&quot;</span>);</span><br><span class="line">        p1.add(l1);</span><br><span class="line">        p2.setBackground(Color.pink);</span><br><span class="line">        l2=<span class="keyword">new</span> JLabel(<span class="string">&quot;2nd&quot;</span>);</span><br><span class="line">        p2.add(l2);</span><br><span class="line">        p3.setBackground(Color.CYAN);</span><br><span class="line">        l3=<span class="keyword">new</span> JLabel(<span class="string">&quot;3rd&quot;</span>);</span><br><span class="line">        p3.add(l3);</span><br><span class="line">        c = f.getContentPane();</span><br><span class="line">        c.add(p1,<span class="string">&quot;First&quot;</span>);</span><br><span class="line">        c.add(p2,<span class="string">&quot;Second&quot;</span>);</span><br><span class="line">        c.add(p3,<span class="string">&quot;Third&quot;</span>);</span><br><span class="line">        contentPane.setLayout(myCard);</span><br><span class="line">        myCard.show(c,<span class="string">&quot;First&quot;</span>);</span><br><span class="line">        p1.addMouseListener(<span class="keyword">this</span>);</span><br><span class="line">        p2.addMouseListener(<span class="keyword">this</span>);</span><br><span class="line">        p3.addMouseListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span></span>&#123;</span><br><span class="line">        myCard.next(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        CardTest ct = <span class="keyword">new</span> CardTest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果，鼠标点击可以切换：<br><img src="https://img-blog.csdnimg.cn/20210330205733343.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210330205745446.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210330205800384.png" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/28/Nep%E6%AC%A2%E4%B9%90%E4%B8%AA%E4%BA%BA%E8%B5%9B-RE-%E4%BA%8C%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6/" rel="prev" title="Nep欢乐个人赛-RE-二十六进制">
+      <i class="fa fa-chevron-left"></i> Nep欢乐个人赛-RE-二十六进制
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BB%84%E4%BB%B6%E4%B8%8E%E5%AE%B9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">常用的组件与容器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JFrame"><span class="nav-number">1.0.1.</span> <span class="nav-text">JFrame</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JPanel"><span class="nav-number">1.0.2.</span> <span class="nav-text">JPanel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JButton"><span class="nav-number">1.0.3.</span> <span class="nav-text">JButton</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">布局管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FlowLayout"><span class="nav-number">2.0.1.</span> <span class="nav-text">FlowLayout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BorderLayout"><span class="nav-number">2.0.2.</span> <span class="nav-text">BorderLayout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GridLayout"><span class="nav-number">2.0.3.</span> <span class="nav-text">GridLayout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CardLayout"><span class="nav-number">2.0.4.</span> <span class="nav-text">CardLayout</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
