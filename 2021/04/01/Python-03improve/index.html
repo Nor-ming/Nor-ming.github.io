@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Python-03improve">
+<meta property="og:url" content="http://example.com/2021/04/01/Python-03improve/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401212943284.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213011128.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213037580.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213058698.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213128234.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213227648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213346162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213410283.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213629700.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213643907.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213750744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213845502.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210401213942598.png">
+<meta property="article:published_time" content="2021-04-01T13:45:29.585Z">
+<meta property="article:modified_time" content="2021-04-01T13:46:32.147Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210401212943284.png">
+
+<link rel="canonical" href="http://example.com/2021/04/01/Python-03improve/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python-03improve | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/01/Python-03improve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python-03improve
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-01 21:45:29 / 修改时间：21:46:32" itemprop="dateCreated datePublished" datetime="2021-04-01T21:45:29+08:00">2021-04-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h3 id="模块（import）"><a href="#模块（import）" class="headerlink" title="模块（import）"></a>模块（import）</h3><p>利用模块可以更加方便的使用Python实现一些功能<br>a)自定义模块<br>在Pycharm中新建一个Python文件，注意给它的命名最好是英文，否则可能Pycharm不识别。<br>如图所示：新建了一个文件，在其中写下自定义模块的内容<br><img src="https://img-blog.csdnimg.cn/20210401212943284.png" alt="在这里插入图片描述"><br>作用为打招呼<br>然后再新建一个Python文件，这个命名好像没有要求了<br>在第二个文件中输入import + 模块名，例如<br><img src="https://img-blog.csdnimg.cn/20210401213011128.png" alt="在这里插入图片描述"><br>运行即可调用之前写的自定义模块<br><img src="https://img-blog.csdnimg.cn/20210401213037580.png" alt="在这里插入图片描述"><br>也可以进行更改<br><img src="https://img-blog.csdnimg.cn/20210401213058698.png" alt="在这里插入图片描述"><br>运行结果为<br><img src="https://img-blog.csdnimg.cn/20210401213128234.png" alt="在这里插入图片描述"><br>自定义模块和路径查找有关通过</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(sys.path)</span><br></pre></td></tr></table></figure>
+<p> 可以看等等<br>b)第三方模块<br>安装：文件–设置–如图所示，点+号，搜索库<br><img src="https://img-blog.csdnimg.cn/20210401213227648.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210401213346162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>安装，<br>即可看到<br><img src="https://img-blog.csdnimg.cn/20210401213410283.png" alt="在这里插入图片描述">安装成功<br>可能会遇到的问题：</p>
+<ul>
+<li>如，可能会发现没有pip，那么，如上下载pip就可以</li>
+<li>如，可能会发现搜不到库，这是因为源的问题，可能是网络限制了，方法是在“Manage<br>Repositories”中，修改数据来源，默认的是“<a target="_blank" rel="noopener" href="https://pypi.python.org/simple%E2%80%9D%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E5%B0%86%E5%85%B6%E6%9B%BF%E6%8D%A2%E4%B8%BA%E5%A6%82%E4%B8%8B%E7%9A%84%E5%87%A0%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90%EF%BC%8C%E8%BF%99%E4%BA%9B%E9%83%BD%E6%98%AF%E5%9B%BD%E5%86%85%E7%9A%84pip%E9%95%9C%E5%83%8F%EF%BC%9A">https://pypi.python.org/simple”，我们可将其替换为如下的几个数据来源，这些都是国内的pip镜像：</a></li>
+</ul>
+<p>清华：<a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><br>阿里：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a><br>豆瓣：<a target="_blank" rel="noopener" href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a><br>华中理工大学：<a target="_blank" rel="noopener" href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a><br>山东理工大学：<a target="_blank" rel="noopener" href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a><br>中国科学技术大学：<a target="_blank" rel="noopener" href="http://pypi.mirrors.ustc.edu.cn/">http://pypi.mirrors.ustc.edu.cn/</a><br><img src="https://img-blog.csdnimg.cn/20210401213629700.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210401213643907.png" alt="在这里插入图片描述"><br>嗯…当然也许这样也不行，，我挂着校园网就下载不下来，得用实验室的网…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip -V     //在cmd中查看pip是否安装完成和版本</span><br></pre></td></tr></table></figure>
+<p>如果出现了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;pip&#x27;</span> 不是内部或外部命令，也不是可运行的程序</span><br><span class="line">或批处理文件。</span><br></pre></td></tr></table></figure>
+<p>则是因为没有配置环境，找到python目录下的Scripts文件夹，复制路径<br>在环境变量中添加<br><img src="https://img-blog.csdnimg.cn/20210401213750744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后再查即可</p>
+<ul>
+<li>如，搜到了库但是安装不上，出现了如图所示的报错</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Try to run this command <span class="keyword">from</span> the system terminal. </span><br><span class="line">Make sure that you use the correct version of <span class="string">&#x27;pip&#x27;</span> installed <span class="keyword">for</span> your Python interpreter located at</span><br><span class="line"> <span class="string">&#x27;C:\Users\86135\Desktop\Python\python.exe&#x27;</span>.</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210401213845502.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可能因为pip的版本不对<br>我们在cmd中输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m pip show pip</span><br></pre></td></tr></table></figure>
+<p>即会出现<br><img src="https://img-blog.csdnimg.cn/20210401213942598.png" alt="在这里插入图片描述"><br>按照提示操作解决就可以<br><strong>from … import 语句</strong><br>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中，语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> modname <span class="keyword">import</span> name1[, name2[, ... nameN]]</span><br></pre></td></tr></table></figure>
+<p>例如，要导入模块 fibo 的 fib 函数，使用如下语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line">fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></table></figure>
+<p>这个声明不会把整个fibo模块导入到当前的命名空间中，它只会将fibo里的fib函数引入进来。<br>输出base64格式转换过后的字符串（使用pybase64库）（t为待输出的变量值）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(pybase64.b64encode(t.encode(<span class="string">&#x27;utf-8&#x27;</span>)))</span><br></pre></td></tr></table></figure>
+<h3 id="PY3的输入输出"><a href="#PY3的输入输出" class="headerlink" title="PY3的输入输出"></a>PY3的输入输出</h3><p>Python两种输出值的方式: 表达式语句和 print() 函数。<br>第三种方式是使用文件对象的 write() 方法，标准输出文件可以用 sys.stdout 引用。<br>如果你希望输出的形式更加多样，可以使用 str.format() 函数来格式化输出值。<br>如果你希望将输出的值转成字符串，可以使用 repr() 或 str() 函数来实现。</p>
+<ul>
+<li>str()： 函数返回一个用户易读的表达形式。</li>
+<li>repr()： 产生一个解释器易读的表达形式。<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3>a)Python eval() 函数<br>eval() 函数用来执行一个字符串表达式，并返回表达式的值。<br>以下是 eval() 方法的语法:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(expression[, <span class="built_in">globals</span>[, <span class="built_in">locals</span>]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>expression – 表达式。</li>
+<li>globals – 变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。</li>
+<li>locals – 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。</li>
+</ul>
+<p>返回表达式计算结果。<br>以下展示了使用 eval() 方法的实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">7</span></span><br><span class="line"><span class="built_in">eval</span>( <span class="string">&#x27;3 * x&#x27;</span> )</span><br><span class="line"><span class="number">21</span></span><br></pre></td></tr></table></figure>
+<p>b)Python format 格式化函数<br>Python2.6 开始，新增了一种格式化字符串的函数 str.format()，它增强了字符串格式化的功能。<br>基本语法是通过 {} 和 : 来代替以前的 % 。<br>format 函数可以接受不限个参数，位置可以不按顺序。<br>实例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="string">&quot;&#123;&#125; &#123;&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>)    <span class="comment"># 不设置指定位置，按默认顺序</span></span><br><span class="line"><span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;&#123;0&#125; &#123;1&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>)  <span class="comment"># 设置指定位置</span></span><br><span class="line"><span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;&#123;1&#125; &#123;0&#125; &#123;1&#125;&quot;</span>.<span class="built_in">format</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>)  <span class="comment"># 设置指定位置</span></span><br><span class="line"><span class="string">&#x27;world hello world&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>C)Python异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入一个数字: &quot;</span>))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        print(<span class="string">&quot;您输入的不是数字，请再次尝试输入！&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        num=<span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;请输入一个数字：&#x27;</span>))</span><br><span class="line">        <span class="keyword">if</span> num==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">&#x27;输入的数字是零&#x27;</span>)</span><br><span class="line">        <span class="keyword">elif</span> num&gt;<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">&#x27;输入的数字是正数&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">&#x27;输入的数字是负数&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        print(<span class="string">&#x27;输入无效，需要输入一个数字&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>d)Python ASCII码与字符相互转换<br>以下代码用于实现ASCII码与字符相互转换：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Filename : test.py</span></span><br><span class="line"><span class="comment"># author by : www.runoob.com</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 用户输入字符</span></span><br><span class="line">c = <span class="built_in">input</span>(<span class="string">&quot;请输入一个字符: &quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 用户输入ASCII码，并将输入的数字转为整型</span></span><br><span class="line">a = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入一个ASCII码: &quot;</span>))</span><br><span class="line"> </span><br><span class="line">print( c + <span class="string">&quot; 的ASCII 码为&quot;</span>, <span class="built_in">ord</span>(c))</span><br><span class="line">print( a , <span class="string">&quot; 对应的字符为&quot;</span>, <span class="built_in">chr</span>(a))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行以上代码输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python3 test.py </span><br><span class="line">请输入一个字符: a</span><br><span class="line">请输入一个ASCII码: <span class="number">101</span></span><br><span class="line">a 的ASCII 码为 <span class="number">97</span></span><br><span class="line"><span class="number">101</span>  对应的字符为 e</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/01/Python-02Start/" rel="prev" title="Python-02Start">
+      <i class="fa fa-chevron-left"></i> Python-02Start
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%EF%BC%88import%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">模块（import）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PY3%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">PY3的输入输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">内置函数</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
