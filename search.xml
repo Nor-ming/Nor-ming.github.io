@@ -744,4 +744,38 @@
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Python-02Start</title>
+    <url>/2021/04/01/Python-02Start/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>学习资料来自于菜鸟教程，做个学习记录<br>1）if 语句<br>Python中if语句的一般形式如下所示：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> condition_1:</span><br><span class="line">    statement_block_1</span><br><span class="line"><span class="keyword">elif</span> condition_2:</span><br><span class="line">    statement_block_2</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    statement_block_3</span><br></pre></td></tr></table></figure>
+<p>2）while 循环<br>Python 中 while 语句的一般形式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> 判断条件(condition)：</span><br><span class="line">    执行语句(statements)……</span><br></pre></td></tr></table></figure>
+<p>在 Python 中没有 do..while 循环。<br>3）while 循环使用 else 语句<br>在 while … else 在条件语句为 false 时执行 else 的语句块。<br>语法格式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> &lt;expr&gt;:</span><br><span class="line">    &lt;statement(s)&gt;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    &lt;additional_statement(s)&gt;</span><br></pre></td></tr></table></figure>
+<p>4）for 语句<br>Python for循环可以遍历任何序列的项目，如一个列表或者一个字符串。<br>for循环的一般格式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> &lt;variable&gt; <span class="keyword">in</span> &lt;sequence&gt;:</span><br><span class="line">    &lt;statements&gt;</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    &lt;statements&gt;</span><br></pre></td></tr></table></figure>
+<p>5）range()函数<br>如果需要遍历数字序列，可以使用内置range()函数。它会生成数列。<br>可以结合range()和len()函数以遍历一个序列的索引,如下所示:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = [<span class="string">&#x27;Google&#x27;</span>, <span class="string">&#x27;Baidu&#x27;</span>, <span class="string">&#x27;Runoob&#x27;</span>, <span class="string">&#x27;Taobao&#x27;</span>, <span class="string">&#x27;QQ&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">     print(i, a[i])</span><br><span class="line"> </span><br><span class="line"><span class="number">0</span> Google</span><br><span class="line"><span class="number">1</span> Baidu</span><br><span class="line"><span class="number">2</span> Runoob</span><br><span class="line"><span class="number">3</span> Taobao</span><br><span class="line"><span class="number">4</span> QQ</span><br></pre></td></tr></table></figure>
+<p>6）break和while<br>break 语句可以跳出 for 和 while 的循环体。如果你从 for 或 while 循环中终止，任何对应的循环 else 块将不执行。<br>continue 语句被用来告诉 Python 跳过当前循环块中的剩余语句，然后继续进行下一轮循环。<br>while 中使用 break：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">5</span></span><br><span class="line"><span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">    n -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    print(n)</span><br><span class="line">print(<span class="string">&#x27;循环结束。&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">循环结束。</span><br></pre></td></tr></table></figure>
+<p>while 中使用 continue：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">5</span></span><br><span class="line"><span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">    n -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    print(n)</span><br><span class="line">print(<span class="string">&#x27;循环结束。&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">循环结束。</span><br></pre></td></tr></table></figure>
+<p>7）函数<br>Python 定义函数使用 def 关键字，一般格式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> 函数名（参数列表）:</span></span><br><span class="line">    函数体</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 计算面积函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">area</span>(<span class="params">width, height</span>):</span></span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_welcome</span>(<span class="params">name</span>):</span></span><br><span class="line">    print(<span class="string">&quot;Welcome&quot;</span>, name)</span><br><span class="line"> </span><br><span class="line">print_welcome(<span class="string">&quot;Runoob&quot;</span>)</span><br><span class="line">w = <span class="number">4</span></span><br><span class="line">h = <span class="number">5</span></span><br><span class="line">print(<span class="string">&quot;width =&quot;</span>, w, <span class="string">&quot; height =&quot;</span>, h, <span class="string">&quot; area =&quot;</span>, area(w, h))</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
