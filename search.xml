@@ -838,7 +838,7 @@
       </tags>
   </entry>
   <entry>
-    <title>安恒笔记-逆向工程（01基础介绍）</title>
+    <title>调试HELLO,WORLD-小端序标记法</title>
     <url>/2021/04/04/%E8%B0%83%E8%AF%95HELLO,WORLD-%E5%B0%8F%E7%AB%AF%E5%BA%8F%E6%A0%87%E8%AE%B0%E6%B3%95/</url>
     <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
 <p>逆向分析代码，一般先静态分析收集代码相关信息，通过收集到的信息推测程序的结构与行为机，然后动态。动静结合。</p>
@@ -846,6 +846,24 @@
 <h2 id="小端序标记法"><a href="#小端序标记法" class="headerlink" title="小端序标记法"></a>小端序标记法</h2><p>字节序：多字节数据在计算机内存中存储或网络传输时各字节的存储顺序。</p>
 <p>分类：<br>大端序：内存地址低位存储数据的高位，内存地址高位存储数据的低位。<br>小端序：内存地址低位存储数据的低位，内存地址高位存储数据的高位。<br><img src="https://img-blog.csdnimg.cn/20210404093045241.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210404091909662.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20210404095202260.png" alt="在这里插入图片描述"><br>数据为单一字节时，字节存储顺序不受影响，多字节数据会导致存储顺序不同，字符串被保存在一个字符数组中，字符数组在内存中是连续的，此时向字符数组存放数据，无论大端序还是小端序，存储顺序都相同。</p>
 <p>应用：<br>大端序：UNIX服务器的RISC系列CPU、网络协议<br>小端序：X86CPU（Windows逆向分析必须掌握）</p>
+]]></content>
+      <categories>
+        <category>逆向学习笔记</category>
+      </categories>
+      <tags>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈-栈帧</title>
+    <url>/2021/04/04/%E6%A0%88-%E6%A0%88%E5%B8%A7/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈：一种由高地址向低地址扩展的数据结构<br><img src="https://img-blog.csdnimg.cn/20210404101239647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>作用：<br>1.暂时保存函数内的局部变量<br>2.调用函数时传递参数<br>3.保存函数返回后的地址</p>
+<p>先进后出原则<br>一个进程中，栈顶指针(ESP)初始状态指向栈底端，执行PUSH将数据压入栈，栈顶指针就会上移到栈顶端，若栈为空，则栈顶指针重新移动到栈底端。<br>EBP：存放栈底地址</p>
+<p>向栈中压入数据时，栈顶指针减小，向低地址移动；弹出数据时，栈顶指针增加，向高地址移动。</p>
+<h2 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h2><p>栈帧就是利用EBP（栈帧指针）寄存器访问栈内局部变量、参数、函数返回地址等的手段。</p>
+<p>因为ESP的值一直在变化，使用ESP为基准很难指引CPU找到准确的地址，所以，先把用作基准点（函数起始地址）的ESP值保存到EBP，并维持在函数内部，这样可以很好的管理函数调用。</p>
+<p>参数入栈的顺序和C语言源码中参数入栈的顺序是相反的，这叫做函数参数的逆向存储。</p>
 ]]></content>
       <categories>
         <category>逆向学习笔记</category>
