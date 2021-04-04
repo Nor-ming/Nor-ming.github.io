@@ -837,4 +837,21 @@
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>安恒笔记-逆向工程（01基础介绍）</title>
+    <url>/2021/04/04/%E8%B0%83%E8%AF%95HELLO,WORLD-%E5%B0%8F%E7%AB%AF%E5%BA%8F%E6%A0%87%E8%AE%B0%E6%B3%95/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>逆向分析代码，一般先静态分析收集代码相关信息，通过收集到的信息推测程序的结构与行为机，然后动态。动静结合。</p>
+<h2 id="调试hello，world"><a href="#调试hello，world" class="headerlink" title="调试hello，world"></a>调试hello，world</h2><p>我们需要编写一个可执行文件：hello.exe<br>如图，当在编译器中写好程序后（VS2010）<br><img src="https://img-blog.csdnimg.cn/20210404091251497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">按照如图操作，relsease模式将.cpp文件生成.exe，然后点“生成”-&gt;”生成hello”即可，然后我们将这个程序拖进OD（注意不要将程序窗口关掉，最小化即可，否则会造成程序进程结束无法单步调试）<br><img src="https://img-blog.csdnimg.cn/20210404091350818.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20210404091407876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>调试器停止的地方为程序执行的起始地址即EP（Entry Point入口点）</p>
+<h2 id="小端序标记法"><a href="#小端序标记法" class="headerlink" title="小端序标记法"></a>小端序标记法</h2><p>字节序：多字节数据在计算机内存中存储或网络传输时各字节的存储顺序。</p>
+<p>分类：<br>大端序：内存地址低位存储数据的高位，内存地址高位存储数据的低位。<br>小端序：内存地址低位存储数据的低位，内存地址高位存储数据的高位。<br><img src="https://img-blog.csdnimg.cn/20210404093045241.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210404091909662.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20210404095202260.png" alt="在这里插入图片描述"><br>数据为单一字节时，字节存储顺序不受影响，多字节数据会导致存储顺序不同，字符串被保存在一个字符数组中，字符数组在内存中是连续的，此时向字符数组存放数据，无论大端序还是小端序，存储顺序都相同。</p>
+<p>应用：<br>大端序：UNIX服务器的RISC系列CPU、网络协议<br>小端序：X86CPU（Windows逆向分析必须掌握）</p>
+]]></content>
+      <categories>
+        <category>逆向学习笔记</category>
+      </categories>
+      <tags>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
 </search>
