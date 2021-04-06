@@ -896,4 +896,19 @@
         <tag>逆向</tag>
       </tags>
   </entry>
+  <entry>
+    <title>虎符杯-逆向-redemption_code</title>
+    <url>/2021/04/06/%E8%99%8E%E7%AC%A6%E6%9D%AF-%E9%80%86%E5%90%91-redemption_code/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape><br>早上洗了一早上衣服突然想起虎符杯的事情，匆匆开了电脑啥也没接出来，对着大佬的WP复现。<br>S1lenc3师傅带带我~~</p>
+<p>无壳，32位<br>MIPS的，使用ida7.5打开<br>ctrl+f搜索main，跳转到主函数F5反编译查看<br><img src="https://img-blog.csdnimg.cn/20210406145321730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">这有个判断函数，后面v10等于7有提到flag<br>看看函数<code>server_check_redemption_code()</code><br><img src="https://img-blog.csdnimg.cn/20210406145548354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>最后写着<code>return k - v10 + 1;</code><br>那说明v10(新）==k - v10（旧） + 1;<br>v10（新）==7已经知道，现在需要找的是v10（旧）和k<br>还是看函数<code>server_check_redemption_code()</code><br>跟着v10发现v10=v3,v3又是a2的长度，a2来自传参<br><img src="https://img-blog.csdnimg.cn/2021040615042647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>回到main函数看<br>a2对应的是v14，v14来自v11,v11又经过了<code>pre()</code>函数的处理<br>看看<code>pre();</code><br><img src="https://img-blog.csdnimg.cn/20210406151905296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>有一个判断，输入的字符串长度为0xE（14），然后v10和a1有关，，所以知道v10（旧）=14，那么k就是20了，然后发现又调用了函数<code>server_check_redemption_code()</code>，并且还写到了v9，所以可以知道取了字符串<code>Ninja Must Die 3 Is A Cruel Game, So Hard For Me</code>的前14位<br>也就是<code>Ninja Must Die</code><br>我们发现从main函数调用的函数<code>server_check_redemption_code()</code>还有一个v13没有看<br><img src="https://img-blog.csdnimg.cn/20210406153127783.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>顺着看过去发现了字符串<code>I Love Ninja Must Die 3. Beautiful Art And Motive Operation Is Creative.</code><br>作为a1传过去，发现最后有一个检查v7和a1的第二十位是不是一样的<br><img src="https://img-blog.csdnimg.cn/20210406154048244.png" alt="在这里插入图片描述"><br>发现字符串<code>I Love Ninja Must Die 3. Beautiful Art And Motive Operation Is Creative.</code>的第二十位和<code>Ninja Must Die</code>的第十四位都是e</p>
+<p>所以 flag是：flag{Ninja Must Die}</p>
+]]></content>
+      <categories>
+        <category>逆向学习笔记</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
 </search>

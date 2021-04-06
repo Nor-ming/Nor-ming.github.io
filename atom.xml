@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-04-04T12:49:40.501Z</updated>
+  <updated>2021-04-06T07:58:19.131Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>虎符杯-逆向-redemption_code</title>
+    <link href="http://example.com/2021/04/06/%E8%99%8E%E7%AC%A6%E6%9D%AF-%E9%80%86%E5%90%91-redemption_code/"/>
+    <id>http://example.com/2021/04/06/%E8%99%8E%E7%AC%A6%E6%9D%AF-%E9%80%86%E5%90%91-redemption_code/</id>
+    <published>2021-04-06T07:52:29.315Z</published>
+    <updated>2021-04-06T07:58:19.131Z</updated>
+    
+    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape><br>早上洗了一早上衣服突然想起虎符杯的事情，匆匆开了电脑啥也没接出来，对着大佬的WP复现。<br>S1lenc3师傅带带我~~</p><p>无壳，32位<br>MIPS的，使用ida7.5打开<br>ctrl+f搜索main，跳转到主函数F5反编译查看<br><img src="https://img-blog.csdnimg.cn/20210406145321730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">这有个判断函数，后面v10等于7有提到flag<br>看看函数<code>server_check_redemption_code()</code><br><img src="https://img-blog.csdnimg.cn/20210406145548354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>最后写着<code>return k - v10 + 1;</code><br>那说明v10(新）==k - v10（旧） + 1;<br>v10（新）==7已经知道，现在需要找的是v10（旧）和k<br>还是看函数<code>server_check_redemption_code()</code><br>跟着v10发现v10=v3,v3又是a2的长度，a2来自传参<br><img src="https://img-blog.csdnimg.cn/2021040615042647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>回到main函数看<br>a2对应的是v14，v14来自v11,v11又经过了<code>pre()</code>函数的处理<br>看看<code>pre();</code><br><img src="https://img-blog.csdnimg.cn/20210406151905296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>有一个判断，输入的字符串长度为0xE（14），然后v10和a1有关，，所以知道v10（旧）=14，那么k就是20了，然后发现又调用了函数<code>server_check_redemption_code()</code>，并且还写到了v9，所以可以知道取了字符串<code>Ninja Must Die 3 Is A Cruel Game, So Hard For Me</code>的前14位<br>也就是<code>Ninja Must Die</code><br>我们发现从main函数调用的函数<code>server_check_redemption_code()</code>还有一个v13没有看<br><img src="https://img-blog.csdnimg.cn/20210406153127783.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>顺着看过去发现了字符串<code>I Love Ninja Must Die 3. Beautiful Art And Motive Operation Is Creative.</code><br>作为a1传过去，发现最后有一个检查v7和a1的第二十位是不是一样的<br><img src="https://img-blog.csdnimg.cn/20210406154048244.png" alt="在这里插入图片描述"><br>发现字符串<code>I Love Ninja Must Die 3. Beautiful Art And Motive Operation Is Creative.</code>的第二十位和<code>Ninja Must Die</code>的第十四位都是e</p><p>所以 flag是：flag{Ninja Must Die}</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
+    
+    
+    
+    <category term="逆向学习笔记" scheme="http://example.com/categories/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    
+    <category term="逆向" scheme="http://example.com/tags/%E9%80%86%E5%90%91/"/>
+    
+  </entry>
   
   <entry>
     <title>函数调用约定</title>
@@ -422,27 +445,6 @@
     
     
     <category term="工具使用" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>给Ubuntu安装vmtools</title>
-    <link href="http://example.com/2021/02/07/%E7%BB%99Ubuntu%E5%AE%89%E8%A3%85vmtools/"/>
-    <id>http://example.com/2021/02/07/%E7%BB%99Ubuntu%E5%AE%89%E8%A3%85vmtools/</id>
-    <published>2021-02-07T04:37:16.070Z</published>
-    <updated>2021-02-07T08:21:25.980Z</updated>
-    
-    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p>之前安装ubuntu的时候没有安装vmtools，本周补安装<br> 打开ubuntu发现安装VMtools的小条变成了灰色点不了（应该是因为用的汉化版VNware）<br><img src="https://img-blog.csdnimg.cn/2020100111135071.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>解决办法：<br>1.关闭虚拟机；<br>2.在虚拟机设置分别设置CD/DVD、CD/DVD2、软盘为自动检测；<br>3.再重启虚拟机，灰色字即点亮。<br><img src="https://img-blog.csdnimg.cn/2020100111145969.png#pic_center" alt="在这里插入图片描述"><br>可能会造成打开的时候有问题，没关系，重复开几次一直OK就可以了<br>然后再打开就发现可以<br>点击虚拟机菜单栏中的【虚拟机】–&gt;【安装VMware Tools】<br>然后就出现了<br><img src="https://img-blog.csdnimg.cn/20201001111556538.png#pic_center" alt="在这里插入图片描述"><br>接下来把VMwareTools…tar.gz文件提取（不要点成复制了）到某个新建的目录下，比如myfile目录下：<br><img src="https://img-blog.csdnimg.cn/20201001111714526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>大概是这样，找的网图。<br>启动终端，然后切换到root用户（切换命令为：sudo su，回车然后会提示你输入当前登录用户的密码，输入成功后即可进入root用户）。<br>以root用户进入到刚刚提取到的vmware-tools-distrib文件夹下，然后输入命令：./vmware-install.pl，然后回车。<br>可能会出现报错：Unable to excute “/usr/bin/vmware-uninstall-tools.pl<br>主要原因是：usr/bin目录下没有vmware-uninstall-tools.pl<br>解决方案：<br>进入vmtools的文件解压目录，然后进入bin目录下将vmware-uninstall-tools.pl复制到usr/bin目录下<br>需要输入的命令分别有：<br>cd /opt<br>cd vmware-tools-distrib/<br>cd bin<br>cp vmware-uninstall-tools.pl /usr/bin<br>这样就没问题了，可以继续执行这部分的操作，附上网图，自己的终端被关了…<br><img src="https://img-blog.csdnimg.cn/20201001111811453.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>上面的操作后就开始安装VMware Tools了，根据其提示输入yes/no，直到出现Enjoy, –the VMware team如下图，就表示安装成功了，然后手动重启虚拟机<br><img src="https://img-blog.csdnimg.cn/20201001111836262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>在这一步中也可能会出现问题，那是因为之前可能安装过vwtools但是没有成功，一般不用管重复这一步的命令然后按照它[]中提示的操作就可以了，非常傻瓜式的操作但是我喜欢。<br>重启虚拟机之后可以看到变成了<br><img src="https://img-blog.csdnimg.cn/20201001111859849.png#pic_center" alt="在这里插入图片描述"></p><p>到此<br>完成！！</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="Ubuntu" scheme="http://example.com/tags/Ubuntu/"/>
     
   </entry>
   
