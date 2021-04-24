@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="PE文件格式（一）">
+<meta property="og:url" content="http://example.com/2021/04/24/PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210406165312595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210407210655269.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408170940179.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408212456672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408212910478.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408213526301.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408221120863.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408215212163.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408215222384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422205731747.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422210107908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422210501808.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408220816511.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210408220833142.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210424160851386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210420102314423.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210420104158828.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422205442410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422205239614.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210420161828101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210420161856257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210424163524984.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210420172736904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021042416142992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210422201929436.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210424160357815.png">
+<meta property="article:published_time" content="2021-04-24T08:39:29.579Z">
+<meta property="article:modified_time" content="2021-04-24T08:44:16.312Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210406165312595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/04/24/PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PE文件格式（一） | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/24/PE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PE文件格式（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-24 16:39:29 / 修改时间：16:44:16" itemprop="dateCreated datePublished" datetime="2021-04-24T16:39:29+08:00">2021-04-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">逆向学习笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PE文件是Windows操作系统下使用的可执行文件格式<br>PE文件指的是32位的可执行文件，也称作PE32；64位的可执行文件称作PE+或PE32+<em>（注意不是PE64）</em>，这是PE文件的一种扩展形式。</p>
+<p><strong>PE文件种类</strong><br>可执行系列：EXE、SCR<br>驱动程序系列：SYS、VXD<br>库系列：DLL、OCX、CPL、DRV<br>对象文件系列：OBJ</p>
+<p>除了OBJ之外的文件都是可执行的，有些虽然不能直接在Shell（Explorer.exe)中运行，但是可以使用调试器等来运行。不过，根据PE文件规范，OBJ也是做是PE文件 （虽然它确实是文件本身不能以任何形式执行）。</p>
+<p>由于文件运行的所以信息，诸如如何加载到内存，何处开始运行以及运行中需要的DLL和多大的堆栈内存等都以结构体的形式存储在PE头中，故而，<strong>学习PE文件格式就是学习PE头中的结构体。</strong></p>
+<p><strong>PE文件基本结构</strong><br>从DOS头到节区头（Section header）是PE头部分，其下的节区合称PE体。</p>
+<p>文件中使用偏移（offset），内存中使用虚拟地址（VA）来表示位置。</p>
+<p>文件的内容一般可以分为代码（.text）、数据（.data）、资源（.rsrc）节，分别保存。各个节区头定义了各节区在文件或内存中的大小、位置、属性等等。</p>
+<p>PE头与各节区的尾部存在NULL填充，因为文件/内存中节区的起始位置应该在各文件/内存最小单位的倍数位置上，空白区域将用NULL填充。<br><img src="https://img-blog.csdnimg.cn/20210406165312595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>VA&amp;RVA</strong><br>VA指的是进程虚拟内存的绝对地址，RVA（相对虚拟地址）指的是从某个基准位置（ImageBase）开始的相对地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RVA+ImageBase&#x3D;VA</span><br></pre></td></tr></table></figure>
+<p>PE头内部信息大多是以RVA形式存在，因为重定位的原因。</p>
+<h2 id="PE头"><a href="#PE头" class="headerlink" title="PE头"></a>PE头</h2><h3 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h3><p>PE头的最前面添加了一个<code>IMAGE_DOS_HEADER</code>结构体，用来扩展已有的DOS EXE头<br><img src="https://img-blog.csdnimg.cn/20210407210655269.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>IMAGE_DOS_HEADER结构体的大小为40个字节，结构体中有两个重要成员<br><code>e_magic</code>:DOS签名（4D5A–&gt;ASCII值“MZ”）<br><code>e_lfanew</code>:指示NT头的偏移（根据不同文件拥有可变值）</p>
+<p>我们把记事本拖进WinHEX看一看<br><img src="https://img-blog.csdnimg.cn/20210408170940179.png" alt="在这里插入图片描述"><br>64字节（共4行）的DOS头，第一个成员两个字节是可执行文件的标志信息；最后一个成员4字节是PE头的偏移地址为000000F8H，我们可以根据000000F8H来获取PE头的地址。<br>可见开头的e_magic：MZ，以及e_lfanew的值为000000F8（因为Intel系列的CPU以逆序存储数据，小端序）</p>
+<p>这里说一下为什么MZ没有倒着读<br>再写PE文件查看器的时候，根据Windows的宏定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IMAGE_DOS_SIGNATURE = <span class="number">0x5A4D</span></span><br></pre></td></tr></table></figure>
+<p>所以查看的时候自己倒过来了成了4D 5A，故而我们直接读MZ作为标志就行了</p>
+<h3 id="DOS存根"><a href="#DOS存根" class="headerlink" title="DOS存根"></a>DOS存根</h3><p>DOS存根在DOS头下方，是个可选项，即使没有，文件也能够运行，它的大小不固定<br><img src="https://img-blog.csdnimg.cn/20210408212456672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以利用DOSBOX运行这段-u查看汇编指令<br><img src="https://img-blog.csdnimg.cn/20210408212910478.png" alt="在这里插入图片描述"></p>
+<h3 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h3><p>NT头IMAGE_NT_HEADERS<br><img src="https://img-blog.csdnimg.cn/20210408213526301.png" alt="在这里插入图片描述"><br>这个结构体由3个成员组成，第一个是签名，值为50450000H（“PE”00），另外两个分别是文件头和可选头<br><img src="https://img-blog.csdnimg.cn/20210408221120863.png" alt="在这里插入图片描述"><br>IMAGE_NT_HEADERS结构体大小为F8</p>
+<h4 id="文件头"><a href="#文件头" class="headerlink" title="文件头"></a>文件头</h4><p>文件头是表现文件大致属性的IMAGE_FILE_HEADER结构体<br>它有4类重要成员，如果它们设置的不正确，将导致文件无法正常运行<br>包括PE头在内的24个字节</p>
+<p><strong>Machine</strong><br>每个CPU都有唯一的Machine码，不同的表示可以运行在什么样的CPU上<br>兼容32位Intel  x86  的是14C x64:8664<br><a target="_blank" rel="noopener" href="https://roov.org/2010/03/ia64-x86-64/">关于CPU型号的疑惑看这里</a><br><img src="https://img-blog.csdnimg.cn/20210408215212163.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210408215222384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>64位 winhex 打开如下图为 8664，即为 x64程序。<br><img src="https://img-blog.csdnimg.cn/20210422205731747.png" alt="在这里插入图片描述"><br><strong>NumberOfEsctions</strong><br>NumberOfEsctions指文件中存在的节区数量，也就是节表中的项数。该值一定要大于0，且当定义的节区数与实际不符时，将发生运行错误。</p>
+<p>值为 0070，代表有 7 个节表<br><img src="https://img-blog.csdnimg.cn/20210422210107908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>SizeOfOptionalHeader</strong><br>SizeOfOptionalHeader用来指出<code>IMAGE_OPTIONAL_HEADER32</code>结构体的长度。PE装载器需要查看SizeOfOptionalHeader的值，从而识别<code>IMAGE_OPTIONAL_HEADER32</code>结构体的大小。<br>PE32+格式文件中使用的是<code>IMAGE_OPTIONAL_HEADER64</code>结构体，这两个结构体尺寸是不相同的，所以需要在SizeOfOptionalHeader中指明大小。<br>借助DOS头中的e_lfanew和文件头中的SizeOfOptionalHeader可以创建一种脱离常规的PE文件（PE Patch）</p>
+<p>00f0 ,即为64位程序。<br><img src="https://img-blog.csdnimg.cn/20210422210501808.png" alt="在这里插入图片描述"><br>若为32位，则是00E0<br><strong>Characteristics</strong><br>该段用于标识文件的属性，文件是否是可运行的状态，是否为DLL文件等信息。<br><img src="https://img-blog.csdnimg.cn/20210408220816511.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210408220833142.png" alt="在这里插入图片描述"><br><strong>TimeDateStamp</strong><br>这个成员不影响文件的运行，是用来记录编译器创建文件的时间的。</p>
+<h4 id="可选头"><a href="#可选头" class="headerlink" title="可选头"></a>可选头</h4><p>IMAGE_OPTIONAL_HEADER32是PE头结构体中最大的<br>需要关注下列成员，这些值是文件运行必需的，设置错误将导致程序无法正常运行。<br>文件头往后224个字节（.text之前）<br>最后一个成员是16个结构体数组，每个宽度8字节<br><img src="https://img-blog.csdnimg.cn/20210424160851386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>Magic</strong><br>为IMAGE_OPTIONAL_HEADER32时，magic码为10B，为IMAGE_OPTIONAL_HEADER64时，magic码为20B</p>
+<p><strong>AddressOfEntryPoint</strong><br>AddressOfEntryPoint持有EP的RVA值。该值指出程序最先执行的代码起始地址。</p>
+<p><strong>ImageBase</strong><br>一般来说，使用开发工具创建好EXE文件后，其ImageBase值为00400000，DLL文件的ImageBase值为10000000（也可以指定其他值）。<br>执行PE文件时，PE装载器先创建进程，再将文件载入内存，然后把EIP寄存器的值设置为ImageBase+AddressOfEntryPoint</p>
+<p><strong>SectionAlignment，FileAlignment</strong><br>PE文件的Body部分被划分成若干节段，这些节段储存着不同类别的数据。<br>FileAlignment指定了节区在磁盘文件中的最小单位，而SectionAlignment则指定了节区在内存中的最小单位（SectionAlignment必须大于或者等于FileAlignment）<br>磁盘文件或者内存的节区带下必定是FileAlignment或SectionAlignment值的整数倍。</p>
+<p><strong>SizeOfImage</strong><br>当PE文件加载到内存时，SizeOfImage指定了PE Image在虚拟内存中所占用的空间大小，一般文件大小与加载到内存中的大小是不同的（节段头中定义了各节装载的位置与占有内存的大小）</p>
+<p><strong>SizeOfHeader</strong><br>SizeOfHeader用来指出整个PE头大小。该值必须是FileAlignment的整数倍。第一节段所在位置与SizeOfHeader距文件开始偏移的量相同。</p>
+<p><strong>Subsystem</strong><br>用来区分系统驱动文件<code>（*.sys）</code>与普通的可执行文件<code>(*.exe,*.dll)</code><br><img src="https://img-blog.csdnimg.cn/20210420102314423.png" alt="在这里插入图片描述"><br><strong>NumberOfRvaAndSizes</strong><br>NumberOfRvaAndSizes用来指定DataDirectory( IMAGE_OPTIONAL_HEADER32结构体的最后一个成员）数组的个数。</p>
+<p><strong>DataDirectory</strong><br>DataDirectory是由IMAGE_DATA_DIRECTORY结构体组成的数组，数组的每项都有被定义的值。将Directory想成某个结构体数组即可。重点关注EXPORT/IMPORT/RESOURCE、TLS Direction。特别需要注意的是IMPORT与EXPORT Directory，它们是PE头中非常重要的部分</p>
+<h3 id="节区头"><a href="#节区头" class="headerlink" title="节区头"></a>节区头</h3><p>节区头中定义了各个节区的属性，PE文件中的code(代码)、data(数据)、resource(资源）等按照属性分类存储在不同节区。把PE文件创建成多个节区结构的好处是，这样可以保证程序的安全性。若把code与data放在一个节区中相互纠缠很容易引发安全问题。</p>
+<p>节区头是由<code>IMAGE_SECTION_HEADER</code>结构体组成的数组，每个结构体对应一个节区。<br><img src="https://img-blog.csdnimg.cn/20210420104158828.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>IMAGE_SECTION_HEADER结构体的重要成员项目</strong><br>virtualSize 内存中节区所占大小<br>VirtualAddress  内存中节区起始地址(RVA)<br>SizcOfRawData  磁盘文件中节区所占大小<br>PointerToRawData  磁盘文件中节区起始位置<br>Charateristics  节区属性(bit OR)</p>
+<p><strong>Name字段：</strong><br>Name成员不像C语言中的字符串一样以NULL结束，并且没有“必须使用ASCII值”的限制。PE规范未明确规定节区的Name，所以可以向其中放入任何值，甚至可以填充NULL值。所以节区的Name仅供参考，不能保证其百分之百地被用作某种信息（数据节区的名称也可叫做.code )。</p>
+<p><strong>映像( Image）：</strong><br>PE文件加载到内存时，文件不会原封不动地加载，而要根据节区头中定义的节区起始地址、节区大小等加载。因此，磁盘文件中的PE与内存中的PE具有不同形态。故而将装载到内存中的形态称为“映像”。<br><img src="https://img-blog.csdnimg.cn/20210422205442410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们可以在WINHEX里面看各个节区头数组，每个大小40字节<br><img src="https://img-blog.csdnimg.cn/20210422205239614.png" alt="在这里插入图片描述"></p>
+<h2 id="RVA-to-RAW（FOA"><a href="#RVA-to-RAW（FOA" class="headerlink" title="RVA to RAW（FOA)"></a>RVA to RAW（FOA)</h2><p>RAW ADRRESS，或者FILE OSSFET ADRRESS，一般称文件偏移</p>
+<p>完成从内存地址到文件偏移之间的映射称为RVA to RAW</p>
+<p>RVA+ImageBase=VA</p>
+<p>计算方法：<br>1.判断 RVA 是否位于 PE 头，如果是 FOA=RVA,</p>
+<p>2.判断 RVA 位于哪个节<br>RVA &gt;= 节.VirtualAddress<br>RVA &lt;= 节.VirtualAddress + 当前内存对齐后的大小</p>
+<p>3.FOA = RVA - 节.VirtualAddress +节.PointerToRawData </p>
+<p>示例题目：<br><img src="https://img-blog.csdnimg.cn/20210420161828101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210420161856257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="IAT（导入地址表）"><a href="#IAT（导入地址表）" class="headerlink" title="IAT（导入地址表）"></a>IAT（导入地址表）</h2><p>IAT是一种表格，用来记录程序正在使用哪些库中的函数<br>导入表的位置可以查看可选头的最后一个成员数组的第二个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[1]）（都是小端序的）<br><img src="https://img-blog.csdnimg.cn/20210424163524984.png" alt="在这里插入图片描述"></p>
+<h3 id="DLL（动态链接库）"><a href="#DLL（动态链接库）" class="headerlink" title="DLL（动态链接库）"></a>DLL（动态链接库）</h3><ul>
+<li>不要把库包含到程序中，单独组成DLL文件，需要时调用即可。</li>
+<li> 内存映射技术使加载后的DLL代码、资源在多个进程中实现共享。</li>
+<li>更新库时只要替换相关DLL文件即可，简便易行。</li>
+</ul>
+<p><strong>加载DLL的方式:</strong><br>“显式链接”(Explicit Linking )，程序使用DLL时加载，使用完毕后释放内存;<br>“隐式链接”( Implicit Linking )，程序开始时即一同加载DLL，程序终止时再释放占用的内存。<br>IAT提供的机制即与隐式链接有关。</p>
+<p><strong>DLL重定位：</strong><br>DLL文件的ImageBase值一般为10000000。比如某个程序使用a.dll与b.dll时，PE装载器先把a.dll装载到内存的10000000( ImageBase)处，然后尝试把b.dl也装载到该处。但是由于该地址处已经装载了a.dl，所以PE装载器查找其他空白的内存空间（ ex:3EO00000 )，然后将b.dll装载进去。这就构成了DLL重定位，它使我们不能对实际地址硬编码<br><em>注：实际操作中无法保证DLL一定会被加载到PE头内指定的ImageBase处。但是EXE文件（生成进程的主体）却能准确加载到自身的ImageBase 中，因为它拥有自己的虚拟空间。</em></p>
+<h3 id="IMAGE-IMPORT-DESCRIPTOR"><a href="#IMAGE-IMPORT-DESCRIPTOR" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR"></a>IMAGE_IMPORT_DESCRIPTOR</h3><p>该结构体记录着PE文件要导入的库文件，它在PE体中，但是查找它的位置的信息在PE头中。<br>执行一个普通程序往往需要导入许多库，导入多少库就存在多少个IMAGE_IMPORT_DESCRIPTOR结构体，这些结构体形成了数组，且最后以NULL结构体结束。<br>20字节，一个union相当于是一个<br><img src="https://img-blog.csdnimg.cn/20210420172736904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中比较重要的成员有：<br>OriginalFirstThunk   INT的地址(RVA)<br>Name   库名称字符串的地址（RVA)<br>FirstThunk   IAT的地址（RVA)</p>
+<p>INT是一个包含导入函数信息（ Ordinal，Name)的结构体指针数组。</p>
+<p>INT与IAT的大小应该相同，都是长整型（4个字节数据类型），以NULL结束</p>
+<h2 id="EAT（导出地址表）"><a href="#EAT（导出地址表）" class="headerlink" title="EAT（导出地址表）"></a>EAT（导出地址表）</h2><p>EAT可以用来求取相应库中导出函数的起始地址的。它记录了导出符号的地址,名称,与序号 (提示:exe文件中很少有导出表的，大多数dll都有导出表，某些存放资源文件的dll就没有导出表)通过结构体IMAGE_EXPORT_DIRECTORY<br><img src="https://img-blog.csdnimg.cn/2021042416142992.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>IMAGE_EXPORT_DIRECTORY中的重要成员（地址都是RVA）<br><img src="https://img-blog.csdnimg.cn/20210422201929436.png" alt="在这里插入图片描述"><br>附：从库中获得函数地址的API为GetProcAddress()函数，这个API函数引用EAT来获取指定API的地址。</p>
+<p><strong>GetProcAddress()操作原理：</strong><br>(1)利用AddressOfNames成员转到“函数名称数组”。<br>(2)“函数名称数组”中存储着字符串地址。通过比较（ strcmp）字符串，查找指定的函数名称（此时数组的索引称为name_index )。<br>(3)利用AddressOfNameOrdinals成员，转到orinal数组。(4)在ordinal数组中通过name_index查找相应ordinal值。<br>(5)利用AddressOfFunctions成员转到“函数地址数组”(EAT )。<br>(6)在“函数地址数组”中将刚刚求得的ordinal用作数组索引，获得指定函数的起始地址。</p>
+<p>一般导出函数均有相应名称，AddressOfNameOrdinals数组的值以index=ordinal的形式存在。但并不是所有的DLL文件都如此。导出函数中也有一些函数没有名称（仅通过ordinal导出)，AddressOfNameOrdinals数组的值为index!=ordinal。所以只有按照上面的顺序才能获得准确的函数地址。</p>
+<p>对于没有函数名称的导出函数，可以通过Ordinal查找到它们的地址。从 Ordinal值中减去IMAGE_EXPORT_DIRECTORY.Base成员后得到一个值，使用该值作为“函敖地址数组”的索引。即可查找到相应函数的地址。</p>
+<p>exe文件往往没有导出表</p>
+<p>导出表的位置可以查看可选头的最后一个成员数组的第一个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[0]）（都是小端序的）<br><img src="https://img-blog.csdnimg.cn/20210424160357815.png" alt="在这里插入图片描述"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>PE规范只是一个标准，文件符合PE规范就是PE文件，有一额很有创意不符合常规的PE文件，我们称之为Patched PE，这也是PE文件，且在逆向当中很重要。总之，多学多练很重要，愿与诸君共勉！！</p>
+<p>参考资料：<br>《逆向工程核心原理》<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18r4y1K7sa?p=1">https://www.bilibili.com/video/BV18r4y1K7sa?p=1</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/06/%E8%99%8E%E7%AC%A6%E6%9D%AF-%E9%80%86%E5%90%91-redemption_code/" rel="prev" title="虎符杯-逆向-redemption_code">
+      <i class="fa fa-chevron-left"></i> 虎符杯-逆向-redemption_code
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E5%A4%B4"><span class="nav-number">2.</span> <span class="nav-text">PE头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOS%E5%A4%B4"><span class="nav-number">2.1.</span> <span class="nav-text">DOS头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOS%E5%AD%98%E6%A0%B9"><span class="nav-number">2.2.</span> <span class="nav-text">DOS存根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NT%E5%A4%B4"><span class="nav-number">2.3.</span> <span class="nav-text">NT头</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-number">2.3.1.</span> <span class="nav-text">文件头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%A4%B4"><span class="nav-number">2.3.2.</span> <span class="nav-text">可选头</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E5%8C%BA%E5%A4%B4"><span class="nav-number">2.4.</span> <span class="nav-text">节区头</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RVA-to-RAW%EF%BC%88FOA"><span class="nav-number">3.</span> <span class="nav-text">RVA to RAW（FOA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IAT%EF%BC%88%E5%AF%BC%E5%85%A5%E5%9C%B0%E5%9D%80%E8%A1%A8%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">IAT（导入地址表）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DLL%EF%BC%88%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">DLL（动态链接库）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IMAGE-IMPORT-DESCRIPTOR"><span class="nav-number">4.2.</span> <span class="nav-text">IMAGE_IMPORT_DESCRIPTOR</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EAT%EF%BC%88%E5%AF%BC%E5%87%BA%E5%9C%B0%E5%9D%80%E8%A1%A8%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">EAT（导出地址表）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
