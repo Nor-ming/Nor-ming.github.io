@@ -936,7 +936,16 @@
 <p><strong>Machine</strong><br>每个CPU都有唯一的Machine码，不同的表示可以运行在什么样的CPU上<br>兼容32位Intel  x86  的是14C x64:8664<br><a href="https://roov.org/2010/03/ia64-x86-64/">关于CPU型号的疑惑看这里</a><br><img src="https://img-blog.csdnimg.cn/20210408215212163.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210408215222384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>64位 winhex 打开如下图为 8664，即为 x64程序。<br><img src="https://img-blog.csdnimg.cn/20210422205731747.png" alt="在这里插入图片描述"><br><strong>NumberOfEsctions</strong><br>NumberOfEsctions指文件中存在的节区数量，也就是节表中的项数。该值一定要大于0，且当定义的节区数与实际不符时，将发生运行错误。</p>
 <p>值为 0070，代表有 7 个节表<br><img src="https://img-blog.csdnimg.cn/20210422210107908.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>SizeOfOptionalHeader</strong><br>SizeOfOptionalHeader用来指出<code>IMAGE_OPTIONAL_HEADER32</code>结构体的长度。PE装载器需要查看SizeOfOptionalHeader的值，从而识别<code>IMAGE_OPTIONAL_HEADER32</code>结构体的大小。<br>PE32+格式文件中使用的是<code>IMAGE_OPTIONAL_HEADER64</code>结构体，这两个结构体尺寸是不相同的，所以需要在SizeOfOptionalHeader中指明大小。<br>借助DOS头中的e_lfanew和文件头中的SizeOfOptionalHeader可以创建一种脱离常规的PE文件（PE Patch）</p>
 <p>00f0 ,即为64位程序。<br><img src="https://img-blog.csdnimg.cn/20210422210501808.png" alt="在这里插入图片描述"><br>若为32位，则是00E0<br><strong>Characteristics</strong><br>该段用于标识文件的属性，文件是否是可运行的状态，是否为DLL文件等信息。<br><img src="https://img-blog.csdnimg.cn/20210408220816511.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210408220833142.png" alt="在这里插入图片描述"><br><strong>TimeDateStamp</strong><br>这个成员不影响文件的运行，是用来记录编译器创建文件的时间的。</p>
-<h4 id="可选头"><a href="#可选头" class="headerlink" title="可选头"></a>可选头</h4><p>IMAGE_OPTIONAL_HEADER32是PE头结构体中最大的<br>需要关注下列成员，这些值是文件运行必需的，设置错误将导致程序无法正常运行。<br>文件头往后224个字节（.text之前）<br>最后一个成员是16个结构体数组，每个宽度8字节<br><img src="https://img-blog.csdnimg.cn/20210424160851386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="可选头"><a href="#可选头" class="headerlink" title="可选头"></a>可选头</h4><p>IMAGE_OPTIONAL_HEADER32是PE头结构体中最大的<br>需要关注下列成员，这些值是文件运行必需的，设置错误将导致程序无法正常运行。<br>文件头往后224个字节（.text之前）<br>最后一个成员是16个结构体数组，每个宽度8字节<br><img src="https://img-blog.csdnimg.cn/20210424160851386.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>导入表的位置可以查看可选头的最后一个成员数组的第二个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[1]）（都是小端序的）</p>
+<p>导出表的位置可以查看可选头的最后一个成员数组的第一个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[0]）（都是小端序的）<br><img src="https://img-blog.csdnimg.cn/20210425210305589.png" alt="在这里插入图片描述"></p>
+<p>这里给一个示例，红色前面是导入表RVA，后面是导入表大小，蓝色表示导出表同理。此处是用WinHex打开的，只是做一个演示，由于WinHex显示的是文件偏移地址，所以上面的数值并不代表RVA</p>
+<p>exe文件往往没有导出表</p>
+<p>我们查看导入导出表以及后面所讲到的IAT可以使用PEiD等工具，非常方便<br><img src="https://img-blog.csdnimg.cn/2021042521085882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>顺便普及一个知识点：<br>文件偏移地址是指数据在PE文件中的地址，是文件在磁盘上存放时相对于文件开头的偏移。文件偏移地址从pe文件的第一个字节开始计数，起始值为0。用十六进制工具（如WINHEX）打开文件所显示的地址就是文件偏移地址。</p>
+<p>IDA Pro虽然是静态反汇编工具，不过出来的是VA。</p>
+<p>装载基址（Image Base）：PE文件装入内存的 基地址。默认情况下，EXE文件的基址为0x00400000，DLL文件的基址为0x10000000。</p>
+<p>虚拟内存地址（VA）：PE文件中的指令被装入内存后的地址，OllyDbg动态反汇编产生。</p>
+<p>相对虚拟地址（RVA）：内存地址相对与映射基址的偏移量。</p>
 <p><strong>Magic</strong><br>为IMAGE_OPTIONAL_HEADER32时，magic码为10B，为IMAGE_OPTIONAL_HEADER64时，magic码为20B</p>
 <p><strong>AddressOfEntryPoint</strong><br>AddressOfEntryPoint持有EP的RVA值。该值指出程序最先执行的代码起始地址。</p>
 <p><strong>ImageBase</strong><br>一般来说，使用开发工具创建好EXE文件后，其ImageBase值为00400000，DLL文件的ImageBase值为10000000（也可以指定其他值）。<br>执行PE文件时，PE装载器先创建进程，再将文件载入内存，然后把EIP寄存器的值设置为ImageBase+AddressOfEntryPoint</p>
@@ -956,7 +965,7 @@
 <p>2.判断 RVA 位于哪个节<br>RVA &gt;= 节.VirtualAddress<br>RVA &lt;= 节.VirtualAddress + 当前内存对齐后的大小</p>
 <p>3.FOA = RVA - 节.VirtualAddress +节.PointerToRawData </p>
 <p>示例题目：<br><img src="https://img-blog.csdnimg.cn/20210420161828101.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210420161856257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="IAT（导入地址表）"><a href="#IAT（导入地址表）" class="headerlink" title="IAT（导入地址表）"></a>IAT（导入地址表）</h2><p>IAT是一种表格，用来记录程序正在使用哪些库中的函数<br>导入表的位置可以查看可选头的最后一个成员数组的第二个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[1]）（都是小端序的）<br><img src="https://img-blog.csdnimg.cn/20210424163524984.png" alt="在这里插入图片描述"></p>
+<h2 id="IAT（导入地址表）"><a href="#IAT（导入地址表）" class="headerlink" title="IAT（导入地址表）"></a>IAT（导入地址表）</h2><p>IAT是一种表格，用来记录程序正在使用哪些库中的函数<br>注意：导入地址表和导入表是两个东西，导出地址表和导出表也是。</p>
 <h3 id="DLL（动态链接库）"><a href="#DLL（动态链接库）" class="headerlink" title="DLL（动态链接库）"></a>DLL（动态链接库）</h3><ul>
 <li>不要把库包含到程序中，单独组成DLL文件，需要时调用即可。</li>
 <li> 内存映射技术使加载后的DLL代码、资源在多个进程中实现共享。</li>
@@ -972,8 +981,6 @@
 <p><strong>GetProcAddress()操作原理：</strong><br>(1)利用AddressOfNames成员转到“函数名称数组”。<br>(2)“函数名称数组”中存储着字符串地址。通过比较（ strcmp）字符串，查找指定的函数名称（此时数组的索引称为name_index )。<br>(3)利用AddressOfNameOrdinals成员，转到orinal数组。(4)在ordinal数组中通过name_index查找相应ordinal值。<br>(5)利用AddressOfFunctions成员转到“函数地址数组”(EAT )。<br>(6)在“函数地址数组”中将刚刚求得的ordinal用作数组索引，获得指定函数的起始地址。</p>
 <p>一般导出函数均有相应名称，AddressOfNameOrdinals数组的值以index=ordinal的形式存在。但并不是所有的DLL文件都如此。导出函数中也有一些函数没有名称（仅通过ordinal导出)，AddressOfNameOrdinals数组的值为index!=ordinal。所以只有按照上面的顺序才能获得准确的函数地址。</p>
 <p>对于没有函数名称的导出函数，可以通过Ordinal查找到它们的地址。从 Ordinal值中减去IMAGE_EXPORT_DIRECTORY.Base成员后得到一个值，使用该值作为“函敖地址数组”的索引。即可查找到相应函数的地址。</p>
-<p>exe文件往往没有导出表</p>
-<p>导出表的位置可以查看可选头的最后一个成员数组的第一个结构体（JIMAGE_OPTIONAL_HEADER32.DataDirectory[0]）（都是小端序的）<br><img src="https://img-blog.csdnimg.cn/20210424160357815.png" alt="在这里插入图片描述"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>PE规范只是一个标准，文件符合PE规范就是PE文件，有一额很有创意不符合常规的PE文件，我们称之为Patched PE，这也是PE文件，且在逆向当中很重要。总之，多学多练很重要，愿与诸君共勉！！</p>
 <p>参考资料：<br>《逆向工程核心原理》<br><a href="https://www.bilibili.com/video/BV18r4y1K7sa?p=1">https://www.bilibili.com/video/BV18r4y1K7sa?p=1</a></p>
 ]]></content>
