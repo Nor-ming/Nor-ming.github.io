@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="2019红帽杯easyRE-ACTF新生赛2020rome-[FlareOn4]login-Youngterdrive">
+<meta property="og:url" content="http://example.com/2021/06/03/2019%E7%BA%A2%E5%B8%BD%E6%9D%AFeasyRE-ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020rome-[FlareOn4]login-Youngterdrive/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602153821792.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602235638257.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603011038491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202106030112157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601200743438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601202029949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601203029493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601204809958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060121331293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601213425335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602111549876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060211165982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602112248690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602111914328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602151817781.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202106021518528.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060211304858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602151920853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602151934509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602152051279.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602152114111.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602152139797.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602112142582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602144619341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602145638478.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210602151002491.png">
+<meta property="article:published_time" content="2021-06-02T17:26:51.770Z">
+<meta property="article:modified_time" content="2021-06-02T17:29:34.155Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210602153821792.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/06/03/2019%E7%BA%A2%E5%B8%BD%E6%9D%AFeasyRE-ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020rome-[FlareOn4]login-Youngterdrive/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2019红帽杯easyRE-ACTF新生赛2020rome-[FlareOn4]login-Youngterdrive | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/2019%E7%BA%A2%E5%B8%BD%E6%9D%AFeasyRE-ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020rome-[FlareOn4]login-Youngterdrive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2019红帽杯easyRE-ACTF新生赛2020rome-[FlareOn4]login-Youngterdrive
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-03 01:26:51 / 修改时间：01:29:34" itemprop="dateCreated datePublished" datetime="2021-06-03T01:26:51+08:00">2021-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BUUCTF/" itemprop="url" rel="index"><span itemprop="name">BUUCTF</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<p>@<a href="BUUCTF">TOC</a></p>
+<h2 id="2019红帽杯-easyRE"><a href="#2019红帽杯-easyRE" class="headerlink" title="[2019红帽杯]easyRE"></a>[2019红帽杯]easyRE</h2><p><img src="https://img-blog.csdnimg.cn/20210602153821792.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>elf文件，ida64打开，感兴趣的同学也可以开Linux系统看一看文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"> v56 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  v14 = <span class="number">73</span>;</span><br><span class="line">  v15 = <span class="number">111</span>;</span><br><span class="line">  v16 = <span class="number">100</span>;</span><br><span class="line">  v17 = <span class="number">108</span>;</span><br><span class="line">  v18 = <span class="number">62</span>;</span><br><span class="line">  v19 = <span class="number">81</span>;</span><br><span class="line">  v20 = <span class="number">110</span>;</span><br><span class="line">  v21 = <span class="number">98</span>;</span><br><span class="line">  v22 = <span class="number">40</span>;</span><br><span class="line">  v23 = <span class="number">111</span>;</span><br><span class="line">  v24 = <span class="number">99</span>;</span><br><span class="line">  v25 = <span class="number">121</span>;</span><br><span class="line">  v26 = <span class="number">127</span>;</span><br><span class="line">  v27 = <span class="number">121</span>;</span><br><span class="line">  v28 = <span class="number">46</span>;</span><br><span class="line">  v29 = <span class="number">105</span>;</span><br><span class="line">  v30 = <span class="number">127</span>;</span><br><span class="line">  v31 = <span class="number">100</span>;</span><br><span class="line">  v32 = <span class="number">96</span>;</span><br><span class="line">  v33 = <span class="number">51</span>;</span><br><span class="line">  v34 = <span class="number">119</span>;</span><br><span class="line">  v35 = <span class="number">125</span>;</span><br><span class="line">  v36 = <span class="number">119</span>;</span><br><span class="line">  v37 = <span class="number">101</span>;</span><br><span class="line">  v38 = <span class="number">107</span>;</span><br><span class="line">  v39 = <span class="number">57</span>;</span><br><span class="line">  v40 = <span class="number">123</span>;</span><br><span class="line">  v41 = <span class="number">105</span>;</span><br><span class="line">  v42 = <span class="number">121</span>;</span><br><span class="line">  v43 = <span class="number">61</span>;</span><br><span class="line">  v44 = <span class="number">126</span>;</span><br><span class="line">  v45 = <span class="number">121</span>;</span><br><span class="line">  v46 = <span class="number">76</span>;</span><br><span class="line">  v47 = <span class="number">64</span>;</span><br><span class="line">  v48 = <span class="number">69</span>;</span><br><span class="line">  v49 = <span class="number">67</span>;</span><br><span class="line">  <span class="built_in">memset</span>(v50, <span class="number">0</span>, <span class="keyword">sizeof</span>(v50));</span><br><span class="line">  v51 = <span class="number">0</span>;</span><br><span class="line">  v52 = <span class="number">0</span>;</span><br><span class="line">  v0 = v50;</span><br><span class="line">  sub_4406E0(<span class="number">0LL</span>, v50, <span class="number">37LL</span>);</span><br><span class="line">  v52 = <span class="number">0</span>;</span><br><span class="line">  v1 = v50;</span><br><span class="line">  <span class="keyword">if</span> ( sub_424BA0(v50) == <span class="number">36</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      v1 = v50;</span><br><span class="line">      <span class="keyword">if</span> ( i &gt;= (<span class="keyword">unsigned</span> __int64)sub_424BA0(v50) )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)(v50[i] ^ i) != *(&amp;v14 + i) )</span><br><span class="line">      &#123;</span><br><span class="line">        result = <span class="number">4294967294LL</span>;</span><br><span class="line">        <span class="keyword">goto</span> LABEL_13;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sub_410CC0((__int64)<span class="string">&quot;continue!&quot;</span>);           <span class="comment">// 第一部分处理</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;v53, <span class="number">0</span>, <span class="number">0x40</span>uLL);</span><br><span class="line">    v55 = <span class="number">0</span>;</span><br><span class="line">    v0 = &amp;v53;</span><br><span class="line">    sub_4406E0(<span class="number">0LL</span>, &amp;v53, <span class="number">64LL</span>);</span><br><span class="line">    v54 = <span class="number">0</span>;</span><br><span class="line">    v1 = &amp;v53;</span><br><span class="line">    <span class="keyword">if</span> ( sub_424BA0(&amp;v53) == <span class="number">39</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v3 = sub_400E44((__int64)&amp;v53);           <span class="comment">// 十次base64处理</span></span><br><span class="line">      v4 = sub_400E44(v3);</span><br><span class="line">      v5 = sub_400E44(v4);</span><br><span class="line">      v6 = sub_400E44(v5);</span><br><span class="line">      v7 = sub_400E44(v6);</span><br><span class="line">      v8 = sub_400E44(v7);</span><br><span class="line">      v9 = sub_400E44(v8);</span><br><span class="line">      v10 = sub_400E44(v9);</span><br><span class="line">      v11 = sub_400E44(v10);</span><br><span class="line">      v12 = sub_400E44(v11);</span><br><span class="line">      v0 = off_6CC090;</span><br><span class="line">      v1 = (<span class="keyword">char</span> *)v12;</span><br><span class="line">      <span class="keyword">if</span> ( !(<span class="keyword">unsigned</span> <span class="keyword">int</span>)sub_400360(v12, off_6CC090) )</span><br><span class="line">      &#123;</span><br><span class="line">        sub_410CC0((__int64)<span class="string">&quot;You found me!!!&quot;</span>);</span><br><span class="line">        v1 = <span class="string">&quot;bye bye~&quot;</span>;</span><br><span class="line">        sub_410CC0((__int64)<span class="string">&quot;bye bye~&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      result = <span class="number">0LL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      result = <span class="number">4294967293LL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    result = <span class="number">0xFFFFFFFF</span>LL;</span><br><span class="line">  &#125;</span><br><span class="line">LABEL_13:</span><br><span class="line">  <span class="keyword">if</span> ( __readfsqword(<span class="number">0x28</span>u) != v56 )</span><br><span class="line">    sub_444020(v1, v0);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一部分的处理是个异或，第二部分打开函数之后发现是base64的运算（10次），而且得到的结果与off_6cc090比较<br>先解出第一部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = [<span class="number">73</span>,<span class="number">111</span>,<span class="number">100</span>,<span class="number">108</span>,<span class="number">62</span>,<span class="number">81</span>,<span class="number">110</span>,<span class="number">98</span>,<span class="number">40</span>,<span class="number">111</span>,<span class="number">99</span>,<span class="number">121</span>,<span class="number">127</span>,<span class="number">121</span>,<span class="number">46</span>,<span class="number">105</span>,<span class="number">127</span>,<span class="number">100</span>,<span class="number">96</span>,<span class="number">51</span>,<span class="number">119</span>,<span class="number">125</span>,<span class="number">119</span>,<span class="number">101</span>,<span class="number">107</span>,<span class="number">57</span>,<span class="number">123</span>,<span class="number">105</span>,<span class="number">121</span>,<span class="number">61</span>,<span class="number">126</span>,<span class="number">121</span>,<span class="number">76</span>,<span class="number">64</span>,<span class="number">69</span>,<span class="number">67</span>]</span><br><span class="line">input1 = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(<span class="built_in">str</span>)):</span><br><span class="line">   input1 += <span class="built_in">chr</span>(<span class="built_in">str</span>[i]^i)</span><br><span class="line">print(input1)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210602235638257.png" alt="在这里插入图片描述"><br>第二部分用在线工具解十次base64，解出来发现是个网站<br><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-254172.htm">https://bbs.pediy.com/thread-254172.htm</a><br>打开发现没有用，是个干扰项<br>看了其他师傅的wp后才知道，在我们base64加密结束后，下面有调用一个sub_400D35的函数<br><img src="https://img-blog.csdnimg.cn/20210603011038491.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>过去看看<br><img src="https://img-blog.csdnimg.cn/202106030112157.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>24行判断第一个和第四个是不是f和g，那就猜测这四个字符是flag。</p>
+<p>然后循环24次做异或操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">num2=[<span class="number">0x40</span>,<span class="number">0x35</span>,<span class="number">0x20</span>,<span class="number">0x56</span>,<span class="number">0x5D</span>,<span class="number">0x18</span>,<span class="number">0x22</span>,<span class="number">0x45</span>,<span class="number">0x17</span>,<span class="number">0x2F</span>,<span class="number">0x24</span>,<span class="number">0x6E</span>,<span class="number">0x62</span>,<span class="number">0x3C</span>,<span class="number">0x27</span>,<span class="number">0x54</span>,<span class="number">0x48</span>,<span class="number">0x6C</span>,<span class="number">0x24</span>,<span class="number">0x6E</span>,<span class="number">0x72</span>,<span class="number">0x3C</span>,<span class="number">0x32</span>,<span class="number">0x45</span>,<span class="number">0x5B</span>]</span><br><span class="line">text2=<span class="string">&#x27;flag&#x27;</span></span><br><span class="line">key=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">4</span>):</span><br><span class="line">    key=key+<span class="built_in">chr</span>(<span class="built_in">ord</span>(text2[i])^num2[i])</span><br><span class="line"><span class="built_in">print</span>（key）</span><br></pre></td></tr></table></figure>
+<p>得到v5 == &amp;YA1<br>在求出v2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">num2=[<span class="number">0x40</span>,<span class="number">0x35</span>,<span class="number">0x20</span>,<span class="number">0x56</span>,<span class="number">0x5D</span>,<span class="number">0x18</span>,<span class="number">0x22</span>,<span class="number">0x45</span>,<span class="number">0x17</span>,<span class="number">0x2F</span>,<span class="number">0x24</span>,<span class="number">0x6E</span>,<span class="number">0x62</span>,<span class="number">0x3C</span>,<span class="number">0x27</span>,<span class="number">0x54</span>,<span class="number">0x48</span>,<span class="number">0x6C</span>,<span class="number">0x24</span>,<span class="number">0x6E</span>,<span class="number">0x72</span>,<span class="number">0x3C</span>,<span class="number">0x32</span>,<span class="number">0x45</span>,<span class="number">0x5B</span>]</span><br><span class="line">key=<span class="string">&#x27;&amp;YA1&#x27;</span></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">25</span>):</span><br><span class="line">    flag=flag+<span class="built_in">chr</span>(num2[i]^<span class="built_in">ord</span>(key[i%<span class="number">4</span>]))</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>flag是：flag{Act1ve_Defen5e_Test}</p>
+<h2 id="ACTF新生赛2020-rome"><a href="#ACTF新生赛2020-rome" class="headerlink" title="[ACTF新生赛2020]rome"></a>[ACTF新生赛2020]rome</h2><p><img src="https://img-blog.csdnimg.cn/20210601200743438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>ida 32 ，通过main函数或者字符串搜索都可以找到函数<code>func()</code><br>发现其实就是将输入的字符串大写和小写分开进行变换，然后比较输出<br><img src="https://img-blog.csdnimg.cn/20210601202029949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>写一个脚本跑一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">v15= [<span class="number">81</span>,<span class="number">115</span>,<span class="number">119</span>,<span class="number">51</span>,<span class="number">115</span>,<span class="number">106</span>,<span class="number">95</span>,<span class="number">108</span>,<span class="number">122</span>,<span class="number">52</span>,<span class="number">95</span>,<span class="number">85</span>,<span class="number">106</span>,<span class="number">119</span>,<span class="number">64</span>,<span class="number">108</span>]</span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">128</span>):</span><br><span class="line">        x=j</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">chr</span>(x).isupper():</span><br><span class="line">            x=(x-<span class="number">51</span>)%<span class="number">26</span>+<span class="number">65</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">chr</span>(x).islower():</span><br><span class="line">            x=(x-<span class="number">79</span>)%<span class="number">26</span>+<span class="number">97</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">chr</span>(x)==<span class="built_in">chr</span>(v15[i]):</span><br><span class="line">            flag+=<span class="built_in">chr</span>(j)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (<span class="string">&#x27;flag&#123;&#x27;</span>+flag+<span class="string">&#x27;&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>flag{Cae3ar_th4_Gre@t}</p>
+<h2 id="FlareOn4-login"><a href="#FlareOn4-login" class="headerlink" title="[FlareOn4]login"></a>[FlareOn4]login</h2><p>网页打开，F12查看HTML源码<br><img src="https://img-blog.csdnimg.cn/20210601203029493.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><code>var rotFlag = flag.replace(/[a-zA-Z]/g, function(c)&#123;return String.fromCharCode((c &lt;= &quot;Z&quot; ? 90 : 122) &gt;= (c = c.charCodeAt(0) + 13) ? c : c - 26);&#125;);</code>这句代码的意思就是将字符后移13位，越界了就转回字母开头，最后得到了字符串<code>PyvragFvqrYbtvafNerRnfl@syner-ba.pbz</code><br>其实就是ROT13，找一个在线网站解一下，得到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientSideLoginsAreEasy@flare-on.com</span><br></pre></td></tr></table></figure>
+<p>flag是：flag{ClientSideLoginsAreEasy@flare-on.com}</p>
+<h2 id="Youngter-drive"><a href="#Youngter-drive" class="headerlink" title="Youngter-drive"></a>Youngter-drive</h2><p><img src="https://img-blog.csdnimg.cn/20210601204809958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>kali脱壳<br><img src="https://img-blog.csdnimg.cn/2021060121331293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210601213425335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>ida打开，找到主函数<br><img src="https://img-blog.csdnimg.cn/20210602111549876.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>大致是这样，我们依次看一下<br>函数<code>sub_4110FF()</code><br><img src="https://img-blog.csdnimg.cn/2021060211165982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>输出部分：函数<code>sub_411190()</code><br><img src="https://img-blog.csdnimg.cn/20210602112248690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后着重看一下两个线程的处理<br>线程1：<code>StartAddress</code><br><img src="https://img-blog.csdnimg.cn/20210602111914328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看函数<code>sub_41112C</code>，函数<code>sub_411940</code><br>这里会出现报错，函数<code>sub_411940</code>无法反编译<br><img src="https://img-blog.csdnimg.cn/20210602151817781.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>是由于堆栈不平衡的问题，一般是程序有一些干扰代码，让IDA的反汇编分析出现错误。比如用push + n条指令 + retn来跳转。搜索这个函数，看汇编窗口：<br><img src="https://img-blog.csdnimg.cn/202106021518528.png" alt="在这里插入图片描述"><br>Option-&gt;General-&gt;Disassembly, 将选项Stack pointer打钩<br><img src="https://img-blog.csdnimg.cn/2021060211304858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后就可以看见汇编窗口汇编指令前面有绿色的SP值<br><img src="https://img-blog.csdnimg.cn/20210602151920853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>找到这串函数的retn指令<br><img src="https://img-blog.csdnimg.cn/20210602151934509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以发现前面的SP值变成了负数，我们需要修改它成0使得堆栈保持平衡。<br>找到距离retn最近的call指令<br><img src="https://img-blog.csdnimg.cn/20210602152051279.png" alt="在这里插入图片描述"><br>alt+k修改SP值<br><img src="https://img-blog.csdnimg.cn/20210602152114111.png" alt="在这里插入图片描述"><br>修改之后<br><img src="https://img-blog.csdnimg.cn/20210602152139797.png" alt="在这里插入图片描述"><br>然后就可以可以查看<br><img src="https://img-blog.csdnimg.cn/20210602112142582.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>线程2：函数<code>sub_41119F()</code><br><img src="https://img-blog.csdnimg.cn/20210602144619341.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>线程2并不对代码做任何处理，只是调用一次Sleep然后释放线程。</p>
+<p>这里说一个细节，这道题是线程1和线程2 交替执行的，因为函数<code>CreateMutex()</code><br><img src="https://img-blog.csdnimg.cn/20210602145638478.png" alt="在这里插入图片描述"><br>这个函数是创建两个相互排斥的线程的函数，hobject 可以理解为一个“锁”，两个线程依次获取锁(waitforsingleobject)，释放锁(releasemutex)。一个线程开始之后，抢占了锁，这时候另一个线程没抢到，处于等待状态，等待运行线程执行完成之后第一个线程解锁。<br>不能用来控制两个以上的线程，因为剩下的几个线程都有几率抢到，会导致程序逻辑混乱。<br>两个线程时候，第一次抢到锁的线程在释放后也会和第二个线程抢锁，但是由于它此时没有第二个线程快，所以抢不到，就造成了两个线程交替被调用的现状。</p>
+<p>所以这题就是奇数的会被线程1处理而偶数走线程2 不处理（因为是从29往下减的）</p>
+<p>写脚本</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> off1[] = <span class="string">&quot;TOiZiZtOrYaToUwPnToBsOaOapsyS&quot;</span>;</span><br><span class="line">    <span class="keyword">char</span> off2[] = <span class="string">&quot;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&quot;</span>;</span><br><span class="line">    <span class="keyword">char</span> flag[<span class="number">30</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">28</span>;i&gt;<span class="number">-1</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            flag[i] = off1[i];</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">52</span>;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(off1[i] == off2[j])</span><br><span class="line">            &#123;</span><br><span class="line">                flag[i] = j+<span class="number">38</span>;</span><br><span class="line">                <span class="keyword">if</span>(!(flag[i]&gt;=<span class="number">65</span> &amp;&amp;flag[i]&lt;=<span class="number">90</span>))</span><br><span class="line">                    flag[i] = j+<span class="number">96</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">puts</span>(flag);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210602151002491.png" alt="在这里插入图片描述"><br>这里还有一个问题，就是最后输出flag的函数，它显示的是比较i&lt;29<br>而实际上进程处理的时候是到&gt;-1的，也就是其实应该是30个字符<br>也就是说少了一位我们不知道，需要一个个英文字母试出来，发现是“E”</p>
+<p>flag：flag{ThisisthreadofwindowshahaIsESE}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/01/%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96-%5BGXYCTF2019%5Dluck_guy-findit-%E7%AE%80%E5%8D%95%E6%B3%A8%E5%86%8C%E6%9C%BA-%5BBJDCTF2020%5DJustRE/" rel="prev" title="刮开有奖-[GXYCTF2019]luck_guy-findit-简单注册机-[BJDCTF2020]JustRE">
+      <i class="fa fa-chevron-left"></i> 刮开有奖-[GXYCTF2019]luck_guy-findit-简单注册机-[BJDCTF2020]JustRE
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2019%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyRE"><span class="nav-number">1.</span> <span class="nav-text">[2019红帽杯]easyRE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-rome"><span class="nav-number">2.</span> <span class="nav-text">[ACTF新生赛2020]rome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FlareOn4-login"><span class="nav-number">3.</span> <span class="nav-text">[FlareOn4]login</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Youngter-drive"><span class="nav-number">4.</span> <span class="nav-text">Youngter-drive</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
