@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-06-03T12:09:57.971Z</updated>
+  <updated>2021-06-03T12:22:01.437Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>github突然无法使用hexo g上传博客问题的解决</title>
+    <link href="http://example.com/2021/06/03/github%E7%AA%81%E7%84%B6%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8hexo%20g%E4%B8%8A%E4%BC%A0%E5%8D%9A%E5%AE%A2%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/"/>
+    <id>http://example.com/2021/06/03/github%E7%AA%81%E7%84%B6%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8hexo%20g%E4%B8%8A%E4%BC%A0%E5%8D%9A%E5%AE%A2%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/</id>
+    <published>2021-06-03T12:19:56.486Z</published>
+    <updated>2021-06-03T12:22:01.437Z</updated>
+    
+    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p>输入<code>hexo g</code>后<br> 报错：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">can not read a block mapping entry; a multiline key may not be an implicit key</span><br></pre></td></tr></table></figure><p> 显示文章上传失败</p><p>有可能是因为文章的标题开头使用了不可以放在开头的字符</p><p>例如：<br>本来是：<code>[2021BUUCTF]RE</code><br>改成：<code>2021BUUCTF]RE</code>就可以了</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="工具使用" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>GUET-CTF2019re-[SUCTF2019]SignIn-相册-[ACTF新生赛2020]usualCrypt</title>
@@ -424,29 +445,6 @@
     
     
     <category term="逆向" scheme="http://example.com/tags/%E9%80%86%E5%90%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++跨平台开发（VS2019+WSL(Ubuntu))</title>
-    <link href="http://example.com/2021/03/01/C++%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%EF%BC%88VS2019+WSL(Ubuntu))/"/>
-    <id>http://example.com/2021/03/01/C++%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91%EF%BC%88VS2019+WSL(Ubuntu))/</id>
-    <published>2021-03-01T13:25:08.537Z</published>
-    <updated>2021-03-01T13:28:14.668Z</updated>
-    
-    <content type="html"><![CDATA[<p><escape><a id="more"></a></escape> </p><p><em>由于实验室任务要求，特学习了一下如何跨平台开发项目，时间有点长了，如有疏漏，还请包涵指正！</em></p><p>我们在开发项目的过程中，有时候会进行跨平台开发，例如，我们需要开发Linux项目，但是受到条件限制，目前只有Windows环境，如何在Windows环境下进行Linux项目开发就成了迫切的需要。</p><p>本篇介绍利用在Windows下使用VS2019编写CMake并连接WSL的方式进行Linux项目的开发。</p><h5 id="预备介绍"><a href="#预备介绍" class="headerlink" title="预备介绍"></a>预备介绍</h5><p>WSL（windows下的Linux子系统）：Windows Subsystem for Linux（简称WSL）是一个在Windows 10上能够运行原生Linux二进制可执行文件（ELF格式）的兼容层。<br>使用WSL不需要进行ssh连接，更加方便。</p><p>Cmake:CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。它能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。只是 CMake 的组态档取名为 CMakeLists.txt。</p><h5 id="安装WSL"><a href="#安装WSL" class="headerlink" title="安装WSL"></a>安装WSL</h5><p>在控制面板里面找到程序与功能，打开启用或关闭Windows功能<br><img src="https://img-blog.csdnimg.cn/20210301201810626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>找到适用于Linux的Windows子系统，并勾选。<br><img src="https://img-blog.csdnimg.cn/20210301201933452.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>开始安装，之后会要求重启一次。<br>打开Windows应用商城（ Microsoft Store），搜索WSL，下载Ubuntu（过程可能会有点满，耐心等待）<br><img src="https://img-blog.csdnimg.cn/20210301202358604.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>安装完成之后，打开，设置用户名和密码，一开始的源可能比较慢，可以换源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br><span class="line">sudo sed -i <span class="string">&#x27;s/security.ubuntu/mirrors.aliyun/g&#x27;</span> /etc/apt/sources.list</span><br><span class="line">sudo sed -i <span class="string">&#x27;s/archive.ubuntu/mirrors.aliyun/g&#x27;</span> /etc/apt/sources.list</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt-get upgrade    //更新已安装的包到最新，这个是可选的</span><br></pre></td></tr></table></figure><p>附上其它一些apt命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  更新源</span><br><span class="line">sudo apt-get install package 安装包</span><br><span class="line">sudo apt-get remove package 删除包</span><br><span class="line">sudo apt-cache search package 搜索软件包</span><br><span class="line">sudo apt-cache show package  获取包的相关信息，如说明、大小、版本等</span><br><span class="line">sudo apt-get install package --reinstall  重新安装包</span><br><span class="line">sudo apt-get -f install  修复安装</span><br><span class="line">sudo apt-get remove package --purge 删除包，包括配置文件等</span><br><span class="line">sudo apt-get build-dep package 安装相关的编译环境</span><br><span class="line">sudo apt-get upgrade 更新已安装的包</span><br><span class="line">sudo apt-get dist-upgrade 升级系统</span><br><span class="line">sudo apt-cache depends package 了解使用该包依赖那些包</span><br><span class="line">sudo apt-cache rdepends package 查看该包被哪些包依赖</span><br><span class="line">sudo apt-get <span class="built_in">source</span> package  下载该包的源代码</span><br><span class="line">sudo apt-get clean &amp;&amp; sudo apt-get autoclean 清理无用的包</span><br><span class="line">sudo apt-get check 检查是否有损坏的依赖</span><br></pre></td></tr></table></figure><p>要配置WSL安装使其与Visual Studio一起使用，需要安装以下工具：编译器（GCC或Clang），gdb，rsync和zip。如果使用的是CMake，则还需要安装基础的构建系统（Ninja或Unix Makefile）。可以通过以下命令将它们安装在使用apt的发行版中：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install g++ gdb make ninja-build rsync zip</span><br></pre></td></tr></table></figure><p>另外，如果想要使用SSH连接，请参考这篇文章：<br><a href="https://www.jianshu.com/p/cc8c8abcbf2e">使用SSH连接Windows10中的Linux子系统</a></p><h5 id="安装开发Linux的VS2019"><a href="#安装开发Linux的VS2019" class="headerlink" title="安装开发Linux的VS2019"></a>安装开发Linux的VS2019</h5><p>VS2019的安装可以直接在官网下载，注意30天试用期，可以激活来获取更长的使用期限。</p><p>下面主要介绍一下如何配置：<br>开发Linux，安装程序打开后，选择Modify，然后单击Workloads选项卡。向下滚动到“其他工具集”，然后选择带有C ++工作负载的Linux开发。<br><img src="https://img-blog.csdnimg.cn/20210301205916145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>默认情况下，对Linux的CMake支持是选中的。</p><p>开启一个Cmake项目，进入管理配置：<br><img src="https://img-blog.csdnimg.cn/20210301210651184.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210301210712628.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择WSL-GCC-Debug，这个需要看你的WSL上安装的是G++还是Clang,参考WSL的准备<br><img src="https://img-blog.csdnimg.cn/20210301210804198.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择刚刚安装的Ubuntu<br><img src="https://img-blog.csdnimg.cn/20210301210840576.png" alt="在这里插入图片描述">选中WSL-GCC-Debug的配置<br>选中新配置后一般会出现上面两个红框的内容：第一个是由于远程生成需要对方Linux系统安装支持的Cmake版本；第二个是由于每个配置都有各自的CMake缓存，所以需要生成一次。<br><img src="https://img-blog.csdnimg.cn/20210301210931983.png" alt="在这里插入图片描述"><br>先点击“是”安装CMake，安装好以后点击“生成+”生成CMake Cache。首先选择“是”，点击以后会自动安装WSL的CMake。如下：<br><img src="https://img-blog.csdnimg.cn/20210301211044745.png" alt="在这里插入图片描述"><br>可能还会有许多其它问题，这里强烈安利这篇文章，写的非常好：<br><a href="https://blog.csdn.net/luoyu510183/article/details/105847329">VS2019 C++的跨平台开发——Cmake项目（二）</a></p><p>都配置好之后就可以进行开发了</p><p>至于Cmake文件的编写，这里就不过多赘述了，可以参考以下几篇文章：<br><a href="https://blog.csdn.net/luoyu510183/article/details/105151127">VS2019 C++的跨平台开发——Cmake项目（一）</a><br><a href="https://blog.csdn.net/yiminghd2861/article/details/85413408">CMake：CMakeLists.txt文件的编写语法</a><br><a href="https://www.cnblogs.com/rookiezjz/p/12347656.html">CMake 用法总结（转载）</a></p><p>可以拿这个项目练练手:<br><a href="https://blog.tartanllama.xyz/writing-a-linux-debugger-setup/">编写一个Linux调试器</a></p><p>参考资料：<br><a href="https://blog.csdn.net/foxriver_gjg1989/article/details/102854440">利用vs2019编译器远程调试linux程序（走心版）</a><br><a href="https://devblogs.microsoft.com/cppblog/c-with-visual-studio-2019-and-windows-subsystem-for-linux-wsl/">C ++与Visual Studio 2019和Windows子系统的Linux（WSL）</a><br><a href="https://docs.microsoft.com/zh-cn/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-160#connect-to-wsl">在 Visual Studio 中连接到你的目标 Linux 系统</a><br><a href="https://docs.microsoft.com/en-us/cpp/linux/cmake-linux-project?view=msvc-160">在Visual Studio中创建CMake Linux项目</a><br><a href="https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-160&viewFallbackFrom=vs-2019">Visual Studio中的CMake项目</a><br><a href="https://docs.microsoft.com/en-us/cpp/linux/download-install-and-setup-the-linux-development-workload?view=msvc-160&viewFallbackFrom=vs-2019">下载，安装和设置Linux工作负载</a><br><a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">适用于 Linux 的 Windows 子系统安装指南 (Windows 10)</a><br><a href="https://www.jianshu.com/p/80289094d225">WSL-Ubuntu 更换apt源为阿里源</a><br><a href="https://blog.csdn.net/luoyu510183/article/details/105151127">VS2019 C++的跨平台开发——Cmake项目（一）</a><br><a href="https://blog.csdn.net/luoyu510183/article/details/105847329">VS2019 C++的跨平台开发——Cmake项目（二）</a><br><a href="https://www.jianshu.com/p/cc8c8abcbf2e">使用SSH连接Windows10中的Linux子系统</a><br><a href="https://devblogs.microsoft.com/cppblog/using-visual-studio-for-cross-platform-c-development-targeting-windows-and-linux/">使用Visual Studio进行针对Windows和Linux的跨平台C ++开发</a><br><a href="https://devblogs.microsoft.com/cppblog/intellisense-for-remote-linux-headers/">用于远程Linux标头的IntelliSense</a><br><a href="https://blog.csdn.net/yiminghd2861/article/details/85413408">CMake：CMakeLists.txt文件的编写语法</a><br><a href="https://www.cnblogs.com/rookiezjz/p/12347656.html">CMake 用法总结（转载）</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;escape&gt;</summary>
-    
-    
-    
-    <category term="C++" scheme="http://example.com/categories/C/"/>
-    
-    
-    <category term="Ubuntu" scheme="http://example.com/tags/Ubuntu/"/>
-    
-    <category term="C++" scheme="http://example.com/tags/C/"/>
     
   </entry>
   
