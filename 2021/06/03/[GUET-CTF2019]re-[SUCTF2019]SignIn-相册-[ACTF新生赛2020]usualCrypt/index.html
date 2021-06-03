@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="GUET-CTF2019re-[SUCTF2019]SignIn-相册-[ACTF新生赛2020]usualCrypt">
+<meta property="og:url" content="http://example.com/2021/06/03/[GUET-CTF2019]re-[SUCTF2019]SignIn-%E7%9B%B8%E5%86%8C-[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]usualCrypt/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603085928634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603090143551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603090357732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060309053181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603092003666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603092445239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603094712547.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603094953889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603095104406.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603095527164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603095620911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603095856354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603100351989.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603110711799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060311142982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603111827795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603112613651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210603113236509.png">
+<meta property="article:published_time" content="2021-06-03T03:34:20.151Z">
+<meta property="article:modified_time" content="2021-06-03T12:09:57.971Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210603085928634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/06/03/[GUET-CTF2019]re-[SUCTF2019]SignIn-%E7%9B%B8%E5%86%8C-[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]usualCrypt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GUET-CTF2019re-[SUCTF2019]SignIn-相册-[ACTF新生赛2020]usualCrypt | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/03/[GUET-CTF2019]re-[SUCTF2019]SignIn-%E7%9B%B8%E5%86%8C-[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]usualCrypt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GUET-CTF2019re-[SUCTF2019]SignIn-相册-[ACTF新生赛2020]usualCrypt
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-03 11:34:20 / 修改时间：20:09:57" itemprop="dateCreated datePublished" datetime="2021-06-03T11:34:20+08:00">2021-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BUUCTF/" itemprop="url" rel="index"><span itemprop="name">BUUCTF</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h2 id="GUET-CTF2019-re"><a href="#GUET-CTF2019-re" class="headerlink" title="[GUET-CTF2019]re"></a>[GUET-CTF2019]re</h2><p><img src="https://img-blog.csdnimg.cn/20210603085928634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>UPX壳，Kali脱壳<br><img src="https://img-blog.csdnimg.cn/20210603090143551.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210603090357732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>elf文件，IDA64打开<br>通过字符串找到这里<br><img src="https://img-blog.csdnimg.cn/2021060309053181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看if判断里面的函数<code>sub_4009AE()</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">_BOOL8 __fastcall <span class="title">sub_4009AE</span><span class="params">(<span class="keyword">char</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">1629056</span> * *a1 != <span class="number">166163712</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">6771600</span> * a1[<span class="number">1</span>] != <span class="number">731332800</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">3682944</span> * a1[<span class="number">2</span>] != <span class="number">357245568</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">10431000</span> * a1[<span class="number">3</span>] != <span class="number">1074393000</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">3977328</span> * a1[<span class="number">4</span>] != <span class="number">489211344</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">5138336</span> * a1[<span class="number">5</span>] != <span class="number">518971936</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">7532250</span> * a1[<span class="number">7</span>] != <span class="number">406741500</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">5551632</span> * a1[<span class="number">8</span>] != <span class="number">294236496</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">3409728</span> * a1[<span class="number">9</span>] != <span class="number">177305856</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">13013670</span> * a1[<span class="number">10</span>] != <span class="number">650683500</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">6088797</span> * a1[<span class="number">11</span>] != <span class="number">298351053</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">7884663</span> * a1[<span class="number">12</span>] != <span class="number">386348487</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">8944053</span> * a1[<span class="number">13</span>] != <span class="number">438258597</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">5198490</span> * a1[<span class="number">14</span>] != <span class="number">249527520</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">4544518</span> * a1[<span class="number">15</span>] != <span class="number">445362764</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">3645600</span> * a1[<span class="number">17</span>] != <span class="number">174988800</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">10115280</span> * a1[<span class="number">16</span>] != <span class="number">981182160</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">9667504</span> * a1[<span class="number">18</span>] != <span class="number">493042704</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">5364450</span> * a1[<span class="number">19</span>] != <span class="number">257493600</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">13464540</span> * a1[<span class="number">20</span>] != <span class="number">767478780</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">5488432</span> * a1[<span class="number">21</span>] != <span class="number">312840624</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">14479500</span> * a1[<span class="number">22</span>] != <span class="number">1404511500</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">6451830</span> * a1[<span class="number">23</span>] != <span class="number">316139670</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">6252576</span> * a1[<span class="number">24</span>] != <span class="number">619005024</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">7763364</span> * a1[<span class="number">25</span>] != <span class="number">372641472</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">7327320</span> * a1[<span class="number">26</span>] != <span class="number">373693320</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">8741520</span> * a1[<span class="number">27</span>] != <span class="number">498266640</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">8871876</span> * a1[<span class="number">28</span>] != <span class="number">452465676</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">4086720</span> * a1[<span class="number">29</span>] != <span class="number">208422720</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="number">9374400</span> * a1[<span class="number">30</span>] == <span class="number">515592000</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">5759124</span> * a1[<span class="number">31</span>] == <span class="number">719890500</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入的每一位乘上一个数字之后是另一个数字用来检验，那么除回去就行了，记得取整除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">a0 = <span class="number">166163712</span> // <span class="number">1629056</span></span><br><span class="line">a1 = <span class="number">731332800</span> // <span class="number">6771600</span></span><br><span class="line">a2 = <span class="number">357245568</span> // <span class="number">3682944</span></span><br><span class="line">a3= <span class="number">1074393000</span> // <span class="number">10431000</span></span><br><span class="line">a4= <span class="number">489211344</span> // <span class="number">3977328</span></span><br><span class="line">a5 = <span class="number">518971936</span> // <span class="number">5138336</span></span><br><span class="line">a6=<span class="string">&#x27;_&#x27;</span></span><br><span class="line">a7= <span class="number">406741500</span> // <span class="number">7532250</span></span><br><span class="line">a8= <span class="number">294236496</span> // <span class="number">5551632</span></span><br><span class="line">a9= <span class="number">177305856</span> // <span class="number">3409728</span></span><br><span class="line">a10= <span class="number">650683500</span> // <span class="number">13013670</span></span><br><span class="line">a11= <span class="number">298351053</span> // <span class="number">6088797</span></span><br><span class="line">a12= <span class="number">386348487</span> // <span class="number">7884663</span></span><br><span class="line">a13= <span class="number">438258597</span> // <span class="number">8944053</span></span><br><span class="line">a14= <span class="number">249527520</span> // <span class="number">5198490</span></span><br><span class="line">a15= <span class="number">445362764</span> // <span class="number">4544518</span></span><br><span class="line">a16= <span class="number">981182160</span> //<span class="number">10115280</span></span><br><span class="line">a17= <span class="number">174988800</span> // <span class="number">3645600</span></span><br><span class="line">a18= <span class="number">493042704</span> // <span class="number">9667504</span></span><br><span class="line">a19= <span class="number">257493600</span> // <span class="number">5364450</span></span><br><span class="line">a20= <span class="number">767478780</span> // <span class="number">13464540</span></span><br><span class="line">a21= <span class="number">312840624</span> // <span class="number">5488432</span></span><br><span class="line">a22= <span class="number">1404511500</span> // <span class="number">14479500</span></span><br><span class="line">a23= <span class="number">316139670</span> // <span class="number">6451830</span></span><br><span class="line">a24= <span class="number">619005024</span> // <span class="number">6252576</span></span><br><span class="line">a25= <span class="number">372641472</span> // <span class="number">7763364</span></span><br><span class="line">a26= <span class="number">373693320</span> // <span class="number">7327320</span></span><br><span class="line">a27= <span class="number">498266640</span> // <span class="number">8741520</span></span><br><span class="line">a28= <span class="number">452465676</span> // <span class="number">8871876</span></span><br><span class="line">a29= <span class="number">208422720</span> // <span class="number">4086720</span></span><br><span class="line">a30= <span class="number">515592000</span> // <span class="number">9374400</span></span><br><span class="line">a31= <span class="number">719890500</span> // <span class="number">5759124</span></span><br><span class="line"></span><br><span class="line">print(<span class="built_in">chr</span>(a0),<span class="built_in">chr</span>(a1),<span class="built_in">chr</span>(a2),<span class="built_in">chr</span>(a3),<span class="built_in">chr</span>(a4),<span class="built_in">chr</span>(a5),a6,<span class="built_in">chr</span>(a7),<span class="built_in">chr</span>(a8),<span class="built_in">chr</span>(a9),<span class="built_in">chr</span>(a10),<span class="built_in">chr</span>(a11),<span class="built_in">chr</span>(a12),<span class="built_in">chr</span>(a13),<span class="built_in">chr</span>(a14),<span class="built_in">chr</span>(a15),<span class="built_in">chr</span>(a16),<span class="built_in">chr</span>(a17),<span class="built_in">chr</span>(a18),<span class="built_in">chr</span>(a19),<span class="built_in">chr</span>(a20),<span class="built_in">chr</span>(a21),<span class="built_in">chr</span>(a22),<span class="built_in">chr</span>(a23),<span class="built_in">chr</span>(a24),<span class="built_in">chr</span>(a25),<span class="built_in">chr</span>(a26),<span class="built_in">chr</span>(a27),<span class="built_in">chr</span>(a28),<span class="built_in">chr</span>(a29),<span class="built_in">chr</span>(a30),<span class="built_in">chr</span>(a31))</span><br></pre></td></tr></table></figure>
+<p>flag{e_65421110ba03099a1c039337}<br>少了第6位，爆破得到1<br>flag是flag{e165421110ba03099a1c039337}</p>
+<h2 id="SUCTF2019-SignIn"><a href="#SUCTF2019-SignIn" class="headerlink" title="[SUCTF2019]SignIn"></a>[SUCTF2019]SignIn</h2><p><img src="https://img-blog.csdnimg.cn/20210603092003666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这题以前做过，elf文件，ida64打开<br><img src="https://img-blog.csdnimg.cn/20210603092445239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>程序调用了 <code>__gmpz_init_set_str</code> 函数，这是一个 GNU 高精度算法库，在RSA加密中见过几次，看下格式确定了这是RSA加密</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mpz_init_set_str</span> <span class="params">(<span class="keyword">mpz_t</span> rop, <span class="keyword">char</span> *str, <span class="keyword">int</span> base)</span></span></span><br><span class="line">mpz_t rop:多精度整数变量</span><br><span class="line"><span class="keyword">char</span> *str: 字符串</span><br><span class="line"><span class="keyword">int</span> base: 进制</span><br><span class="line">将str按照base进制转换为rop</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void mpz_powm (mpz_t rop, const mpz_t base, const mpz_t exp, const mpz_t mod) [Function]</span><br><span class="line">函数功能： rop = base^<span class="built_in">exp</span>取余mod</span><br></pre></td></tr></table></figure>
+<p>从题目中得到数据</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">密文：ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35</span><br><span class="line">N(十进制)：<span class="number">103461035900816914121390101299049044413950405173712170434161686539878160984549</span></span><br><span class="line">E：<span class="number">65537</span></span><br></pre></td></tr></table></figure>
+<p>分解N得到p,q，分解教程参考<a target="_blank" rel="noopener" href="https://www.mrskye.cn/archives/18/">这个</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="number">366669102002966856876605669837014229419</span></span><br><span class="line">q = <span class="number">282164587459512124844245113950593348271</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"></span><br><span class="line">p = <span class="number">282164587459512124844245113950593348271</span></span><br><span class="line">q = <span class="number">366669102002966856876605669837014229419</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">c = <span class="number">0xad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35</span></span><br><span class="line">n = p * q</span><br><span class="line">d = gmpy2.invert(e, (p-<span class="number">1</span>) * (q-<span class="number">1</span>))</span><br><span class="line">m = gmpy2.powmod(c, d, n)</span><br><span class="line"></span><br><span class="line">print(binascii.unhexlify(<span class="built_in">hex</span>(m)[<span class="number">2</span>:]).decode(encoding=<span class="string">&quot;utf-8&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>suctf{Pwn_@_hundred_years}</p>
+<p>flag是：flag{Pwn_@_hundred_years}</p>
+<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>apk逆向，打开jeb，通过字符串找到关键函数<br><img src="https://img-blog.csdnimg.cn/20210603094712547.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210603094953889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>最下面有一个函数，跟进去查看<img src="https://img-blog.csdnimg.cn/20210603095104406.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210603095527164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>提示了邮箱，这里有new了新的邮箱，点击MAILUSER那一行跟进去查看<br><img src="https://img-blog.csdnimg.cn/20210603095620911.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到MAILSERVER，这是是加载外部so文件中NativeMethod.m()函数所返回的值，再进行base64解密。因此我们只需要找到so文件中经过base64加密的字符串。<br><img src="https://img-blog.csdnimg.cn/20210603095856354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>导出，使用ida打开，通过字符串搜索找到类似base64加密后的字符串<br>有3个都解一下发现第二个是个邮箱地址<br><img src="https://img-blog.csdnimg.cn/20210603100351989.png" alt="在这里插入图片描述"><br>flag是：flag{18218465125@163.com}</p>
+<h2 id="ACTF新生赛2020-usualCrypt"><a href="#ACTF新生赛2020-usualCrypt" class="headerlink" title="[ACTF新生赛2020]usualCrypt"></a>[ACTF新生赛2020]usualCrypt</h2><p><img src="https://img-blog.csdnimg.cn/20210603110711799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>找到main函数<br><img src="https://img-blog.csdnimg.cn/2021060311142982.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>12 和 26 行的sub_403CF8是输出函数，21 - 25 行的while()是字符串比较的过程，<br>输入 flag 加密验证正确性的模型<br>看19行的函数<code>sub_401080</code><br><img src="https://img-blog.csdnimg.cn/20210603111827795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>先执行了<code>sub_401000</code>，这是一个改变密钥对应表的函数，后面是base64加密算法，最后还有一个函数<code>sub_401030</code>，这是交换大小写字母的。</p>
+<p>看函数<code>sub_401000</code><br><img src="https://img-blog.csdnimg.cn/20210603112613651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>将两个数组里的数据进行了交换，根据地址两个数组连在一起，也可以当成一个数组看，从下标为6开始到下标为15，往后偏移了10（0xA）位，也就是QRSTUVWXY和GHIJKLMNOP相互交换了一下<br>新的密码表是<code>ABCDEFQRSTUVWXYGHIJKLMNOPZabcdefghijklmnopqrstuvwxyz0123456789+/</code></p>
+<p>逆向推导：<br>首先要对<code>byte_40E0E4</code>数组进行大小写转换；然后是还原经 base64（更改密钥表后）加密字符的原含义；最后得到了真实的加密字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span>; <span class="built_in">dict</span> = &#123;&#125;; offset = <span class="number">10</span></span><br><span class="line">orgin = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(orgin)):</span><br><span class="line">    <span class="built_in">dict</span>[orgin[i]] = orgin[i]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>, <span class="number">15</span>): <span class="comment">#sub_401000()</span></span><br><span class="line">    <span class="built_in">dict</span>[orgin[i]] , <span class="built_in">dict</span>[orgin[i+offset]] = <span class="built_in">dict</span>[orgin[i+offset]] , <span class="built_in">dict</span>[orgin[i]] <span class="comment"># 恢复base64密钥表</span></span><br><span class="line">secret = <span class="string">&#x27;zMXHz3TIgnxLxJhFAdtZn2fFk3lYCrtPC2l9&#x27;</span>.swapcase() <span class="comment">#sub_401030()</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(secret)):</span><br><span class="line">    flag += <span class="built_in">dict</span>[secret[i]] </span><br><span class="line">flag = base64.b64decode(flag)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210603113236509.png" alt="在这里插入图片描述"><br>flag是：flag{bAse64_h2s_a_Surprise}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/03/2019%E7%BA%A2%E5%B8%BD%E6%9D%AFeasyRE-ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020rome-%5BFlareOn4%5Dlogin-Youngterdrive/" rel="prev" title="2019红帽杯easyRE-ACTF新生赛2020rome-[FlareOn4]login-Youngterdrive">
+      <i class="fa fa-chevron-left"></i> 2019红帽杯easyRE-ACTF新生赛2020rome-[FlareOn4]login-Youngterdrive
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GUET-CTF2019-re"><span class="nav-number">1.</span> <span class="nav-text">[GUET-CTF2019]re</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SUCTF2019-SignIn"><span class="nav-number">2.</span> <span class="nav-text">[SUCTF2019]SignIn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%86%8C"><span class="nav-number">3.</span> <span class="nav-text">相册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020-usualCrypt"><span class="nav-number">4.</span> <span class="nav-text">[ACTF新生赛2020]usualCrypt</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
