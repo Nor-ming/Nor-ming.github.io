@@ -1158,4 +1158,37 @@
         <tag>逆向</tag>
       </tags>
   </entry>
+  <entry>
+    <title>动态分析之OllyDbg</title>
+    <url>/2021/07/11/%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E4%B9%8BOllyDbg/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h2 id="OllyDbg调试器"><a href="#OllyDbg调试器" class="headerlink" title="OllyDbg调试器"></a>OllyDbg调试器</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>使用之前要设置UDD文件和插件的路径，一般设置成绝对路径。</p>
+<p>单击“Options”-“Appearance”打开界面选项对话框，单击“Directories”。<br><img src="https://img-blog.csdnimg.cn/20210711082923320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>主界面：<br><img src="https://img-blog.csdnimg.cn/20210711082441268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在反汇编面板窗口的列中，双击可以完成如下操作。<br>●Address列:显示被双击行地址的相对地址，再次双击返回标准地址模式。<br>●Hex dump列:设置或取消无条件断点，对应的快捷键是“F2” 键。<br>●Disassembly 列:调用汇编器，可直接修改汇编代码，对应的快捷键是空格键。<br>●Comment 列:允许增加或编辑注释，对应的快捷键是“;”键。</p>
+<p>OllyDbg界面的外观由“Appearance”对话框里的“Fonts” “Colours” “Code highlighting” 标签页控制，可以定制。</p>
+<p>可以将OllyDbg 关联到Windows资源管理器的右键快捷菜单里。关联后，当调试程序时，只需要在EXE或DLL文件上单击右键，就会出现“Open with Ollydbg”菜单项。要想实现关联，只需要先单击“Options” →“Add to Explorer”选项，再单击“Add llyDbg to menu in Windows Explorer”按钮。</p>
+<p>为了让OllyDbg中断在程序的入口点，单击“Options”→“Debugging options” 选项，单击“Event” ，设置<br>OllyDbg对中断入口点、模块加载/卸载、线程创建/结束等事件的处理方式，将断点设置在“WinMain”处。<br><img src="https://img-blog.csdnimg.cn/20210711085408292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h3><p><img src="https://img-blog.csdnimg.cn/20210711090417274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>“F7”键和“F8”键的主要区别在于，若遇到call、loop等指令，按“F8”键会路过，按“F7”键会跟进。</p>
+<p>当要重复按“F7” 键或“F8” 键时，OllyDbg提供了快捷键“Ctrl+F7” 和“Ctrl+F8”， 直到用户按“Esc”键、F12”键或遇到其他断点时停止。</p>
+<p>若想回看之前单步跟踪的代码，可以按“-” (减号)键;若想让光标回到当前EIP所指向的语句，可以单击C按钮或双击EIP寄存器（EIP指向当前将要执行的指令）。</p>
+<p>当位于某个call 指令中，想返回调用这个call 指令的位置时，可以按“Ctrl+F9” 快捷键执行“Execute till return” 命令, OllyDbg会停在遇到的第1个返回命令处( ret、retf或iret )。</p>
+<p>如果已经进入系统DLL提供的API函数，当要返回应用程序领空（指在某一时刻CPU的CS:EIP指向的某段代码的所有者）时，可以按快捷键“Alt+F9”<br>执行”Execute till user code” 命令。</p>
+<p>程序进入死循环可以按F12暂停程序。</p>
+<p>反汇编窗口右键选择<code>search for（查找）</code>-&gt;<code>Name(label) in current module(当前模块中的名称(标签))</code>。可以查找API函数名下断点。</p>
+<p>API函数大都采用_ stdeall 调用约定，即函数入口参数按从右到左的顺序入栈，由被调用者清理栈中的参数，返回值放在eax寄存器中。因此，对相关的API函数，要分析其前面的push指令,这些指令将参数放入栈，以传送给API调用。</p>
+<p>修改内存中的数据后，为了使修改一直有效，必须将这个变化写进磁盘文件。选中修改后的代码，单击右键，点击“Copy to executable”→“Selection”<br>命令，将会打开文件编辑窗口。单击右键，执行快<br>捷菜单中的“Save File” 命令，即可将修改保存到文件中。</p>
+<p><strong>Hit trace</strong><br>Hit trace能够让调试者辨别哪一部分代码被执行了，哪一部分没有。<br>在选中区域的每一条命令处设置一个INT3断点，当中断发生时，OllyDbg便把它去除。在使用Hit trace时，不能在数据中设置断点，否则程序可能会崩溃。<br>当遇到一段跳转分支比较多的代码，需要了解程序的执行线路时，可以使用Hit trace。选中这段代码，单击右键快捷菜单中的“Hit trace”→“Add selection”命令，将需要监视的代码选中，然后按“F9”键让程序运行，OllyDbg 就会在已被执行的指令前用不同的颜色添加标记。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>1、乱码问题</strong><br>使用OllyDbg跟踪程序时，可能会出现如下情况。<br><img src="https://img-blog.csdnimg.cn/2021071111040597.png" alt="在这里插入图片描述"><br>这是因为OllyDbg将这段代码当成了数据，没有进行反汇编识别。此时，只要执行OllyDbg 右键快捷菜单中的“Analysis” →“Analyse code” (“分析”→“分析代码”)命令或按“Ctrl+A” 快捷键，强迫OllyDbg重新分析代码即可。如果还是无法识别，可以尝试执行右键快捷菜单中的“Analysis”→“Remove analysis from module”(“分析”→“从模块中删除分析”)命令或在UDD目录中删除相应的UDD文件。</p>
+<p><strong>2. OllyDbg 修改EIP</strong><br>将光标移到需要修改的地址上，执行右键快捷菜单中的“New origin here” (在此处新建EIP )命<br>令或使用快捷键“Ctrl+*” 即可修改EIP。</p>
+<p><strong>3.已经删除了断点，OllyDbg重新加载时这些断点重新出现</strong><br>将配置文件olydbg.ini中的相应内容改成“ Backup UDD files=1”即可解决。</p>
+<p><strong>4.在OllyDbg反汇编窗口输入“push E000”会提示未知标识符</strong><br>这是因为OllyDbg的反汇编引擎不能正确识别字符“E000” 中的“E”是字母还是数字。解决方法是:在字母前加一个“0”， 表示这是数字，即“push 0E000”。<br><img src="https://img-blog.csdnimg.cn/20210711110919295.png" alt="在这里插入图片描述"><br><strong>5. OllyDbg 出现“假死”现象</strong><br>用OllyDbg调试一些加壳程序，程序运行到断点(包括硬件断点)时，OllyDbg 会出现“假死”现象。解决方法是:打开配置文件ollydbgini,如果“ Restore windows“是一个很大的值，就设置“Restore windows 0”。</p>
+<p><strong>6.执行复制到可执行文件时，提示错误信息“Unable to locate data in executable file”</strong><br>这里要修改的地方不在RawSize范围内。修改PE文件，使“RawSize = VirtualSize”。</p>
+<p><strong>7.把call调用改成函数名的形式</strong><br>例如“call 401496”,假设401496h处是amsg_ exit 函数,将光标停在该处，按“Shift +;”快捷键，会弹出一个标签框，在其中输人字符“amsg _exit”, 所有调用401496h处的call指令都会变成“call <amsg _exit>““的形式。</p>
+]]></content>
+      <categories>
+        <category>逆向学习笔记</category>
+      </categories>
+      <tags>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
 </search>

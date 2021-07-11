@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="动态分析之OllyDbg">
+<meta property="og:url" content="http://example.com/2021/07/11/%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E4%B9%8BOllyDbg/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210711082923320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210711082441268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210711085408292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210711090417274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021071111040597.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210711110919295.png">
+<meta property="article:published_time" content="2021-07-11T03:13:49.832Z">
+<meta property="article:modified_time" content="2021-07-11T03:15:53.318Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210711082923320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/07/11/%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E4%B9%8BOllyDbg/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>动态分析之OllyDbg | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/11/%E5%8A%A8%E6%80%81%E5%88%86%E6%9E%90%E4%B9%8BOllyDbg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          动态分析之OllyDbg
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-11 11:13:49 / 修改时间：11:15:53" itemprop="dateCreated datePublished" datetime="2021-07-11T11:13:49+08:00">2021-07-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">逆向学习笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h2 id="OllyDbg调试器"><a href="#OllyDbg调试器" class="headerlink" title="OllyDbg调试器"></a>OllyDbg调试器</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>使用之前要设置UDD文件和插件的路径，一般设置成绝对路径。</p>
+<p>单击“Options”-“Appearance”打开界面选项对话框，单击“Directories”。<br><img src="https://img-blog.csdnimg.cn/20210711082923320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>主界面：<br><img src="https://img-blog.csdnimg.cn/20210711082441268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在反汇编面板窗口的列中，双击可以完成如下操作。<br>●Address列:显示被双击行地址的相对地址，再次双击返回标准地址模式。<br>●Hex dump列:设置或取消无条件断点，对应的快捷键是“F2” 键。<br>●Disassembly 列:调用汇编器，可直接修改汇编代码，对应的快捷键是空格键。<br>●Comment 列:允许增加或编辑注释，对应的快捷键是“;”键。</p>
+<p>OllyDbg界面的外观由“Appearance”对话框里的“Fonts” “Colours” “Code highlighting” 标签页控制，可以定制。</p>
+<p>可以将OllyDbg 关联到Windows资源管理器的右键快捷菜单里。关联后，当调试程序时，只需要在EXE或DLL文件上单击右键，就会出现“Open with Ollydbg”菜单项。要想实现关联，只需要先单击“Options” →“Add to Explorer”选项，再单击“Add llyDbg to menu in Windows Explorer”按钮。</p>
+<p>为了让OllyDbg中断在程序的入口点，单击“Options”→“Debugging options” 选项，单击“Event” ，设置<br>OllyDbg对中断入口点、模块加载/卸载、线程创建/结束等事件的处理方式，将断点设置在“WinMain”处。<br><img src="https://img-blog.csdnimg.cn/20210711085408292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h3><p><img src="https://img-blog.csdnimg.cn/20210711090417274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>“F7”键和“F8”键的主要区别在于，若遇到call、loop等指令，按“F8”键会路过，按“F7”键会跟进。</p>
+<p>当要重复按“F7” 键或“F8” 键时，OllyDbg提供了快捷键“Ctrl+F7” 和“Ctrl+F8”， 直到用户按“Esc”键、F12”键或遇到其他断点时停止。</p>
+<p>若想回看之前单步跟踪的代码，可以按“-” (减号)键;若想让光标回到当前EIP所指向的语句，可以单击C按钮或双击EIP寄存器（EIP指向当前将要执行的指令）。</p>
+<p>当位于某个call 指令中，想返回调用这个call 指令的位置时，可以按“Ctrl+F9” 快捷键执行“Execute till return” 命令, OllyDbg会停在遇到的第1个返回命令处( ret、retf或iret )。</p>
+<p>如果已经进入系统DLL提供的API函数，当要返回应用程序领空（指在某一时刻CPU的CS:EIP指向的某段代码的所有者）时，可以按快捷键“Alt+F9”<br>执行”Execute till user code” 命令。</p>
+<p>程序进入死循环可以按F12暂停程序。</p>
+<p>反汇编窗口右键选择<code>search for（查找）</code>-&gt;<code>Name(label) in current module(当前模块中的名称(标签))</code>。可以查找API函数名下断点。</p>
+<p>API函数大都采用_ stdeall 调用约定，即函数入口参数按从右到左的顺序入栈，由被调用者清理栈中的参数，返回值放在eax寄存器中。因此，对相关的API函数，要分析其前面的push指令,这些指令将参数放入栈，以传送给API调用。</p>
+<p>修改内存中的数据后，为了使修改一直有效，必须将这个变化写进磁盘文件。选中修改后的代码，单击右键，点击“Copy to executable”→“Selection”<br>命令，将会打开文件编辑窗口。单击右键，执行快<br>捷菜单中的“Save File” 命令，即可将修改保存到文件中。</p>
+<p><strong>Hit trace</strong><br>Hit trace能够让调试者辨别哪一部分代码被执行了，哪一部分没有。<br>在选中区域的每一条命令处设置一个INT3断点，当中断发生时，OllyDbg便把它去除。在使用Hit trace时，不能在数据中设置断点，否则程序可能会崩溃。<br>当遇到一段跳转分支比较多的代码，需要了解程序的执行线路时，可以使用Hit trace。选中这段代码，单击右键快捷菜单中的“Hit trace”→“Add selection”命令，将需要监视的代码选中，然后按“F9”键让程序运行，OllyDbg 就会在已被执行的指令前用不同的颜色添加标记。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>1、乱码问题</strong><br>使用OllyDbg跟踪程序时，可能会出现如下情况。<br><img src="https://img-blog.csdnimg.cn/2021071111040597.png" alt="在这里插入图片描述"><br>这是因为OllyDbg将这段代码当成了数据，没有进行反汇编识别。此时，只要执行OllyDbg 右键快捷菜单中的“Analysis” →“Analyse code” (“分析”→“分析代码”)命令或按“Ctrl+A” 快捷键，强迫OllyDbg重新分析代码即可。如果还是无法识别，可以尝试执行右键快捷菜单中的“Analysis”→“Remove analysis from module”(“分析”→“从模块中删除分析”)命令或在UDD目录中删除相应的UDD文件。</p>
+<p><strong>2. OllyDbg 修改EIP</strong><br>将光标移到需要修改的地址上，执行右键快捷菜单中的“New origin here” (在此处新建EIP )命<br>令或使用快捷键“Ctrl+*” 即可修改EIP。</p>
+<p><strong>3.已经删除了断点，OllyDbg重新加载时这些断点重新出现</strong><br>将配置文件olydbg.ini中的相应内容改成“ Backup UDD files=1”即可解决。</p>
+<p><strong>4.在OllyDbg反汇编窗口输入“push E000”会提示未知标识符</strong><br>这是因为OllyDbg的反汇编引擎不能正确识别字符“E000” 中的“E”是字母还是数字。解决方法是:在字母前加一个“0”， 表示这是数字，即“push 0E000”。<br><img src="https://img-blog.csdnimg.cn/20210711110919295.png" alt="在这里插入图片描述"><br><strong>5. OllyDbg 出现“假死”现象</strong><br>用OllyDbg调试一些加壳程序，程序运行到断点(包括硬件断点)时，OllyDbg 会出现“假死”现象。解决方法是:打开配置文件ollydbgini,如果“ Restore windows“是一个很大的值，就设置“Restore windows 0”。</p>
+<p><strong>6.执行复制到可执行文件时，提示错误信息“Unable to locate data in executable file”</strong><br>这里要修改的地方不在RawSize范围内。修改PE文件，使“RawSize = VirtualSize”。</p>
+<p><strong>7.把call调用改成函数名的形式</strong><br>例如“call 401496”,假设401496h处是amsg_ exit 函数,将光标停在该处，按“Shift +;”快捷键，会弹出一个标签框，在其中输人字符“amsg _exit”, 所有调用401496h处的call指令都会变成“call <amsg _exit>““的形式。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/04/%5BMRCTF2020%5DTransform-%5BWUSTCTF2020%5Dlevel1-%5BWUSTCTF2020%5Dlevel2-%5BGWCTF%202019%5Dxxor/" rel="prev" title="MRCTF2020Transform-[WUSTCTF2020]level1-[WUSTCTF2020]level2-[GWCTF 2019]xxor">
+      <i class="fa fa-chevron-left"></i> MRCTF2020Transform-[WUSTCTF2020]level1-[WUSTCTF2020]level2-[GWCTF 2019]xxor
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OllyDbg%E8%B0%83%E8%AF%95%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">OllyDbg调试器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF"><span class="nav-number">1.2.</span> <span class="nav-text">调试技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
