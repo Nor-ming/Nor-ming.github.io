@@ -470,7 +470,7 @@
 <p>那这样就好办了<br>在线工具：<a href="http://tool.chacuo.net/cryptaes/">AES解密</a><br><img src="https://img-blog.csdnimg.cn/20210320171524798.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>flag:Nep{up_up_down_down_B_a_b_A_Nep_nep~}</p>
 ]]></content>
       <categories>
-        <category>逆向学习笔记</category>
+        <category>比赛</category>
       </categories>
       <tags>
         <tag>CTF</tag>
@@ -531,7 +531,7 @@
 
 ]]></content>
       <categories>
-        <category>逆向学习笔记</category>
+        <category>比赛</category>
       </categories>
       <tags>
         <tag>CTF</tag>
@@ -904,7 +904,7 @@
 <p>所以 flag是：flag{Ninja Must Die}</p>
 ]]></content>
       <categories>
-        <category>逆向学习笔记</category>
+        <category>比赛</category>
       </categories>
       <tags>
         <tag>CTF</tag>
@@ -1216,7 +1216,7 @@
 <p>根据上面的要求改map[2][2]和map[3][3]为0，md5之后得到flag<br><img src="https://img-blog.csdnimg.cn/20210716104956235.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>flag:CISCN{8a04b4597ad08b83211d3adfa1f61431}</p>
 ]]></content>
       <categories>
-        <category>逆向学习笔记</category>
+        <category>比赛</category>
       </categories>
       <tags>
         <tag>CTF</tag>
@@ -1258,11 +1258,10 @@
 <p>flag是：ctfshow{y0u_g0t_t4e_5ecret}</p>
 ]]></content>
       <categories>
-        <category>逆向学习笔记</category>
+        <category>比赛</category>
       </categories>
       <tags>
         <tag>CTF</tag>
-        <tag>逆向</tag>
       </tags>
   </entry>
 </search>
