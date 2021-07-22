@@ -1313,4 +1313,28 @@
         <tag>MISC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>buuctf-misc练习(3)</title>
+    <url>/2021/07/22/buuctf-misc%E7%BB%83%E4%B9%A0(3)/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h3 id="镜子里的世界"><a href="#镜子里的世界" class="headerlink" title="镜子里的世界"></a>镜子里的世界</h3><p>因为是镜子里的世界，所以模糊一些，所以像素低，所以是LSB<br><img src="https://img-blog.csdnimg.cn/img_convert/37d93a7c439d4aa56d91a6120c112144.png" alt="[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-a4MYbgry-1626942462358)(https://csdn-img-blog.oss-cn-beijing.aliyuncs.com/e295f60bb66349cfad19648bc573c8de.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70)]"><br>flag是：flag{st3g0_saurus_wr3cks}</p>
+<h3 id="小明的保险箱"><a href="#小明的保险箱" class="headerlink" title="小明的保险箱"></a>小明的保险箱</h3><p>binwalk分离出来一个压缩包，爆破密码<br><img src="https://img-blog.csdnimg.cn/img_convert/944c148d9d1252838966cf00d11e9c86.png" alt="在这里插入图片描述"><br>flag是：flag{75a3d68bf071ee188c418ea6cf0bb043}</p>
+<h3 id="爱因斯坦"><a href="#爱因斯坦" class="headerlink" title="爱因斯坦"></a>爱因斯坦</h3><p>Stegsolve扫出来两个文件，binwalk分离，需要密码，爆破不出来，在属性里面发现密码<br><img src="https://img-blog.csdnimg.cn/img_convert/07654442b44c84a5699830065304d7d0.png" alt="在这里插入图片描述"></p>
+<p>flag是：flag{dd22a92bf2cceb6c0cd0d6b83ff51606}</p>
+<h3 id="easycap"><a href="#easycap" class="headerlink" title="easycap"></a>easycap</h3><p>打开之后发现都是TCP包，所以直接追踪TCP流量<br><img src="https://img-blog.csdnimg.cn/img_convert/100de17ae40997ba444d0c197f741b68.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/25ab31df68529a5ed39c83f6f41b978a.png" alt="在这里插入图片描述"><br>flag是：flag{385b87afc8671dee07550290d16a8071}</p>
+<h3 id="另外一个世界"><a href="#另外一个世界" class="headerlink" title="另外一个世界"></a>另外一个世界</h3><p>WinHEX打开，最后又一串二进制数字<br><img src="https://img-blog.csdnimg.cn/img_convert/e241c3c9f2647b324139cd5adef98675.png" alt="在这里插入图片描述"><br>八个数字一组转ASCII码<br><img src="https://img-blog.csdnimg.cn/img_convert/d7522752c8b714155870fc2fd190539a.png" alt="在这里插入图片描述"><br>flag是：flag{koekj3s}</p>
+<h3 id="隐藏的钥匙"><a href="#隐藏的钥匙" class="headerlink" title="隐藏的钥匙"></a>隐藏的钥匙</h3><p>WinHEX打开，搜索flag<br><img src="https://img-blog.csdnimg.cn/caa42108730043dc8fe9d6647df85c6c.png" alt="在这里插入图片描述"><br>base64解密<br>flag是：flag{377cbadda1eca2f2f73d36277781f00a}</p>
+<h3 id="FLAG"><a href="#FLAG" class="headerlink" title="FLAG"></a>FLAG</h3><p>LSB，发现为zip文件，将它导出<br><img src="https://img-blog.csdnimg.cn/fb70715b7b034908bbc8fb889dccb2a7.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>导出之后发现zip文件损坏，使用<a href="http://forspeed.onlinedown.net/down/95222_20170619151215.zip">修复软件</a><br><img src="https://img-blog.csdnimg.cn/d8ce27e2996946069a4d986d4152061f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修复完成，解压，有一个文件，改后缀为.txt<br>搜索flag没有，搜索  {  符号，得到<br><img src="https://img-blog.csdnimg.cn/217af219f4e640ee86f7b920f4743850.png" alt="在这里插入图片描述"><br>flag是：flag{dd0gf4c3tok3yb0ard4g41n~~~}</p>
+<h3 id="假如给我三天光明"><a href="#假如给我三天光明" class="headerlink" title="假如给我三天光明"></a>假如给我三天光明</h3><p>有一串盲文，对照翻译得到kmdonowg<br>用这个来解压压缩包，是一个音频，听一下是摩斯密码的声音，听不清可以使用Audacity来看<br><img src="https://img-blog.csdnimg.cn/e98bc931cf4f44de92691fe7d7dc64fe.png" alt="在这里插入图片描述"><br>这样方便分析<br>得到</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">-.-. - ..-. .-- .--. . .. ----- ---.. --... ...-- ..--- ..--.. ..--- ...-- -.. --..</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.metools.info/other/o105.html">网站</a><br><img src="https://img-blog.csdnimg.cn/aa902cd782a14a6c84788df870e998ae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>提交不对，改成小写字母即可<br>flag是：flag{wpei08732?23dz}</p>
+]]></content>
+      <categories>
+        <category>BUUCTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>MISC</tag>
+      </tags>
+  </entry>
 </search>
