@@ -1286,4 +1286,31 @@
         <tag>MISC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>buuctf-misc练习(2)</title>
+    <url>/2021/07/22/buuctf-misc%E7%BB%83%E4%B9%A0(2)/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h3 id="LSB"><a href="#LSB" class="headerlink" title="LSB"></a>LSB</h3><p>既然是LSB<br>使用Stegsolve<br><img src="https://img-blog.csdnimg.cn/img_convert/452ac2d6adff729f81eb08fcf7c3eb20.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/d2d24741676aee0013ced6a9705d86ce.png" alt="在这里插入图片描述"><br>得到二维码，扫一扫即可<br><img src="https://img-blog.csdnimg.cn/img_convert/c1281bc6749dc1d02fb01926f6fab148.png" alt="在这里插入图片描述"><br>flag是：flag{1sb_i4_s0_Ea4y}</p>
+<h3 id="文件中的秘密"><a href="#文件中的秘密" class="headerlink" title="文件中的秘密"></a>文件中的秘密</h3><p>右键属性详细信息<br><img src="https://img-blog.csdnimg.cn/img_convert/ea9beb738791736736766cf6de3e34b9.png" alt="在这里插入图片描述"><br>flag是：flag{870c5a72806115cb5439345d8b014396}</p>
+<h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><p>给了提示是登录登录方法，就直接过滤搜</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">http.request.method==POST</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d029384b2b1b2ba0958ddb9dd8374894.png" alt="在这里插入图片描述"><br>flag是：flag{ffb7567a1d4f4abdffdb54e022f8facd}</p>
+<h3 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h3><p>4位数字爆破<br><img src="https://img-blog.csdnimg.cn/img_convert/84b5bbe196b16c4f438f6c40b1940ced.png" alt="在这里插入图片描述"><br>flag是：flag{1773c5da790bd3caff38e3decd180eb7}</p>
+<h3 id="qr"><a href="#qr" class="headerlink" title="qr"></a>qr</h3><p><img src="https://img-blog.csdnimg.cn/img_convert/9ddc024cf7ae2b60723dab00477a53fe.png" alt="在这里插入图片描述"><br>flag是：flag{878865ce73370a4ce607d21ca01b5e59}</p>
+<h3 id="zip伪加密"><a href="#zip伪加密" class="headerlink" title="zip伪加密"></a>zip伪加密</h3><p>Winhex打开，看到是zip伪加密<br><img src="https://img-blog.csdnimg.cn/img_convert/95cb7ac1a816bde1d5d58eb3e6943062.png" alt="在这里插入图片描述"><br>使用工具ZipCenOp，把它和压缩包放在同一个文件夹里，打开cmd切换到ZipCenOp的文件夹执行：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">java -jar ZipCenOp.jar r 文件名.zip </span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d371deda28690f5bff41861e5988bb37.png" alt="在这里插入图片描述"><br>现在可以正常解压了，打开就有flag了<br>flag是：flag{Adm1N-B2G-kU-SZIP}</p>
+<h3 id="ningen"><a href="#ningen" class="headerlink" title="ningen"></a>ningen</h3><p>binwalk分离一下，然后爆破密码<br><img src="https://img-blog.csdnimg.cn/img_convert/c64c133715ccdcee565f4fe9c1926687.png" alt="在这里插入图片描述"><br>flag是：flag{b025fc9ca797a67d2103bfbc407a6d5f}</p>
+<h3 id="被嗅探的能量"><a href="#被嗅探的能量" class="headerlink" title="被嗅探的能量"></a>被嗅探的能量</h3><p>因为题目说抓取的文件，所以直接搜索flag就好了</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">http contains <span class="string">&quot;flag&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/370250d1eb7c7ad85f0553e26a75fefc.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/img_convert/6724af088214fad026a5fc33a26d7537.png" alt="在这里插入图片描述"><br>flag是：flag{da73d88936010da1eeeb36e945ec4b97}</p>
+]]></content>
+      <categories>
+        <category>BUUCTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>MISC</tag>
+      </tags>
+  </entry>
 </search>
