@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="buuctf-misc练习(1)">
+<meta property="og:url" content="http://example.com/2021/07/22/buuctf-misc%E7%BB%83%E4%B9%A0(1)/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/9875d9b601f0b2165fb649e1d313b300.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7ffa777615512af3e657a9111fe5135c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6d5dc630f59fce50b77506aa3fbbc8cb.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/087df19e333f81021885d069394ebc25.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/496d8344261f7d2f691dae94881f5bcf.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/3a7106b0067aa71da6c8effeab71adf1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/13c340dc9feb260213d80bcf06de7146.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/dbf599981a471e2daa2862221b7bb4ac.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/831a832f668b085bcd76160839c5a6f8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/858e196e5ade27b1ba264672a7c80c29.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7d7ef9f80954f70cea33a5b4539ac753.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7b27cb5465c9528c826d3bd683a14ee5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/dad913cb9ff8e385e0e2deddb82ec5cb.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/aa5e22544adb8500c9b5ae62dadc93b7.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/ac102555a7b306a6bbcfcabc4a26a46e.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/123e9ae24394bdb3fd79846eac09f661.png">
+<meta property="article:published_time" content="2021-07-22T02:27:02.431Z">
+<meta property="article:modified_time" content="2021-07-22T02:38:13.706Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="MISC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/9875d9b601f0b2165fb649e1d313b300.png">
+
+<link rel="canonical" href="http://example.com/2021/07/22/buuctf-misc%E7%BB%83%E4%B9%A0(1)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>buuctf-misc练习(1) | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/22/buuctf-misc%E7%BB%83%E4%B9%A0(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          buuctf-misc练习(1)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-07-22 10:27:02 / 修改时间：10:38:13" itemprop="dateCreated datePublished" datetime="2021-07-22T10:27:02+08:00">2021-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BUUCTF/" itemprop="url" rel="index"><span itemprop="name">BUUCTF</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h3 id="金三胖"><a href="#金三胖" class="headerlink" title="金三胖"></a>金三胖</h3><p>图片隐写，使用Stegsolve<br><img src="https://img-blog.csdnimg.cn/img_convert/9875d9b601f0b2165fb649e1d313b300.png" alt="在这里插入图片描述"><br>左右移动看到<br><img src="https://img-blog.csdnimg.cn/img_convert/7ffa777615512af3e657a9111fe5135c.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/6d5dc630f59fce50b77506aa3fbbc8cb.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/087df19e333f81021885d069394ebc25.png" alt="在这里插入图片描述"><br>flag是：flag{he11ohongke}</p>
+<h3 id="二维码"><a href="#二维码" class="headerlink" title="二维码"></a>二维码</h3><p>一张二维码，扫一扫没有flag<br>使用binwalk分离<br><img src="https://img-blog.csdnimg.cn/img_convert/496d8344261f7d2f691dae94881f5bcf.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/3a7106b0067aa71da6c8effeab71adf1.png" alt="在这里插入图片描述"><br>得到的文件里面有一个压缩包<br><img src="https://img-blog.csdnimg.cn/img_convert/13c340dc9feb260213d80bcf06de7146.png" alt="在这里插入图片描述"><br>需要密码，有文件名可知密码是四个数字，可以采用下面显示的软件爆破<br><img src="https://img-blog.csdnimg.cn/img_convert/dbf599981a471e2daa2862221b7bb4ac.png" alt="在这里插入图片描述"><br>输入解压，打开文本文件<br>flag是：flag{vjpw_wnoei}</p>
+<h3 id="N种方法解决"><a href="#N种方法解决" class="headerlink" title="N种方法解决"></a>N种方法解决</h3><p>一个exe文件，无法运行，改后缀为txt，打开看到base64提示，全选复制</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAIUAAACFCAYAAAB12js8AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAArZSURBVHhe7ZKBitxIFgTv/<span class="number">396</span>Tx564G1UouicKg19hwPCDcrMJ9m7/<span class="number">7</span>n45zfdxe5Z3sJ7prHbf9rXO3P4lLvYPctbeM80dvtP+<span class="number">3</span>pnDp9yF7tneQvvmcZu/<span class="number">2l</span>f78zhU+<span class="number">5</span>i9yxv4T3T2O0/<span class="number">7</span>eud68OT2H3LCft0l/ae9ZlTo+<span class="number">23</span>pPvX7/rwJHbfcsI+<span class="number">3</span>aW9Z33m1Gj7Len+<span class="number">9b</span>s+PIndt5ywT3dp71mfOTXafku6f/<span class="number">2u</span>D09i9y0n7NNd2nvWZ06Ntt+S7l+/<span class="number">68</span>MJc5O0OSWpcyexnFjfcsI+JW1ukpRfv+vDCXOTtDklqXMnsZxY33LCPiVtbpKUX7/rwwlzk7Q5JalzJ7GcWN9ywj4lbW6SlF+/<span class="number">68</span>MJc5O0OSWpcyexnFjfcsI+JW1ukpRfv+vDCXOTWE7a/i72PstJ2zfsHnOTpPz6XR9OmJvEctL2d7H3WU7avmH3mJsk5dfv+nDC3CSWk7a/i73PctL2DbvH3CQpv37XhxPmJrGctP1d7H2Wk7Zv2D3mJkn59bs+nDA3ieWEfdNImylJnelp7H6bmyTl1+/<span class="number">6</span>cMLcJJYT9k0jbaYkdaansfttbpKUX7/rwwlzk1hO2DeNtJmS1Jmexu63uUlSfv2uDyfMTWI5Yd800mZKUmd6Grvf5iZJ+fW7PjzJ7v12b33LSdtvsfuW75LuX7/rw5Ps3m/<span class="number">31</span>rectP0Wu2/<span class="number">5Lu</span>n+<span class="number">9b</span>s+PMnu/XZvfctJ22+x+<span class="number">5b</span>vku5fv+vDk+zeb/fWt5y0/Ra7b/ku6f71+++HT0v+<span class="number">5l</span>3+tK935vApyd+<span class="number">8</span>y5/<span class="number">29</span>c4cPiX5m3f5077emcOnJH/zLn/ar3d+/flBpI+cMDeNtJkSywn79BP5uK+yfzTmppE2U2I5YZ9+Ih/<span class="number">3</span>VfaPxtw00mZKLCfs00/k477K/tGYm0baTInlhH36iSxflT78TpI605bdPbF7lhvct54mvWOaWJ6m4Z0kdaYtu3ti9yw3uG89TXrHNLE8TcM7SepMW3b3xO5ZbnDfepr0jmlieZqGd5LUmbbs7onds9zgvvU06R3TxPXcSxPrW07YpyR1pqTNKUmdKUmdk5LUaXzdWB/eYX3LCfuUpM6UtDklqTMlqXNSkjqNrxvrwzusbzlhn5LUmZI2pyR1piR1TkpSp/F1Y314h/UtJ+xTkjpT0uaUpM6UpM5JSeo0ft34+vOGNLqDfUosN7inhvUtJ+ybRtpMd0n39Goa3cE+JZYb3FPD+pYT9k0jbaa7pHt6NY3uYJ8Syw3uqWF9ywn7ppE2013SPb2aRnewT4nlBvfUsL7lhH3TSJvpLunecjWV7mCftqQbjSR1puR03tqSbkx/wrJqj7JPW9KNRpI6U3I6b21JN6Y/YVm1R9mnLelGI0mdKTmdt7akG9OfsKzao+zTlnSjkaTOlJzOW1vSjelPWFbp8NRImylJnWnL7r6F7zN3STcb32FppUNTI22mJHWmLbv7Fr7P3CXdbHyHpZUOTY20mZLUmbbs7lv4PnOXdLPxHZZWOjQ10mZKUmfasrtv4fvMXdLNxndYWunQlFhutHv2W42n+<span class="number">4b</span>ds7wl3VuuskSJ5Ua7Z7/VeLpv2D3LW9K95SpLlFhutHv2W42n+<span class="number">4b</span>ds7wl3VuuskSJ5Ua7Z7/VeLpv2D3LW9K97avp6GQ334X3KWlz+tukb5j+hO2/hX3Ebr4L71PS5vS3Sd8w/Qnbfwv7iN18F96npM3pb5O+YfoTtv8W9hG7+S68T0mb098mfcP0Jxz/W+x+FPethvUtN2y/m7fwnvm1+frzIOklDdy3Gta33LD9bt7Ce+bX5uvPg6SXNHDfaljfcsP2u3kL75lfm68/D5Je0sB9q2F9yw3b7+YtvGd+bb7+vCEN7ySpMzXSZrqL3bOcsN9Kns4T2uJRk6TO1Eib6S52z3LCfit5Ok9oi0dNkjpTI22mu9g9ywn7reTpPKEtHjVJ6kyNtJnuYvcsJ+y3kqfzxNLiEUosJ+xTYvkudt9yg3tqpM2d5Cf50mKJEssJ+<span class="number">5</span>RYvovdt9zgnhppcyf5Sb60WKLEcsI+JZbvYvctN7inRtrcSX6SLy2WKLGcsE+J5bvYfcsN7qmRNneSn+RLK5UmbW4Sywn7lOzmhH3a0u7ZN99hadmRNjeJ5YR9SnZzwj5taffsm++wtOxIm5vEcsI+Jbs5YZ+<span class="number">2</span>tHv2zXdYWnakzU1iOWGfkt2csE9b2j375jtcvTz+tuX0vrXF9sxNkjrTT+T6rvyx37ac3re22J65SVJn+olc35U/<span class="number">9</span>tuW0/vWFtszN0nqTD+R67vyx37bcnrf2mJ75iZJneknUn+V/aWYUyNtpqTNqZE2UyNtGlvSjTsT9VvtKHNqpM2UtDk10mZqpE1jS7pxZ6J+qx1lTo20mZI2p0baTI20aWxJN+<span class="number">5</span>M1G+<span class="number">1</span>o8ypkTZT0ubUSJupkTaNLenGnYnl6TujO2zP3DTSZkp2c8L+<span class="number">0</span>xppM32HpfWTIxPbMzeNtJmS3Zyw/<span class="number">7</span>RG2kzfYWn95MjE9sxNI22mZDcn7D+tkTbTd1haPzkysT1z00ibKdnNCftPa6TN9B2uXh5/S9rcbEk37jR2+<span class="number">5</span>SkzpSkzo4kdaavTg6/JW1utqQbdxq7fUpSZ0pSZ0eSOtNXJ4ffkjY3W9KNO43dPiWpMyWpsyNJnemrk8NvSZubLenGncZun5LUmZLU2ZGkzvTVWR/e0faJ7Xdzw/bMKbGc7PbNE1x3uqNtn9h+Nzdsz5wSy8lu3zzBdac72vaJ7Xdzw/bMKbGc7PbNE1x3uqNtn9h+Nzdsz5wSy8lu3zzBcsVewpyS1LmTWG7Y3nLCPm1JN05KLP/D8tRGzClJnTuJ5YbtLSfs05Z046TE8j8sT23EnJLUuZNYbtjecsI+bUk3Tkos/<span class="number">8</span>Py1EbMKUmdO4nlhu0tJ+zTlnTjpMTyP/R/i8PwI<span class="comment">//fJZYb3Jvv8Pd/il+WWG5wb77D3/8pflliucG9+Q5//6f4ZYnlBvfmO1y9PH7KFttbfhq+zySpMyVtbr7D1cvjp2yxveWn4ftMkjpT0ubmO1y9PH7KFttbfhq+zySpMyVtbr7D1cvjp2yxveWn4ftMkjpT0ubmO1y9ftRg9y0n7FPD+paTtk9O71sT13Mv7WD3LSfsU8P6lpO2T07vWxPXcy/tYPctJ+xTw/qWk7ZPTu9bE9dzL+1g9y0n7FPD+paTtk9O71sT1/P7EnOTWG5wb5LUmRptn3D/6b6+eX04YW4Syw3uTZI6U6PtE+4/3dc3rw8nzE1iucG9SVJnarR9wv2n+/rm9eGEuUksN7g3SepMjbZPuP90X9+8PpwwN0mb72pYfzcn1rf8NHwffXXWhxPmJmnzXQ3r7+bE+pafhu+jr876cMLcJG2+q2H93ZxY3/LT8H301VkfTpibpM13Nay/mxPrW34avo++OuvDCXOT7OZGu7e+5YT9XYnlhH36DlfvfsTcJLu50e6tbzlhf1diOWGfvsPVux8xN8lubrR761tO2N+VWE7Yp+9w9e5HzE2ymxvt3vqWE/Z3JZYT9uk7XL1+1GD3LX8avt8klhu2t5yc6F+/68OT2H3Ln4bvN4nlhu0tJyf61+/68CR23/Kn4ftNYrlhe8vJif71uz48id23/Gn4fpNYbtjecnKif/3+++HTnub0fd4zieUtvLfrO1y9PH7K05y+z3smsbyF93Z9h6uXx095mtP3ec8klrfw3q7vcPXy+ClPc/o+75nE8hbe2/Udzv9X+sv/OP/881/SqtvcdpBh+wAAAABJRU5ErkJggg==</span></span><br></pre></td></tr></table></figure>
+<p>使用<a target="_blank" rel="noopener" href="http://tool.chinaz.com/tools/imgtobase/">在线工具</a>解密<br>得到一张二维码，使用QR Research解密<br><img src="https://img-blog.csdnimg.cn/img_convert/831a832f668b085bcd76160839c5a6f8.png" alt="在这里插入图片描述"><br>flag是：flag{dca57f966e4e4e31fd5b15417da63269}</p>
+<h3 id="你竟然赶我走"><a href="#你竟然赶我走" class="headerlink" title="你竟然赶我走"></a>你竟然赶我走</h3><p>Winhex打开搜索flag<br><img src="https://img-blog.csdnimg.cn/img_convert/858e196e5ade27b1ba264672a7c80c29.png" alt="在这里插入图片描述"><br>flag是：flag{stego_is_s0_bor1ing}</p>
+<h3 id="大白"><a href="#大白" class="headerlink" title="大白"></a>大白</h3><p>根据提示，需要改宽度和高度<br>winhex打开，从第二行开始，前四位是宽，后四位是高<br><img src="https://img-blog.csdnimg.cn/img_convert/7d7ef9f80954f70cea33a5b4539ac753.png" alt="在这里插入图片描述"><br>将01改为02（Edit-Modify Data)<br><img src="https://img-blog.csdnimg.cn/img_convert/7b27cb5465c9528c826d3bd683a14ee5.png" alt="在这里插入图片描述"><br>Save as 保存，查看新图片<br><img src="https://img-blog.csdnimg.cn/img_convert/dad913cb9ff8e385e0e2deddb82ec5cb.png" alt="在这里插入图片描述"><br>flag{He1l0_d4_ba1}</p>
+<h3 id="基础破解"><a href="#基础破解" class="headerlink" title="基础破解"></a>基础破解</h3><p>有一个压缩包，提示了密码是4位数字，使用[ARCHPR]爆破可得(<a target="_blank" rel="noopener" href="http://www.ddooo.com/softdown/176170.htm">http://www.ddooo.com/softdown/176170.htm</a>)<br><img src="https://img-blog.csdnimg.cn/img_convert/aa5e22544adb8500c9b5ae62dadc93b7.png" alt="在这里插入图片描述"><br>压缩包密码为2563，打开有base64加密的字符串<br>ZmxhZ3s3MDM1NDMwMGE1MTAwYmE3ODA2ODgwNTY2MWI5M2E1Y30=<br>解密得到flag<br>flag是：flag{70354300a5100ba78068805661b93a5c}</p>
+<h3 id="乌镇峰会种图"><a href="#乌镇峰会种图" class="headerlink" title="乌镇峰会种图"></a>乌镇峰会种图</h3><p><img src="https://img-blog.csdnimg.cn/img_convert/ac102555a7b306a6bbcfcabc4a26a46e.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/img_convert/123e9ae24394bdb3fd79846eac09f661.png" alt="在这里插入图片描述"><br>flag是：flag{97314e7864a8f62627b26f3f998c37f1}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/MISC/" rel="tag"># MISC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/20/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%9A%91%E6%9C%9FCTF%E8%AE%AD%E7%BB%83%E8%B5%9B--%E7%AC%AC%E4%B8%80%E5%91%A8/" rel="prev" title="实验室暑期CTF训练赛--第一周">
+      <i class="fa fa-chevron-left"></i> 实验室暑期CTF训练赛--第一周
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%91%E4%B8%89%E8%83%96"><span class="nav-number">1.</span> <span class="nav-text">金三胖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">二维码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#N%E7%A7%8D%E6%96%B9%E6%B3%95%E8%A7%A3%E5%86%B3"><span class="nav-number">3.</span> <span class="nav-text">N种方法解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E7%AB%9F%E7%84%B6%E8%B5%B6%E6%88%91%E8%B5%B0"><span class="nav-number">4.</span> <span class="nav-text">你竟然赶我走</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E7%99%BD"><span class="nav-number">5.</span> <span class="nav-text">大白</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A0%B4%E8%A7%A3"><span class="nav-number">6.</span> <span class="nav-text">基础破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%8C%E9%95%87%E5%B3%B0%E4%BC%9A%E7%A7%8D%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">乌镇峰会种图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
