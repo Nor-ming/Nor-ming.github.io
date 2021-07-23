@@ -1337,4 +1337,34 @@
         <tag>MISC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>buuctf-misc练习(4)</title>
+    <url>/2021/07/23/buuctf-misc%E7%BB%83%E4%B9%A0(4)/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<h3 id="神秘龙卷风"><a href="#神秘龙卷风" class="headerlink" title="神秘龙卷风"></a>神秘龙卷风</h3><p>爆破出密码<br><img src="https://img-blog.csdnimg.cn/a9a7b96d8608431481a3907be068f21a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开，使用<a href="https://tool.bugku.com/brainfuck/?wafcloud=1">此网站</a>解密<br>flag是：flag{e4bbef8bdf9743f8bf5b727a9f6332a8}</p>
+<h3 id="后门查杀"><a href="#后门查杀" class="headerlink" title="后门查杀"></a>后门查杀</h3><p>下载下来的文件解压之后使用D盾扫描<br><img src="https://img-blog.csdnimg.cn/4d7f5963a44b400ea5a02427b870e8b0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>将标红的文件打开，因为提示给了md5，所以搜索md5<br><img src="https://img-blog.csdnimg.cn/ca0e40e2f9ef4a889ebd9fbdadcbc254.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>关于md5的都是<code>$k</code>或者<code>$pass</code><br>搜索这两个<br><img src="https://img-blog.csdnimg.cn/b05efef5bc2b491585367ad1a87cdc6e.png" alt="在这里插入图片描述"><br>flag是：flag{6ac45fb83b3bc355c024f5034b947dd3}</p>
+<h3 id="荷兰宽带数据泄露"><a href="#荷兰宽带数据泄露" class="headerlink" title="荷兰宽带数据泄露"></a>荷兰宽带数据泄露</h3><p>本题<a href="https://blog.csdn.net/fi0stBlooder/article/details/118398330?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.pc_relevant_baidujshouduan&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.pc_relevant_baidujshouduan">参考博客</a><br>文件是conf.bin，是宽带数据文件，用RouterPassView打开<br>没有给出flag，猜测是账户名或者是密码<br><img src="https://img-blog.csdnimg.cn/b8884edc6b224cb5b35d0d21cf2ae574.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>flag是：flag{053700357621}</p>
+<h3 id="数据包中的线索"><a href="#数据包中的线索" class="headerlink" title="数据包中的线索"></a>数据包中的线索</h3><p>过滤http，追踪http最后一个包，发现base64编码<br><img src="https://img-blog.csdnimg.cn/30bd119800dd4cb39ac3c7161e8cf1f6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/c28ec310db754dc2bf8d8f184cdb63c6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>使用<a href="https://the-x.cn/base64">此网站</a>解密<br><img src="https://img-blog.csdnimg.cn/828059cdf1904de9916089a07bcc5e76.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>flag是：flag{209acebf6324a09671abc31c869de72c}</p>
+<h3 id="来首歌吧"><a href="#来首歌吧" class="headerlink" title="来首歌吧"></a>来首歌吧</h3><p><img src="https://img-blog.csdnimg.cn/971d458416974e90bb29010f26428b08.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>摩斯密码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">..... -... -.-. ----. ..--- ..... -.... ....- ----. -.-. -... ----- .---- ---.. ---.. ..-. ..... ..--- . -.... .---- --... -.. --... ----- ----. ..--- ----. .---- ----. .---- -.-.</span><br></pre></td></tr></table></figure>
+<p>5BC925649CB0188F52E617D70929191C</p>
+<p>flag是：flag{5BC925649CB0188F52E617D70929191C}</p>
+<h3 id="九连环"><a href="#九连环" class="headerlink" title="九连环"></a>九连环</h3><p>使用binwalk分离文件，得到一个压缩包和一个文件夹，文件夹里面有一个有密码的压缩包和一张图片<br><img src="https://img-blog.csdnimg.cn/f1dfd8ecc85f4fbab15f9f5bc10a773b.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/3b29cb36479a40939b53a2e5844b25cf.png" alt="在这里插入图片描述"><br>使用steghide分析这张图片发现隐藏信息<br>steghide的安装：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">apt-get install steghide</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/facc34da99104e75b54fd280364b4118.png" alt="在这里插入图片描述"><br>打开ko.txt，得到密码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">bV1g6t5wZDJif^J7</span><br></pre></td></tr></table></figure>
+<p>输入即可解压缩，得到flag<br>flag是：flag{1RTo8w@&amp;4nK@z*XL}</p>
+<h3 id="面具下的flag"><a href="#面具下的flag" class="headerlink" title="面具下的flag"></a>面具下的flag</h3><p>使用binwalk分离图片，得到虚拟机磁盘文件<br><img src="https://img-blog.csdnimg.cn/2ba51ee2bfb64f3886b7481c8493568f.png" alt="在这里插入图片描述"><br>用以下命令解压</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">7</span>z x flag.vmdk -o./</span><br></pre></td></tr></table></figure>
+<p>得到四个文件夹，打开这两个文件夹<br><img src="https://img-blog.csdnimg.cn/28ac4aeb1a24471f8643d1ebc29b0bd1.png" alt="在这里插入图片描述"><br>里面的内容用<a href="https://tool.bugku.com/brainfuck/?wafcloud=1">这个网站</a>解密<br>flag是：flag{N7F5_AD5_i5_funny!}</p>
+<h3 id="webshell后门"><a href="#webshell后门" class="headerlink" title="webshell后门"></a>webshell后门</h3><p>D盾扫一下，打开那个多功能大木马，搜索pass<br>flag是：flag{ba8e6c6f35a53933b871480bb9a9545c}</p>
+]]></content>
+      <categories>
+        <category>BUUCTF</category>
+      </categories>
+      <tags>
+        <tag>CTF</tag>
+        <tag>MISC</tag>
+      </tags>
+  </entry>
 </search>
