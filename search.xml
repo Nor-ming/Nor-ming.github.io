@@ -1419,4 +1419,21 @@
         <tag>MISC</tag>
       </tags>
   </entry>
+  <entry>
+    <title>解决kali连不上网的问题（网卡不工作）</title>
+    <url>/2021/07/29/%E8%A7%A3%E5%86%B3kali%E8%BF%9E%E4%B8%8D%E4%B8%8A%E7%BD%91%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E7%BD%91%E5%8D%A1%E4%B8%8D%E5%B7%A5%E4%BD%9C%EF%BC%89/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>参考了<a href="https://blog.csdn.net/like98k/article/details/79873320">郁离歌</a>的博客<br>ifconfig之后发现只有localhost<br><img src="https://img-blog.csdnimg.cn/0e1f5fc346274282ac85be2b681c8443.png" alt="在这里插入图片描述"><br>ifconfig -a<br><img src="https://img-blog.csdnimg.cn/92ecb541eb144935a98bf36c015d8ac3.png" alt="在这里插入图片描述"><br>看到网卡还活着，只是罢工了<br>在终端运行这个命令</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">leafpad /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+<p>在最后加上方框中的两行<br><img src="https://img-blog.csdnimg.cn/4c5c9b15ad994c76bcdc0470487c6270.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>保存，终端执行命令重启网络</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">/etc/init.d/networking restart  </span><br></pre></td></tr></table></figure>
+<p>即可<br><img src="https://img-blog.csdnimg.cn/2e2eb9c285b14dcb8e46a278de0235a1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Kali</tag>
+      </tags>
+  </entry>
 </search>
