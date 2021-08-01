@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="WUSTCTF2020level3-[BJDCTF2020]BJD hamburger competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun">
+<meta property="og:url" content="http://example.com/2021/08/01/WUSTCTF2020level3-[BJDCTF2020]BJD%20hamburger%20competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f89c94090bfc4ec8bb208959e723e98e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8ca8233d9b704afca65231fb4a2e55de.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9447864f4b6942da880ee6dc8589332f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e4843c669f2047e2b9107d8feeb0ac47.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e721501e11634aac86ec34c5163bd91c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d73ce4325d404d2394bccea488ccd5f5.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/93281b534338459598bd0d6bda280b4b.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2029af3fd28f40c6a1fbe47dd3301741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/21b95920c94b4c8192a33c871f052c19.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/4812480877f34637b2b47fba7786b1fb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/906ba37ce7804c42b8f089d522c7fb23.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/8c8b3437ae88452bb37d53f327b14202.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e8c519d56dab4acc919cd9fe32205b4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f74758f7715a4bbc8fbf106a38bacb13.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/41832d07b1814d5196ff90cef4865544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/917f1f8ce44d4a47840ff576f421a55c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6ba13faf36174a0cafd509542514735c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/bbc54cac13554cdbba23b315dc5b5c68.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7e17ba5a79ea4ffe83bfd4bb7174085f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6fc98f74069549f08c46060e1dad7f45.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e6a39024beba4de285564c662ec08af9.png">
+<meta property="article:published_time" content="2021-08-01T06:39:19.804Z">
+<meta property="article:modified_time" content="2021-08-01T06:44:38.772Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f89c94090bfc4ec8bb208959e723e98e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/08/01/WUSTCTF2020level3-[BJDCTF2020]BJD%20hamburger%20competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>WUSTCTF2020level3-[BJDCTF2020]BJD hamburger competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/01/WUSTCTF2020level3-[BJDCTF2020]BJD%20hamburger%20competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WUSTCTF2020level3-[BJDCTF2020]BJD hamburger competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-01 14:39:19 / 修改时间：14:44:38" itemprop="dateCreated datePublished" datetime="2021-08-01T14:39:19+08:00">2021-08-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BUUCTF/" itemprop="url" rel="index"><span itemprop="name">BUUCTF</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<h3 id="WUSTCTF2020-level3"><a href="#WUSTCTF2020-level3" class="headerlink" title="[WUSTCTF2020]level3"></a>[WUSTCTF2020]level3</h3><p><img src="https://img-blog.csdnimg.cn/f89c94090bfc4ec8bb208959e723e98e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>64位IDA打开，看main函数<br><img src="https://img-blog.csdnimg.cn/8ca8233d9b704afca65231fb4a2e55de.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>根据它的提示应该是变换的base64加密<br>点击15行的函数base_encode<br><img src="https://img-blog.csdnimg.cn/9447864f4b6942da880ee6dc8589332f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>加密流程和base64一样的，那应该就是对加密表进行了变换<br>双击base_table[]，通过交叉引用我们可以看到有其他的函数调用了它，过去看看<br><img src="https://img-blog.csdnimg.cn/e4843c669f2047e2b9107d8feeb0ac47.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/e721501e11634aac86ec34c5163bd91c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一个换表，将原来base64中的前20位倒过来<br>编写脚本解决：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">table = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&#x27;</span></span><br><span class="line">model = <span class="built_in">list</span>(<span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&quot;</span>)</span><br><span class="line">s = <span class="string">&quot;d2G0ZjLwHjS7DmOzZAY0X2lzX3CoZV9zdNOydO9vZl9yZXZlcnGlfD==&quot;</span><span class="comment">##此处为加密后的字符串</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    model[i], model[<span class="number">19</span>-i] = model[<span class="number">19</span>-i], model[i]<span class="comment">##此处为还原规律，本脚本为将前20位颠倒</span></span><br><span class="line">model = <span class="string">&#x27;&#x27;</span>.join(model)</span><br><span class="line"><span class="built_in">print</span> (model)</span><br><span class="line">table = <span class="built_in">str</span>.maketrans(model, table)</span><br><span class="line"><span class="built_in">print</span> (base64.b64decode(s.translate(table)))</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/d73ce4325d404d2394bccea488ccd5f5.png" alt="在这里插入图片描述"><br>flag是：flag{Base64_is_the_start_of_reverse}</p>
+<h3 id="BJDCTF2020-BJD-hamburger-competition"><a href="#BJDCTF2020-BJD-hamburger-competition" class="headerlink" title="[BJDCTF2020]BJD hamburger competition"></a>[BJDCTF2020]BJD hamburger competition</h3><p>很有意思的一个游戏<br><img src="https://img-blog.csdnimg.cn/93281b534338459598bd0d6bda280b4b.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>由于unity是用C#开发，所以用dnspy<br>在<code>BJD hamburger competition_Data\Managed</code>文件夹中找到<code>Assembly-CSharp.dll</code>这是程序的源码，用来存放C#工程<br>打开，搜索字符串<br><img src="https://img-blog.csdnimg.cn/2029af3fd28f40c6a1fbe47dd3301741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/21b95920c94b4c8192a33c871f052c19.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>逻辑是选择了正确的配料得到一个值，这个值sha1加密之后是DD01903921EA24941C26A48F2CEC24E0BB0E8CC7，最后有一个MD5加密<br><img src="https://img-blog.csdnimg.cn/4812480877f34637b2b47fba7786b1fb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>SHA1解密为1001<br>看MD5函数<br><img src="https://img-blog.csdnimg.cn/906ba37ce7804c42b8f089d522c7fb23.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>X2是变成大写，然后后面写的是取0-20位<br>flag是：flag{B8C37E33DEFDE51CF91E}</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>运行一下，发现就一句话，像是冒号后面还有东西的样子<br><img src="https://img-blog.csdnimg.cn/8c8b3437ae88452bb37d53f327b14202.png" alt="在这里插入图片描述"><br>看看主函数<br><img src="https://img-blog.csdnimg.cn/e8c519d56dab4acc919cd9fe32205b4d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第7行是写入了什么，代码给的是长度28位，但是打开<code>unk_402008</code>发现很长，有127位<br><img src="https://img-blog.csdnimg.cn/f74758f7715a4bbc8fbf106a38bacb13.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以写代码改变然后解密，这里使用OD，更加快捷<br><img src="https://img-blog.csdnimg.cn/41832d07b1814d5196ff90cef4865544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看这一行，我们要在栈中修改它的值，在这一行右键-&gt;Binary-&gt;Edit<br><img src="https://img-blog.csdnimg.cn/917f1f8ce44d4a47840ff576f421a55c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>改成AF<br><img src="https://img-blog.csdnimg.cn/6ba13faf36174a0cafd509542514735c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/bbc54cac13554cdbba23b315dc5b5c68.png" alt="在这里插入图片描述"><br>然后在OD中运行<br><img src="https://img-blog.csdnimg.cn/7e17ba5a79ea4ffe83bfd4bb7174085f.png" alt="在这里插入图片描述"><br>flag是：flag{I_a_M_t_h_e_e_n_C_o_D_i_n_g@flare-on.com}</p>
+<p>ida64打开，从主函数看有个check，打开全都是这样的一个套一个<img src="https://img-blog.csdnimg.cn/6fc98f74069549f08c46060e1dad7f45.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>都复制了跑一下，按顺序输出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a1[<span class="number">49</span>];</span><br><span class="line">	a1[<span class="number">10</span>] = <span class="number">112</span> ;</span><br><span class="line">	a1[<span class="number">13</span>] = <span class="number">64</span> ;</span><br><span class="line">	a1[<span class="number">3</span>] = <span class="number">102</span> ;</span><br><span class="line">	a1[<span class="number">26</span>] = <span class="number">114</span> ;</span><br><span class="line">	a1[<span class="number">20</span>] = <span class="number">101</span> ;</span><br><span class="line">	a1[<span class="number">7</span>] = <span class="number">48</span> ;</span><br><span class="line">	a1[<span class="number">16</span>] = <span class="number">95</span> ;</span><br><span class="line">	a1[<span class="number">11</span>] = <span class="number">112</span> ;</span><br><span class="line">	a1[<span class="number">23</span>] = <span class="number">101</span> ;</span><br><span class="line">	a1[<span class="number">30</span>] = <span class="number">117</span>  ;</span><br><span class="line">	a1[<span class="number">0</span>] = <span class="number">119</span>   ;</span><br><span class="line">	a1[<span class="number">6</span>] = <span class="number">50</span> ;</span><br><span class="line">	a1[<span class="number">22</span>] = <span class="number">115</span>;</span><br><span class="line">	a1[<span class="number">31</span>] = <span class="number">110</span> ;</span><br><span class="line">	a1[<span class="number">12</span>] = <span class="number">95</span>;</span><br><span class="line">	a1[<span class="number">15</span>] = <span class="number">100</span>;</span><br><span class="line">	a1[<span class="number">8</span>] = <span class="number">123</span> ;</span><br><span class="line">	a1[<span class="number">18</span>] = <span class="number">51</span> ;</span><br><span class="line">	a1[<span class="number">28</span>] = <span class="number">95</span> ;</span><br><span class="line">	a1[<span class="number">21</span>] = <span class="number">114</span> ;</span><br><span class="line">	a1[<span class="number">2</span>] = <span class="number">116</span> ;</span><br><span class="line">	a1[<span class="number">9</span>] = <span class="number">99</span> ;</span><br><span class="line">	a1[<span class="number">32</span>] = <span class="number">125</span>;</span><br><span class="line">	a1[<span class="number">19</span>] = <span class="number">118</span> ;</span><br><span class="line">	a1[<span class="number">5</span>] = <span class="number">48</span> ;</span><br><span class="line">	a1[<span class="number">14</span>] = <span class="number">110</span>;</span><br><span class="line">	a1[<span class="number">4</span>] = <span class="number">50</span>   ;</span><br><span class="line">	a1[<span class="number">17</span>] = <span class="number">114</span>  ;</span><br><span class="line">	a1[<span class="number">29</span>] = <span class="number">102</span>   ;</span><br><span class="line">	a1[<span class="number">17</span>] = <span class="number">114</span>   ;</span><br><span class="line">	a1[<span class="number">24</span>] = <span class="number">95</span>  ;</span><br><span class="line">	a1[<span class="number">1</span>] = <span class="number">99</span>   ;</span><br><span class="line">	a1[<span class="number">25</span>] = <span class="number">64</span>   ;</span><br><span class="line">	a1[<span class="number">27</span>] = <span class="number">101</span>;</span><br><span class="line">	a1[<span class="number">48</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,a1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/e6a39024beba4de285564c662ec08af9.png" alt="在这里插入图片描述"><br>flag是：flag{cpp_@nd_r3verse_@re_fun}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/30/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%9A%91%E6%9C%9FCTF%E8%AE%AD%E7%BB%83%E8%B5%9B--%E7%AC%AC%E4%BA%8C%E5%91%A8/" rel="prev" title="实验室暑期CTF训练赛--第二周">
+      <i class="fa fa-chevron-left"></i> 实验室暑期CTF训练赛--第二周
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WUSTCTF2020-level3"><span class="nav-number">1.</span> <span class="nav-text">[WUSTCTF2020]level3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BJDCTF2020-BJD-hamburger-competition"><span class="nav-number">2.</span> <span class="nav-text">[BJDCTF2020]BJD hamburger competition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
