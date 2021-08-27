@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="实验室暑期CTF训练赛--第三、四周">
+<meta property="og:url" content="http://example.com/2021/08/27/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%9A%91%E6%9C%9FCTF%E8%AE%AD%E7%BB%83%E8%B5%9B--%E7%AC%AC%E4%B8%89%E3%80%81%E5%9B%9B%E5%91%A8/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ddbc29b9fbb849b2ad968afd392a032f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/cf13db3481b441b8b28eff81e6ce8464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/08ebaa7a40b14cf4a64b9130eb99382f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/685b7e68b28e45beace95f3eae7ce76d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/dc4a28fc8ada4912a9585e33d5797a50.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/345ef90f75794a828e2ee0f9850d7eca.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6ec9afdea9c34d8d9728df7dffe2d16d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/199629ae5b0a43ddbab88e32f91fd7f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5e2f9d0c75644b0ebd5449a9c14698ee.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/59676cbf845d4ef898b8811b9278c94c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7f1b30be9055430da9dc539c0fbd6ba6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9626333fd5344f3998f2815e026cdac0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b5e0758eb0474942ae4804425fe29504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7e37ea6a72ac4978a24f05924b800b3a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/81c10cec9aa34ffa9e7383baab716dee.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a75d1c415c2d44469fdf597e84b48cb3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f376dfe949ff4a5f801f82e0d619d575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/64115f23f44942e4b44a56be6cba5b35.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/96694c2fe3dd4f63a9c0e74fc20bc135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/51ec2f1faad5464abd84e52bf2c49597.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f9cf7aca4b6341d59012bcd3a6402f78.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/3d350f26982c40ddaedb6e87fa8bc8f6.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/96ae36b0072e49229bf20d787ee63690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2c9798cddcd24becb25f62539b725a63.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/c57c12de102b4117ac3fcc6710bf00a1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/6803df0feb1347ffa6f261fd71e72507.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7bd6309c1e6d4f369602630dbeb72b76.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2d5a7da6690d454797e334e67c5dc238.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e15f63d9f5e64c6c9614ea0ff16318a2.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-08-27T09:19:23.713Z">
+<meta property="article:modified_time" content="2021-08-27T09:21:50.458Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/ddbc29b9fbb849b2ad968afd392a032f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://example.com/2021/08/27/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%9A%91%E6%9C%9FCTF%E8%AE%AD%E7%BB%83%E8%B5%9B--%E7%AC%AC%E4%B8%89%E3%80%81%E5%9B%9B%E5%91%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>实验室暑期CTF训练赛--第三、四周 | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%9A%91%E6%9C%9FCTF%E8%AE%AD%E7%BB%83%E8%B5%9B--%E7%AC%AC%E4%B8%89%E3%80%81%E5%9B%9B%E5%91%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实验室暑期CTF训练赛--第三、四周
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-27 17:19:23 / 修改时间：17:21:50" itemprop="dateCreated datePublished" datetime="2021-08-27T17:19:23+08:00">2021-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%AF%94%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">比赛</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<p>由于生病一直没有写博客，在此补上<br>题目链接:<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12jKBrLCVMHM-vx5qe-FBww">https://pan.baidu.com/s/12jKBrLCVMHM-vx5qe-FBww</a><br>提取码：21bt</p>
+<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="game"><a href="#game" class="headerlink" title="game"></a>game</h3><p>unity游戏，我们可以先玩一下<br><img src="https://img-blog.csdnimg.cn/ddbc29b9fbb849b2ad968afd392a032f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>游戏是控制一个白球吃分，全部吃掉一共能得到12分<br>题目是第13个数在哪，所以猜测需要改程序得到13分</p>
+<p>由于unity是用C#开发，所以用dnspy<br>在Cheat Engine_Data\Managed文件夹中找到Assembly-CSharp.dll<br>这是程序的源码，用来存放C#工程<br>凭借经验找到的start()函数<br><img src="https://img-blog.csdnimg.cn/cf13db3481b441b8b28eff81e6ce8464.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/08ebaa7a40b14cf4a64b9130eb99382f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里是对游戏的初始化设置，我们将开始的分数改为12<br><img src="https://img-blog.csdnimg.cn/685b7e68b28e45beace95f3eae7ce76d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/dc4a28fc8ada4912a9585e33d5797a50.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>编译完成之后看到<br><img src="https://img-blog.csdnimg.cn/345ef90f75794a828e2ee0f9850d7eca.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开发现需要分数达到14以上才可以获得flag<br><img src="https://img-blog.csdnimg.cn/6ec9afdea9c34d8d9728df7dffe2d16d.png" alt="在这里插入图片描述"><br>现在保存<br><img src="https://img-blog.csdnimg.cn/199629ae5b0a43ddbab88e32f91fd7f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/5e2f9d0c75644b0ebd5449a9c14698ee.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以发现已经被替换了<br><img src="https://img-blog.csdnimg.cn/59676cbf845d4ef898b8811b9278c94c.png" alt="在这里插入图片描述"><br>再次打开游戏玩<br><img src="https://img-blog.csdnimg.cn/7f1b30be9055430da9dc539c0fbd6ba6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到初始分数已经变成了12<br>我们吃掉两分之后即可发现屏幕上出现了flag<br><img src="https://img-blog.csdnimg.cn/9626333fd5344f3998f2815e026cdac0.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>flag是：ThEFLAGGGGGGG</p>
+<h3 id="really-CTF"><a href="#really-CTF" class="headerlink" title="really_CTF"></a>really_CTF</h3><p>UPX壳<br><img src="https://img-blog.csdnimg.cn/b5e0758eb0474942ae4804425fe29504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>kali脱壳<br><img src="https://img-blog.csdnimg.cn/7e37ea6a72ac4978a24f05924b800b3a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/81c10cec9aa34ffa9e7383baab716dee.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>IDA打开，通过字符串搜索找到了关键函数<br><img src="https://img-blog.csdnimg.cn/a75d1c415c2d44469fdf597e84b48cb3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/f376dfe949ff4a5f801f82e0d619d575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看样子是输入的字符串经过函数<code>sub_401000</code>的处理之后和字符串<code>NUCTF&#123;I_am_flag&#125;</code>比较<br>查看函数<code>sub_401000</code><br><img src="https://img-blog.csdnimg.cn/64115f23f44942e4b44a56be6cba5b35.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>该程序算法：<br>获取输入的字符串a，将a[i]换成<code>byte_402FF8[a[i]的ASCII码]</code>，再将处理后的a和<code>NUCTF&#123;I_am_flag&#125;</code>比较，相等即为flag</p>
+<p>查看<code>byte_402FF8</code><br><img src="https://img-blog.csdnimg.cn/96694c2fe3dd4f63a9c0e74fc20bc135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>00402FF8处的byte_402FF8没有显示数据，但是往下翻00403018处却有不同寻常的字符串<br>这其中的地址刚好差了0x20<br>由于ASCII码表中第一个可以显示出来的字符的值刚好是0x20<br><img src="https://img-blog.csdnimg.cn/51ec2f1faad5464abd84e52bf2c49597.png" alt="在这里插入图片描述"><br>所以可以设想byte_402FF8的地址与实际数组有一些偏移<br>由于输入的可见字符最小下标就是空格的0x20，因此byte_402FF8这个地址实际上也是真正的表地址<code>(0x403018)-0x20=0x402ff8</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">table = <span class="string">&#x27;&#x27;&#x27;~&#125;|&#123;zyxwvutsrqponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?&gt;=&lt;;:9876543210/.-,+*)(&#x27;&amp;%$#&quot;! &#x27;&#x27;&#x27;</span></span><br><span class="line">s = <span class="string">&#x27;NUCTF&#123;I_am_flag&#125;&#x27;</span></span><br><span class="line"> </span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">    flag += <span class="built_in">chr</span>(table.find(c) + <span class="number">0x20</span>)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>flag是：PI[JX#U?=1?82=7!<br>（看起来奇奇怪怪哈~）</p>
+<h3 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h3><p>IDA打开通过字符串发现特殊字符找到关键函数<br><img src="https://img-blog.csdnimg.cn/f9cf7aca4b6341d59012bcd3a6402f78.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>time() 获取时间，很显然需要动态调试绕过<br>打开OD，搜素字符串<br><img src="https://img-blog.csdnimg.cn/3d350f26982c40ddaedb6e87fa8bc8f6.png" alt="在这里插入图片描述"><br>跟随过去，看到有三个跳转<br><img src="https://img-blog.csdnimg.cn/96ae36b0072e49229bf20d787ee63690.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>用 nop 指令填冲三个跳转<br><img src="https://img-blog.csdnimg.cn/2c9798cddcd24becb25f62539b725a63.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>直接运行，获得flag</p>
+<p><img src="https://img-blog.csdnimg.cn/c57c12de102b4117ac3fcc6710bf00a1.png" alt="在这里插入图片描述"><br>flag是：flag{h4ppy520}</p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="Least"><a href="#Least" class="headerlink" title="Least"></a>Least</h3><p><img src="https://img-blog.csdnimg.cn/6803df0feb1347ffa6f261fd71e72507.png" alt="在这里插入图片描述"><br>使用 stegsolve 查看，这个题目名称很容易让人想到LSB<br><img src="https://img-blog.csdnimg.cn/7bd6309c1e6d4f369602630dbeb72b76.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里不知道为什么要用BGR，感觉遇到的这一类题目大多数不是RGB就是BGR，没有找到很好的参考资料，有懂得大佬麻烦指教一下~<br>保存之后foremost了一下<br><img src="https://img-blog.csdnimg.cn/2d5a7da6690d454797e334e67c5dc238.png" alt="在这里插入图片描述"><br>得到了一个压缩包<br><img src="https://img-blog.csdnimg.cn/e15f63d9f5e64c6c9614ea0ff16318a2.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsaWVuRW93eW5XYW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解压即可得到flag</p>
+<p>flag是：flag{c6ed6d6318005debbca17c7b1d7096d8}</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/01/WUSTCTF2020level3-%5BBJDCTF2020%5DBJD%20hamburger%20competition-%5BFlareOn6%5DOverlong-%5BWUSTCTF2020%5DCr0ssfun/" rel="prev" title="WUSTCTF2020level3-[BJDCTF2020]BJD hamburger competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun">
+      <i class="fa fa-chevron-left"></i> WUSTCTF2020level3-[BJDCTF2020]BJD hamburger competition-[FlareOn6]Overlong-[WUSTCTF2020]Cr0ssfun
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RE"><span class="nav-number">1.</span> <span class="nav-text">RE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#game"><span class="nav-number">1.1.</span> <span class="nav-text">game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#really-CTF"><span class="nav-number">1.2.</span> <span class="nav-text">really_CTF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple"><span class="nav-number">1.3.</span> <span class="nav-text">simple</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MISC"><span class="nav-number">2.</span> <span class="nav-text">MISC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Least"><span class="nav-number">2.1.</span> <span class="nav-text">Least</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
