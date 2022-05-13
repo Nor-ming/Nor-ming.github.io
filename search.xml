@@ -1554,4 +1554,40 @@
         <tag>C</tag>
       </tags>
   </entry>
+  <entry>
+    <title>利用QQ和Wireshark抓取对方IP</title>
+    <url>/2022/05/13/%E5%88%A9%E7%94%A8QQ%E5%92%8CWireshark%E6%8A%93%E5%8F%96%E5%AF%B9%E6%96%B9IP/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape><br>首先打开wireshark，wireshark会开始自动抓包</p>
+<p>打QQ电话给你的好友，让他接电话，当电话接通后，等几秒停止抓包（不等几秒也可以，等几秒比较保险）<br>停止键如下所示<br><img src="https://img-blog.csdnimg.cn/12a9fb78a24f4c3586e523efee7481b6.png" alt="在这里插入图片描述"><br>然后ctrl+F，这一栏这样填（020048是QQ UDP 72字节的报文头）<br><img src="https://img-blog.csdnimg.cn/a0a0aecdb6e24f889638c5ab9a8a89e4.png" alt="在这里插入图片描述"><br>点击查找，通过比对自己的ip，就大致可以锁定对方的ip<br><img src="https://img-blog.csdnimg.cn/cb394f679a8b4c7bb5d844b3171c2f52.png" alt="在这里插入图片描述"><br>如上图，我的ip是192.168.2.6，另外一个183的ip就是我的好友的<br>中间可能还参杂着其它一些ip，应该是中转的web服务器的地址<br><img src="https://img-blog.csdnimg.cn/777a5faab6a24a69bf05b52ab186dea9.png" alt="请添加图片描述"><br>查找ip就可以知道大致的位置</p>
+<p>如果想要精确的查找可以看这篇博客<a href="https://blog.csdn.net/qq_38626043/article/details/104562289">https://blog.csdn.net/qq_38626043/article/details/104562289</a></p>
+<p>以上，完成~</p>
+]]></content>
+      <categories>
+        <category>WEB学习</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小皮面板安装以及pikachu环境搭建</title>
+    <url>/2022/05/13/%E5%B0%8F%E7%9A%AE%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Apikachu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>学校实验课（终于开始学网安了），学一下WEB</p>
+<h2 id="小皮面板（phpstudy-安装"><a href="#小皮面板（phpstudy-安装" class="headerlink" title="小皮面板（phpstudy)安装"></a>小皮面板（phpstudy)安装</h2><p><img src="https://img-blog.csdnimg.cn/f2b60323fcfd49729b054a7618965511.png" alt="在这里插入图片描述"><br>这是一个PHP集成环境，比较方便<br>下载地址：<a href="https://www.xp.cn/">https://www.xp.cn/</a><br>我下载的是WINDOWS版本的<br>下载之后直接双击安装就好了<br>安装好后打开如下图所示<br><img src="https://img-blog.csdnimg.cn/c756f9051056418087878c94a09809e9.png" alt="在这里插入图片描述"></p>
+<h2 id="pikachu靶场配置"><a href="#pikachu靶场配置" class="headerlink" title="pikachu靶场配置"></a>pikachu靶场配置</h2><p>pikachu下载地址：<a href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a><br>下载好后，将pikachu.zip放到phpstudy安装目录下的WWW文件夹下进行解压<br><img src="https://img-blog.csdnimg.cn/ec4ebb558edf4bf4961ca3905695682b.png" alt="在这里插入图片描述"><br>先在phpstudy里面看我们的数据库的用户名和密码：<br><img src="https://img-blog.csdnimg.cn/2bfe57b9f0e7494dbd132d10431024df.png" alt="在这里插入图片描述"></p>
+<p>进入C:\phpstudy_pro\WWW\pikachu\inc目录中修改config.inc文件里的数据库用户名密码<br><img src="https://img-blog.csdnimg.cn/28082520392f4e589d5778a55573be2f.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/5dab415cfc70434f9dc37cff4b90d458.png" alt="在这里插入图片描述"><br>保存</p>
+<p>接下来我们可以开启Apache和mysql：<br><img src="https://img-blog.csdnimg.cn/a633aa1257674b9e8f0a847a8f881cc6.png" alt="在这里插入图片描述"></p>
+<h3 id="当Apache无法启动，报错80端口被system占用的解决办法"><a href="#当Apache无法启动，报错80端口被system占用的解决办法" class="headerlink" title="当Apache无法启动，报错80端口被system占用的解决办法"></a>当Apache无法启动，报错80端口被system占用的解决办法</h3><p>方法一（不推荐）：<br>既然80 端口被占用，那我们换一个端口就可以了，不推荐的原因是因为不使用80可能会导致页面很多资源文件无法加载，不过这里还是介绍一下方法：<br>我们首先找到Apache所在的文件夹：<br>配置文件在这里<br><img src="https://img-blog.csdnimg.cn/d8e248951a1b4c4c9ecb1590566d0fe1.png" alt="在这里插入图片描述"><br>我们搜索到端口配置的部分：<br><img src="https://img-blog.csdnimg.cn/782fa3ca50a64ecc86895b8c06eb0555.png" alt="在这里插入图片描述"><br>可以看到现在是80，我们可以把它改成8080，然后保存<br>回到phpstudy，如图所示操作<br><img src="https://img-blog.csdnimg.cn/2cc7bbe071b542b0aa57cca3d3f84136.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/57860e7b72f940da80b7402163f77f05.png" alt="在这里插入图片描述"><br>这样就可以了</p>
+<p>方法二：<br>一般来说，都是被 SQL Server 2008 里面的组件——SQL Server Reporting Services (MSSQLSERVER)占用的，我们找到它关掉就可以<br>win+R输入<code>services.msc</code>,找到SQL Server Reporting Services （图片中已经被我改过了）<br><img src="https://img-blog.csdnimg.cn/d20d0d442e944f6a914ef6b1e1dadb01.png" alt="在这里插入图片描述"><br>右键将它停止，然后再右键点击属性，改成手动，然后应用<br><img src="https://img-blog.csdnimg.cn/a677ff88041947f3b955cf7aef8f8537.png" alt="在这里插入图片描述"><br>这里说一下如何判断是被什么占用的</p>
+<p>进入CMD（win+R输入cmd回车)，输入命令<code>netstat –ano</code>，就可以看到本机所有端口的使用情况，一般80端口在第一行，截图显示，端口已经被占用，PID中写明 LISTENING 4。<br><img src="https://img-blog.csdnimg.cn/9ffb479e47e74dee9d5c2eecf222abfc.png" alt="在这里插入图片描述"><br>接下来，在输入指令tasklist ，列出所有当前运行的进程，发现 PID=4 的进程是system 。<br><img src="https://img-blog.csdnimg.cn/63acf67d09fe4740b644f5902cf90ef8.png" alt="在这里插入图片描述"><br>这也是确定了我们确实是被system占用了，接下来看看具体是被什么占用了<br>使用命令<code>netsh http show servicestate</code>查看当前的http服务状态<br><img src="https://img-blog.csdnimg.cn/7bda1257bb174ee79a6d43eedd650feb.png" alt="在这里插入图片描述"><br>一般第一个箭头所指的地方会显示被占用的名称，这里由于我已经改好占用了，所以没有显示<br>图中可以看出进程ID为5436（这个一般不太一样），那么就继续查这个进程对应什么，进入任务管理器，找到PID5436的进程，右键转到服务，可以看到当前的进程所在的服务，如图所示：<br><img src="https://img-blog.csdnimg.cn/db20e45f21f94d489a059c91659872bf.png" alt="在这里插入图片描述"><br>这里由于我已经关掉了，所以和端口并没有关系，只是举个例子，我们可以看到这个pid前面的名称，那么接下来我们去把它关掉然后改成手动开启就行了，方法如一开始所示的</p>
+<p>接下来，我们回到正题，继续配置Pikachu的环境<br>都启动成功后，我们在浏览器中输入127.0.0.1/pikachu（以实际命名的文件名为准）就是这里的名字<br><img src="https://img-blog.csdnimg.cn/3dfab9d6dc374f59b3cb10e7b3e133ab.png" alt="在这里插入图片描述"><br>会出现这个<br><img src="https://img-blog.csdnimg.cn/40d759f26b494a738d330305cb6d96a0.png" alt="在这里插入图片描述"><br>点击红色字体，点击安装/初始化<br><img src="https://img-blog.csdnimg.cn/b8e2d690381547cfb8f3873b00b81608.png" alt="在这里插入图片描述"><br>完成啦！<br><img src="https://img-blog.csdnimg.cn/841145c4aa63454a81d00451d6e1a454.png" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>WEB学习</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+      </tags>
+  </entry>
 </search>

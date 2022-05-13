@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="小皮面板安装以及pikachu环境搭建">
+<meta property="og:url" content="http://example.com/2022/05/13/%E5%B0%8F%E7%9A%AE%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Apikachu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Nor-ming">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/f2b60323fcfd49729b054a7618965511.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/c756f9051056418087878c94a09809e9.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/ec4ebb558edf4bf4961ca3905695682b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2bfe57b9f0e7494dbd132d10431024df.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/28082520392f4e589d5778a55573be2f.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5dab415cfc70434f9dc37cff4b90d458.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a633aa1257674b9e8f0a847a8f881cc6.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d8e248951a1b4c4c9ecb1590566d0fe1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/782fa3ca50a64ecc86895b8c06eb0555.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2cc7bbe071b542b0aa57cca3d3f84136.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/57860e7b72f940da80b7402163f77f05.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d20d0d442e944f6a914ef6b1e1dadb01.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a677ff88041947f3b955cf7aef8f8537.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/9ffb479e47e74dee9d5c2eecf222abfc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/63acf67d09fe4740b644f5902cf90ef8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7bda1257bb174ee79a6d43eedd650feb.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/db20e45f21f94d489a059c91659872bf.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/3dfab9d6dc374f59b3cb10e7b3e133ab.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/40d759f26b494a738d330305cb6d96a0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/b8e2d690381547cfb8f3873b00b81608.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/841145c4aa63454a81d00451d6e1a454.png">
+<meta property="article:published_time" content="2022-05-13T13:10:37.199Z">
+<meta property="article:modified_time" content="2022-05-13T13:43:46.698Z">
+<meta property="article:author" content="Alien Wan（924704640@qq.com)">
+<meta property="article:tag" content="WEB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f2b60323fcfd49729b054a7618965511.png">
+
+<link rel="canonical" href="http://example.com/2022/05/13/%E5%B0%8F%E7%9A%AE%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Apikachu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>小皮面板安装以及pikachu环境搭建 | Nor-ming</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Nor-ming" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nor-ming</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/13/%E5%B0%8F%E7%9A%AE%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8Apikachu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Alien Wan（924704640@qq.com)">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nor-ming">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小皮面板安装以及pikachu环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-13 21:10:37 / 修改时间：21:43:46" itemprop="dateCreated datePublished" datetime="2022-05-13T21:10:37+08:00">2022-05-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WEB%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">WEB学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><escape><a id="more"></a></escape> </p>
+<p>学校实验课（终于开始学网安了），学一下WEB</p>
+<h2 id="小皮面板（phpstudy-安装"><a href="#小皮面板（phpstudy-安装" class="headerlink" title="小皮面板（phpstudy)安装"></a>小皮面板（phpstudy)安装</h2><p><img src="https://img-blog.csdnimg.cn/f2b60323fcfd49729b054a7618965511.png" alt="在这里插入图片描述"><br>这是一个PHP集成环境，比较方便<br>下载地址：<a target="_blank" rel="noopener" href="https://www.xp.cn/">https://www.xp.cn/</a><br>我下载的是WINDOWS版本的<br>下载之后直接双击安装就好了<br>安装好后打开如下图所示<br><img src="https://img-blog.csdnimg.cn/c756f9051056418087878c94a09809e9.png" alt="在这里插入图片描述"></p>
+<h2 id="pikachu靶场配置"><a href="#pikachu靶场配置" class="headerlink" title="pikachu靶场配置"></a>pikachu靶场配置</h2><p>pikachu下载地址：<a target="_blank" rel="noopener" href="https://github.com/zhuifengshaonianhanlu/pikachu">https://github.com/zhuifengshaonianhanlu/pikachu</a><br>下载好后，将pikachu.zip放到phpstudy安装目录下的WWW文件夹下进行解压<br><img src="https://img-blog.csdnimg.cn/ec4ebb558edf4bf4961ca3905695682b.png" alt="在这里插入图片描述"><br>先在phpstudy里面看我们的数据库的用户名和密码：<br><img src="https://img-blog.csdnimg.cn/2bfe57b9f0e7494dbd132d10431024df.png" alt="在这里插入图片描述"></p>
+<p>进入C:\phpstudy_pro\WWW\pikachu\inc目录中修改config.inc文件里的数据库用户名密码<br><img src="https://img-blog.csdnimg.cn/28082520392f4e589d5778a55573be2f.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/5dab415cfc70434f9dc37cff4b90d458.png" alt="在这里插入图片描述"><br>保存</p>
+<p>接下来我们可以开启Apache和mysql：<br><img src="https://img-blog.csdnimg.cn/a633aa1257674b9e8f0a847a8f881cc6.png" alt="在这里插入图片描述"></p>
+<h3 id="当Apache无法启动，报错80端口被system占用的解决办法"><a href="#当Apache无法启动，报错80端口被system占用的解决办法" class="headerlink" title="当Apache无法启动，报错80端口被system占用的解决办法"></a>当Apache无法启动，报错80端口被system占用的解决办法</h3><p>方法一（不推荐）：<br>既然80 端口被占用，那我们换一个端口就可以了，不推荐的原因是因为不使用80可能会导致页面很多资源文件无法加载，不过这里还是介绍一下方法：<br>我们首先找到Apache所在的文件夹：<br>配置文件在这里<br><img src="https://img-blog.csdnimg.cn/d8e248951a1b4c4c9ecb1590566d0fe1.png" alt="在这里插入图片描述"><br>我们搜索到端口配置的部分：<br><img src="https://img-blog.csdnimg.cn/782fa3ca50a64ecc86895b8c06eb0555.png" alt="在这里插入图片描述"><br>可以看到现在是80，我们可以把它改成8080，然后保存<br>回到phpstudy，如图所示操作<br><img src="https://img-blog.csdnimg.cn/2cc7bbe071b542b0aa57cca3d3f84136.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/57860e7b72f940da80b7402163f77f05.png" alt="在这里插入图片描述"><br>这样就可以了</p>
+<p>方法二：<br>一般来说，都是被 SQL Server 2008 里面的组件——SQL Server Reporting Services (MSSQLSERVER)占用的，我们找到它关掉就可以<br>win+R输入<code>services.msc</code>,找到SQL Server Reporting Services （图片中已经被我改过了）<br><img src="https://img-blog.csdnimg.cn/d20d0d442e944f6a914ef6b1e1dadb01.png" alt="在这里插入图片描述"><br>右键将它停止，然后再右键点击属性，改成手动，然后应用<br><img src="https://img-blog.csdnimg.cn/a677ff88041947f3b955cf7aef8f8537.png" alt="在这里插入图片描述"><br>这里说一下如何判断是被什么占用的</p>
+<p>进入CMD（win+R输入cmd回车)，输入命令<code>netstat –ano</code>，就可以看到本机所有端口的使用情况，一般80端口在第一行，截图显示，端口已经被占用，PID中写明 LISTENING 4。<br><img src="https://img-blog.csdnimg.cn/9ffb479e47e74dee9d5c2eecf222abfc.png" alt="在这里插入图片描述"><br>接下来，在输入指令tasklist ，列出所有当前运行的进程，发现 PID=4 的进程是system 。<br><img src="https://img-blog.csdnimg.cn/63acf67d09fe4740b644f5902cf90ef8.png" alt="在这里插入图片描述"><br>这也是确定了我们确实是被system占用了，接下来看看具体是被什么占用了<br>使用命令<code>netsh http show servicestate</code>查看当前的http服务状态<br><img src="https://img-blog.csdnimg.cn/7bda1257bb174ee79a6d43eedd650feb.png" alt="在这里插入图片描述"><br>一般第一个箭头所指的地方会显示被占用的名称，这里由于我已经改好占用了，所以没有显示<br>图中可以看出进程ID为5436（这个一般不太一样），那么就继续查这个进程对应什么，进入任务管理器，找到PID5436的进程，右键转到服务，可以看到当前的进程所在的服务，如图所示：<br><img src="https://img-blog.csdnimg.cn/db20e45f21f94d489a059c91659872bf.png" alt="在这里插入图片描述"><br>这里由于我已经关掉了，所以和端口并没有关系，只是举个例子，我们可以看到这个pid前面的名称，那么接下来我们去把它关掉然后改成手动开启就行了，方法如一开始所示的</p>
+<p>接下来，我们回到正题，继续配置Pikachu的环境<br>都启动成功后，我们在浏览器中输入127.0.0.1/pikachu（以实际命名的文件名为准）就是这里的名字<br><img src="https://img-blog.csdnimg.cn/3dfab9d6dc374f59b3cb10e7b3e133ab.png" alt="在这里插入图片描述"><br>会出现这个<br><img src="https://img-blog.csdnimg.cn/40d759f26b494a738d330305cb6d96a0.png" alt="在这里插入图片描述"><br>点击红色字体，点击安装/初始化<br><img src="https://img-blog.csdnimg.cn/b8e2d690381547cfb8f3873b00b81608.png" alt="在这里插入图片描述"><br>完成啦！<br><img src="https://img-blog.csdnimg.cn/841145c4aa63454a81d00451d6e1a454.png" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WEB/" rel="tag"># WEB</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/14/C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/" rel="prev" title="C语言指针">
+      <i class="fa fa-chevron-left"></i> C语言指针
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/13/%E5%88%A9%E7%94%A8QQ%E5%92%8CWireshark%E6%8A%93%E5%8F%96%E5%AF%B9%E6%96%B9IP/" rel="next" title="利用QQ和Wireshark抓取对方IP">
+      利用QQ和Wireshark抓取对方IP <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%9A%AE%E9%9D%A2%E6%9D%BF%EF%BC%88phpstudy-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">小皮面板（phpstudy)安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pikachu%E9%9D%B6%E5%9C%BA%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">pikachu靶场配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93Apache%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%EF%BC%8C%E6%8A%A5%E9%94%9980%E7%AB%AF%E5%8F%A3%E8%A2%ABsystem%E5%8D%A0%E7%94%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">当Apache无法启动，报错80端口被system占用的解决办法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Alien Wan（924704640@qq.com)</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alien Wan（924704640@qq.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
