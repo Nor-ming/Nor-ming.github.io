@@ -342,11 +342,11 @@
 <p>参考资料：<br><a href="https://blog.csdn.net/foxriver_gjg1989/article/details/102854440">利用vs2019编译器远程调试linux程序（走心版）</a><br><a href="https://devblogs.microsoft.com/cppblog/c-with-visual-studio-2019-and-windows-subsystem-for-linux-wsl/">C ++与Visual Studio 2019和Windows子系统的Linux（WSL）</a><br><a href="https://docs.microsoft.com/zh-cn/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-160#connect-to-wsl">在 Visual Studio 中连接到你的目标 Linux 系统</a><br><a href="https://docs.microsoft.com/en-us/cpp/linux/cmake-linux-project?view=msvc-160">在Visual Studio中创建CMake Linux项目</a><br><a href="https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-160&viewFallbackFrom=vs-2019">Visual Studio中的CMake项目</a><br><a href="https://docs.microsoft.com/en-us/cpp/linux/download-install-and-setup-the-linux-development-workload?view=msvc-160&viewFallbackFrom=vs-2019">下载，安装和设置Linux工作负载</a><br><a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">适用于 Linux 的 Windows 子系统安装指南 (Windows 10)</a><br><a href="https://www.jianshu.com/p/80289094d225">WSL-Ubuntu 更换apt源为阿里源</a><br><a href="https://blog.csdn.net/luoyu510183/article/details/105151127">VS2019 C++的跨平台开发——Cmake项目（一）</a><br><a href="https://blog.csdn.net/luoyu510183/article/details/105847329">VS2019 C++的跨平台开发——Cmake项目（二）</a><br><a href="https://www.jianshu.com/p/cc8c8abcbf2e">使用SSH连接Windows10中的Linux子系统</a><br><a href="https://devblogs.microsoft.com/cppblog/using-visual-studio-for-cross-platform-c-development-targeting-windows-and-linux/">使用Visual Studio进行针对Windows和Linux的跨平台C ++开发</a><br><a href="https://devblogs.microsoft.com/cppblog/intellisense-for-remote-linux-headers/">用于远程Linux标头的IntelliSense</a><br><a href="https://blog.csdn.net/yiminghd2861/article/details/85413408">CMake：CMakeLists.txt文件的编写语法</a><br><a href="https://www.cnblogs.com/rookiezjz/p/12347656.html">CMake 用法总结（转载）</a></p>
 ]]></content>
       <categories>
-        <category>C++</category>
+        <category>C++语言</category>
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-        <tag>C++</tag>
+        <tag>C++语言</tag>
       </tags>
   </entry>
   <entry>
