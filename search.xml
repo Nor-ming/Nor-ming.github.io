@@ -1649,4 +1649,21 @@
         <tag>WEB</tag>
       </tags>
   </entry>
+  <entry>
+    <title>检测笔记本电池情况小命令</title>
+    <url>/2022/11/16/%E6%A3%80%E6%B5%8B%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E6%B1%A0%E6%83%85%E5%86%B5%E5%B0%8F%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>电池鼓包了，发现了一个不错的命令</p>
+<p>管理员身份运行cmd，输入</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">powercfg/energy</span><br></pre></td></tr></table></figure>
+<p>等待一分钟<br><img src="https://img-blog.csdnimg.cn/7072cc85ba944790ab6624f0a36cad57.png" alt="请添加图片描述"><br>可以得到一份报告<br><img src="https://img-blog.csdnimg.cn/92344a29c6fa4f42a1f87c2ba8f65ba9.png" alt="在这里插入图片描述"><br>其中有提示耗电应用以及电池损耗情况之类的<br><img src="https://img-blog.csdnimg.cn/a874f00d5da24cc8a107b671a866d2a5.png" alt="在这里插入图片描述"><br>本人的电池只能充进去30%了，怪不得每次不插电一个小时不到就关机了</p>
+<p>拆开看了下电池，啧啧啧，还以为是羽绒服呢~~<img src="https://img-blog.csdnimg.cn/debca57b5546428183f5bcf541f9979a.jpeg" alt="请添加图片描述"><br>目前已经拿掉电池变成台式机了（bushi<br>等待新电池吧~</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>工具使用</tag>
+      </tags>
+  </entry>
 </search>
