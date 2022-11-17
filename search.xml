@@ -1666,4 +1666,60 @@
         <tag>工具使用</tag>
       </tags>
   </entry>
+  <entry>
+    <title>DVWA靶场在sql注入联合查询时返回报错信息 “Illegal mix of collations for operation ‘UNION’ ”之解决</title>
+    <url>/2022/11/17/DVWA%E9%9D%B6%E5%9C%BA%E5%9C%A8sql%E6%B3%A8%E5%85%A5%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%E6%97%B6%E8%BF%94%E5%9B%9E%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF%20%E2%80%9CIllegal%20mix%20of%20collations%20for%20operation%20%E2%80%98UNION%E2%80%99%20%E2%80%9D%E4%B9%8B%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>比如我们输入：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">-1&#x27; union select 1,table_name from information_schema.tables where table_schema=&#x27;dvwa&#x27;#</span><br></pre></td></tr></table></figure>
+<p>会跳出一个页面出现报错提示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Illegal mix of collations for operation &#39;UNION&#39;</span><br></pre></td></tr></table></figure>
+<p>这是由于union连接数据库中的字段的字符规则不一样导致的错误，我们修改一致就可以了，如果你用的是小皮，推荐使用phpMyAdmin这个mysql管理工具<br><img src="https://img-blog.csdnimg.cn/cace624ba5bb4f23b8741f3bec0bb6cc.png" alt="在这里插入图片描述"><br>但是由于小皮中提供的这个工具只能支持php5.5以上的版本，否则可能会无法使用，建议确保你的php版本是正确的<br><img src="https://img-blog.csdnimg.cn/be43094f5695430aa7c25177ce1bf5be.png" alt="在这里插入图片描述"><br>可以在这里下载对应的版本，然后切换到网站栏<br><img src="https://img-blog.csdnimg.cn/2ee24a6b2645452683fd8ed1de9a4d07.png" alt="在这里插入图片描述"><br>在这里更换你的php版本，并且重启Apache和MySQL<br>之后可以在这里打开phpMyAdmin<br><img src="https://img-blog.csdnimg.cn/58c4fd5870f444e99014e8e908e7fec6.png" alt="在这里插入图片描述"><br>打开后，点击DVWA<br><img src="https://img-blog.csdnimg.cn/a5982f89934946ae9e406ad627d86750.png" alt="在这里插入图片描述"><br>点击操作<br><img src="https://img-blog.csdnimg.cn/5639e8b8a780425fa882dbca104ab8db.png" alt="在这里插入图片描述"><br>拉到最下面<br><img src="https://img-blog.csdnimg.cn/23feb842ae884e498b49dbedc5cdf3ec.png" alt="在这里插入图片描述"><br>将字符类型改成<code>utf8_general_ci</code>，勾选下面两项，然后点击执行</p>
+<p>执行完成之后关闭phpmyadmin，并将phpstudy里的Apache和MySql重启</p>
+<p>重新打开dvwa靶场，把等级调为Low，然后重试刚刚报错的那条语句：<br><img src="https://img-blog.csdnimg.cn/338628a7195d45549fe68c3fb8c1ce48.png" alt="在这里插入图片描述"><br>可以看到已经成功了      :)</p>
+]]></content>
+      <categories>
+        <category>WEB学习</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>DVWA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>DVWA靶场搭建</title>
+    <url>/2022/11/17/DVWA%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>靶场文件在此：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1uZGf0YkFL7pY11qngKDYOA </span><br><span class="line">提取码：txvg </span><br><span class="line">--来自百度网盘超级会员V4的分享</span><br></pre></td></tr></table></figure>
+<p>因为之前已经安装过phpstudy了，所以在此就不赘述了，有需要可以参考此篇文章<a href="https://blog.csdn.net/AlienEowynWan/article/details/124596714?spm=1001.2014.3001.5501">小皮面板安装</a></p>
+<p>将DVWA文件解压并且放到phpstudy的WWW文件夹中<br><img src="https://img-blog.csdnimg.cn/0aa748e5441143818a12ae3bed9b214f.png" alt="在这里插入图片描述"><br>打开，找到config文件夹中这个文件<br><img src="https://img-blog.csdnimg.cn/93aafa27b5d9483fbb49cb381d31b8db.png" alt="在这里插入图片描述"><br>复制一份，并且更改文件名为<code>config.inc.php</code><br><img src="https://img-blog.csdnimg.cn/a9a5b8fee4714d4a801c2be92e6fda2f.png" alt="在这里插入图片描述"><br>打开复制的文件，修改账号和密码（账号密码以本地数据库的账号密码为准）<br><img src="https://img-blog.csdnimg.cn/9ee4983dbea540689717b729fc9cefe0.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/75268399cdb54d219b4c295f60a3508c.png" alt="在这里插入图片描述"><br>开启phpstudy的Apache和MySQL<br><img src="https://img-blog.csdnimg.cn/89e229450f8e42a3ae727b1937e0998b.png" alt="在这里插入图片描述"><br>浏览器访问<code>http://localhost/DVWA-master</code><br>Create，然后往下拉点击login<br><img src="https://img-blog.csdnimg.cn/58bc9cbb33ed465bbc5da0468beb30e5.png" alt="在这里插入图片描述"><br>初始账号是amdin，密码是password<br><img src="https://img-blog.csdnimg.cn/3b59f141e78348b0a2a1bdd94f9b3894.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/54a3f9c8ecc84ca98b7eddbf8527d3af.png" alt="在这里插入图片描述"><br> 完成~~</p>
+]]></content>
+      <categories>
+        <category>WEB学习</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>DVWA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqli-labs靶场搭建</title>
+    <url>/2022/11/17/sqli-labs%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p><escape><a id="more"></a></escape> </p>
+<p>靶场资源：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1cOg6rvKK_cB-IbD6cHpsZQ </span><br><span class="line">提取码：8321 </span><br><span class="line">--来自百度网盘超级会员V4的分享</span><br></pre></td></tr></table></figure>
+<p><strong>注意：sql-labs需要mysql5.5.x的版本支持，请下载正确版本使用。</strong><br><img src="https://img-blog.csdnimg.cn/5055b192352e46f2b359cd5702151870.png" alt="在这里插入图片描述"></p>
+<p>解压放在phpstudy的WWW文件夹<br><img src="https://img-blog.csdnimg.cn/b33573bdb42e4ed8aa9abc62d5875917.png" alt="在这里插入图片描述"><br>找到<code>sql-connections</code>，打开<br><img src="https://img-blog.csdnimg.cn/9433d3f000d0428990049c922a56680b.png" alt="在这里插入图片描述"></p>
+<p>修改<code>db-creds.inc</code><br><img src="https://img-blog.csdnimg.cn/00953441d7e04253aa8827e1f977d424.png" alt="在这里插入图片描述"><br>用户名密码改成你的本地数据库<br><img src="https://img-blog.csdnimg.cn/6b2b1de5bdd94539820e65094ed8dc96.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/50bd9db4950e4e58a74f11e6fdd969ad.png" alt="在这里插入图片描述"><br>启动<br><img src="https://img-blog.csdnimg.cn/e0fab176bac349628e2ab7c4539b38e2.png" alt="在这里插入图片描述"><br>浏览器访问<code>http://127.0.0.1/sqli-labs-master</code><br><img src="https://img-blog.csdnimg.cn/688f6af428d64873992cdf2c569884c8.png" alt="在这里插入图片描述"><br>点击setup………………<br><img src="https://img-blog.csdnimg.cn/10ab5eaff6b04a34ba1ab8cc1328bf06.png" alt="在这里插入图片描述"><br>会出现一个黑底黄字的界面？（记不清了）<br>然后返回到目录界面，下滑就可以开始做题了<br><img src="https://img-blog.csdnimg.cn/ea03f729128449f0ac54b36bd6dc442e.png" alt="在这里插入图片描述"><br>结束~</p>
+]]></content>
+      <categories>
+        <category>WEB学习</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
 </search>
